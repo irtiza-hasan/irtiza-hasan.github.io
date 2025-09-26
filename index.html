@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irtiza Hasan - Home</title>
+    <meta property="og:title" content="Irtiza Hasan">
+    <meta property="og:description" content="Ph.D. Student | Electrical and Computer Engineering | UNC Charlotte">
+    <meta property="og:image" content="/images/profile.png">
+    <meta property="og:url" content="https://irtiza-hasan.github.io/">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --charlotte-green: #004F2D; --charlotte-gold: #B9975B; }
+        body { font-family: 'Poppins', sans-serif; background-color: #f0f2f5; color: #222222; margin: 0; overflow: hidden; }
+        #constellation-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; background: linear-gradient(to bottom, #f0f2f5, #e6e9ee); }
+        #content-container { position: relative; z-index: 1; overflow-y: auto; height: 100vh; }
+        .gradient-text { background: linear-gradient(to right, var(--charlotte-green), var(--charlotte-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent; }
+        .top-header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background: var(--charlotte-green); color: white; z-index: 20; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+        .top-header a { color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; }
+        .navbar a { font-size: 1rem; font-weight: 500; margin-left: 20px; transition: color 0.3s ease; }
+        .navbar a:hover { color: var(--charlotte-gold); }
+        .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp 1s ease 0.5s forwards; }
+        .fade-in-late { opacity: 0; transform: translateY(20px); animation: fadeInUp 1s ease 1s forwards; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .cursor { display: inline-block; font-weight: bold; animation: blink 0.7s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        #research { transform-style: preserve-3d; transition: transform 0.1s ease-out; }
+        .text-outline { text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3); }
+    </style>
+</head>
+<body>
+    <canvas id="constellation-canvas"></canvas>
+    <div id="content-container">
+        <header class="top-header">
+            <a href="/">Irtiza Hasan</a>
+            <nav class="navbar hidden md:flex">
+                <a href="/education.html">Education</a>
+                <a href="/experience.html">Experience</a>
+                <a href="/teaching.html">Teaching</a>
+                <a href="/publications.html">Publications</a>
+                <a href="/service.html">Service</a>
+                <a href="/gallery.html">Gallery</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </header>
+        <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-black/80 backdrop-blur-sm z-10">
+            <div class="flex flex-col items-center justify-center h-full text-white text-2xl space-y-8">
+                <a href="/education.html">Education</a>
+                <a href="/experience.html">Experience</a>
+                <a href="/teaching.html">Teaching</a>
+                <a href="/publications.html">Publications</a>
+                <a href="/service.html">Service</a>
+                <a href="/gallery.html">Gallery</a>
+            </div>
+        </div>
+        <main id="main-router-outlet" style="transition: opacity 0.25s ease-in-out;">
+            <div class="min-h-screen flex flex-col items-center justify-start text-center px-4 pt-32 pb-20">
+                <div class="w-full flex flex-col items-center">
+                    <div class="fade-in mb-8">
+                        <img src="/images/profile.png" alt="Profile Photo" class="w-80 h-80 rounded-full mx-auto shadow-2xl border-4 border-white">
+                    </div>
+                    <div class="fade-in bg-black/5 backdrop-blur-sm p-6 rounded-2xl">
+                        <h1 class="text-5xl md:text-6xl font-bold text-slate-900 mb-3 text-outline">
+                            Hi, I'm <span id="typewriter-name" class="gradient-text"></span><span class="cursor gradient-text">|</span>
+                        </h1>
+                        <p class="text-lg text-gray-600 max-w-2xl mx-auto text-outline">
+                            Ph.D. Student | Electrical &amp; Computer Engineering | UNC Charlotte
+                        </p>
+                    </div>
+                </div>
+                <div id="research" class="fade-in-late bg-white/80 backdrop-blur-sm p-10 rounded-xl shadow-lg w-full max-w-4xl mt-20">
+                    <h2 class="text-3xl font-bold text-slate-800 mb-5 text-center" style="color: var(--charlotte-green);">Research Focus</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed text-left">
+                        I am supervised by
+                        <a href="https://webpages.charlotte.edu/aarafa/index.html" target="_blank" class="font-semibold hover:underline" style="color: var(--charlotte-green);">Prof. Ahmed Arafa.</a>
+                        My current research project is on <b class="font-semibold" style="color: var(--charlotte-green);">Information Freshness</b> in Communication Networks.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        const canvas = document.getElementById('constellation-canvas'); const ctx = canvas.getContext('2d'); let stars = []; const numStars = window.innerWidth > 768 ? 150 : 50;
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; stars = []; init(); }
+        window.addEventListener('resize', resizeCanvas);
+        class Star { constructor(x, y, radius, dx, dy) { this.x = x; this.y = y; this.radius = radius; this.dx = dx; this.dy = dy; } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fillStyle = 'rgba(0, 79, 45, 0.8)'; ctx.fill(); } update() { if (this.x > canvas.width || this.x < 0) this.dx = -this.dx; if (this.y > canvas.height || this.y < 0) this.dy = -this.dy; this.x += this.dx; this.y += this.dy; this.draw(); } }
+        function init() { for (let i = 0; i < numStars; i++) { let r = Math.random() * 2 + 1, x = Math.random() * (canvas.width-r*2)+r, y = Math.random() * (canvas.height-r*2)+r; let dx = (Math.random()-0.5)*0.5, dy = (Math.random()-0.5)*0.5; stars.push(new Star(x, y, r, dx, dy)); } }
+        function connect() { for (let a = 0; a < stars.length; a++) { for (let b = a; b < stars.length; b++) { let dist = ((stars[a].x - stars[b].x) * (stars[a].x - stars[b].x)) + ((stars[a].y - stars[b].y) * (stars[a].y - stars[b].y)); if (dist < (canvas.width / 7) * (canvas.height / 7)) { let op = 1 - (dist / 20000); ctx.strokeStyle = `rgba(185, 151, 91, ${op})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(stars[a].x, stars[a].y); ctx.lineTo(stars[b].x, stars[b].y); ctx.stroke(); } } } }
+        function animate() { requestAnimationFrame(animate); ctx.clearRect(0, 0, canvas.width, canvas.height); for (let star of stars) { star.update(); } connect(); }
+        resizeCanvas(); animate();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.onclick = () => mobileMenu.classList.toggle('hidden');
+            }
+            const nameElement = document.getElementById('typewriter-name');
+            if (nameElement) {
+                const cursorElement = document.querySelector('.cursor');
+                const text = "Irtiza Hasan";
+                let index = 0;
+                nameElement.textContent = '';
+                setTimeout(function type() {
+                    if (index < text.length) {
+                        nameElement.textContent += text.charAt(index++);
+                        setTimeout(type, 150);
+                    } else if (cursorElement) {
+                        cursorElement.style.display = 'none';
+                    }
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
