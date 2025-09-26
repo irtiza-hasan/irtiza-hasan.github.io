@@ -13,7 +13,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root { --charlotte-green: #004F2D; --charlotte-gold: #B9975B; }
-        body { font-family: 'Poppins', sans-serif; color: #222222; margin: 0; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            color: #222222; 
+            margin: 0;
+            /* Lighter green background applied to the whole page */
+            background-color: #006B3F; 
+        }
         .top-header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background: var(--charlotte-green); color: white; z-index: 20; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
         .top-header a { color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; }
         .navbar a { font-size: 1rem; font-weight: 500; margin-left: 20px; transition: color 0.3s ease; }
@@ -27,11 +33,12 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -1; /* Place it behind the main content */
+            z-index: 0; /* Sits on top of the body background */
         }
         main {
-             position: relative; /* Needed for z-index to work */
-             z-index: 1;
+             position: relative; 
+             z-index: 1; /* Sits on top of the canvas */
+             background-color: transparent; /* Main content is see-through */
         }
     </style>
 </head>
@@ -64,7 +71,7 @@
         </div>
     </div>
 
-    <main class="min-h-screen flex flex-col justify-center items-center text-center p-8 md:p-12 pt-[60px]" style="background-color: #006B3F;">
+    <main class="min-h-screen flex flex-col justify-center items-center text-center p-8 md:p-12 pt-[60px]">
         <div class="max-w-xl">
             <h1 class="text-5xl md:text-6xl font-bold text-white mb-3">
                 Hi, I'm <span id="typewriter-name" class="gradient-text"></span><span class="cursor gradient-text">|</span>
