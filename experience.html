@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience - Irtiza Hasan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --charlotte-green: #004F2D;
+            --charlotte-gold: #B9975B;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            color: #222222;
+            margin: 0;
+            overflow: hidden;
+        }
+        #constellation-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            background: linear-gradient(to bottom, #f0f2f5, #e6e9ee);
+        }
+        #content-container {
+            position: relative;
+            z-index: 1;
+            overflow-y: auto;
+            height: 100vh;
+        }
+        .top-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: var(--charlotte-green);
+            color: white;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        .top-header a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .navbar a {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-left: 20px;
+            transition: color 0.3s ease, transform 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        .navbar a:hover {
+            color: var(--charlotte-gold);
+            transform: scale(1.05);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="constellation-canvas"></canvas>
+    <div id="content-container">
+        <header class="top-header">
+          <a href="/">Irtiza Hasan</a>
+          <nav class="navbar hidden md:flex">
+              <a href="/education.html">Education</a>
+              <a href="/experience.html">Experience</a>
+              <a href="/teaching.html">Teaching</a>
+              <a href="/publications.html">Publications</a>
+              <a href="/service.html">Service</a>
+              <a href="/gallery.html">Gallery</a>
+          </nav>
+          <div class="md:hidden">
+              <button id="mobile-menu-button" class="text-white focus:outline-none">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+              </button>
+          </div>
+        </header>
+        
+        <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-black/80 backdrop-blur-sm z-10">
+            <div class="flex flex-col items-center justify-center h-full text-white text-2xl space-y-8">
+                <a href="/education.html">Education</a>
+                <a href="/experience.html">Experience</a>
+                <a href="/teaching.html">Teaching</a>
+                <a href="/publications.html">Publications</a>
+                <a href="/service.html">Service</a>
+                <a href="/gallery.html">Gallery</a>
+            </div>
+        </div>
+
+        <main class="min-h-screen flex flex-col items-center justify-start px-4 pt-24 pb-20">
+            <div class="fade-in bg-black/5 backdrop-blur-sm rounded-xl shadow-lg w-full max-w-6xl mt-10 grid md:grid-cols-3 gap-10 p-10">
+                
+                <div class="md:col-span-1 text-center md:text-left">
+                    <img src="/images/profile.png" 
+                         alt="Profile Photo" 
+                         class="w-48 h-48 rounded-full mx-auto md:mx-0 shadow-lg border-4 border-white/50">
+                    <h2 class="text-2xl font-bold mt-4 text-slate-800">Irtiza Hasan</h2>
+                    <p class="text-slate-600 mt-2">
+                        <i class="fas fa-map-marker-alt mr-2"></i>Charlotte, North Carolina
+                    </p>
+                    <div class="mt-4 space-y-2 text-slate-700">
+                        <p><i class="fas fa-envelope mr-2 w-4 text-center"></i><a href="mailto:ihasan@charlotte.edu" class="hover:text-[var(--charlotte-green)]">ihasan@charlotte.edu</a></p>
+                        <p><i class="fab fa-facebook mr-2 w-4 text-center"></i><a href="https://www.facebook.com/ihasan908/" target="_blank" class="hover:text-[var(--charlotte-green)]">Facebook</a></p>
+                        <p><i class="fas fa-graduation-cap mr-2 w-4 text-center"></i><a href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ" target="_blank" class="hover:text-[var(--charlotte-green)]">Google Scholar</a></p>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 overflow-hidden">
+                    <h1 class="text-4xl font-bold text-slate-800 mb-8" style="color: var(--charlotte-green);">Experience</h1>
+                
+                    <div class="text-left space-y-8">
+                        
+                        <div>
+                            <h2 class="text-2xl font-semibold text-slate-700 break-words">Assistant Engineer</h2>
+                            <p class="text-lg text-slate-600 break-words"><a href="https://dpdc.gov.bd/" target="_blank" class="underline hover:text-[var(--charlotte-green)] transition">Dhaka Power Distribution Company Limited <i class="fas fa-external-link-alt text-xs ml-1"></i></a>, Dhaka, Bangladesh</p>
+                            <p class="text-md text-slate-500">2023 - 2024</p>
+                            <ul class="list-disc list-inside mt-2 text-slate-700 space-y-2">
+                                <li>Managed power distribution operations, ensuring efficient service delivery and system reliability.</li>
+                                <li>Collaborated on projects to optimize energy usage and reduce operational costs.</li>
+                                <li>Utilized AutoCAD for electrical design and CymeDist for distribution system analysis.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h2 class="text-2xl font-semibold text-slate-700 break-words">Engineer</h2>
+                            <p class="text-lg text-slate-600 break-words"><a href="https://www.baera.gov.bd/" target="_blank" class="underline hover:text-[var(--charlotte-green)] transition">Bangladesh Atomic Energy Regulatory Authority <i class="fas fa-external-link-alt text-xs ml-1"></i></a>, Dhaka, Bangladesh</p>
+                            <p class="text-md text-slate-500">2022</p>
+                            <ul class="list-disc list-inside mt-2 text-slate-700 space-y-2">
+                                <li>Conducted safety assessments and regulatory compliance checks for nuclear energy facilities.</li>
+                                <li>Prepared detailed reports and presented findings to regulatory boards, involving extensive documentation.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h2 class="text-2xl font-semibold text-slate-700 break-words">Assistant Engineer</h2>
+                            <p class="text-lg text-slate-600 break-words"><a href="https://www.titasgas.org.bd/" target="_blank" class="underline hover:text-[var(--charlotte-green)] transition">Titas Gas Transmission & Distribution Co. Ltd <i class="fas fa-external-link-alt text-xs ml-1"></i></a>, Dhaka, Bangladesh</p>
+                            <p class="text-md text-slate-500">2021 - 2022</p>
+                            <ul class="list-disc list-inside mt-2 text-slate-700 space-y-2">
+                                <li>Oversaw gas transmission infrastructure maintenance and upgrades.</li>
+                                <li>Implemented process improvements to enhance safety and efficiency.</li>
+                                <li>Performed data analytics on EVC meter data to identify trends and anomalies.</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+             // --- Mobile Menu Toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        });
+    </script>
+
+    <script>
+        const canvas = document.getElementById('constellation-canvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        const numStars = window.innerWidth > 768 ? 150 : 50;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            stars = [];
+            init();
+        }
+        window.addEventListener('resize', resizeCanvas);
+        class Star {
+            constructor(x, y, radius, dx, dy) { this.x = x; this.y = y; this.radius = radius; this.dx = dx; this.dy = dy; }
+            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fillStyle = 'rgba(0, 79, 45, 0.8)'; ctx.fill(); }
+            update() { if (this.x > canvas.width || this.x < 0) this.dx = -this.dx; if (this.y > canvas.height || this.y < 0) this.dy = -this.dy; this.x += this.dx; this.y += this.dy; this.draw(); }
+        }
+        function init() {
+            for (let i = 0; i < numStars; i++) {
+                let radius = Math.random() * 2 + 1;
+                let x = Math.random() * (canvas.width - radius * 2) + radius;
+                let y = Math.random() * (canvas.height - radius * 2) + radius;
+                let dx = (Math.random() - 0.5) * 0.5;
+                let dy = (Math.random() - 0.5) * 0.5;
+                stars.push(new Star(x, y, radius, dx, dy));
+            }
+        }
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < stars.length; a++) {
+                for (let b = a; b < stars.length; b++) {
+                    let distance = ((stars[a].x - stars[b].x) * (stars[a].x - stars[b].x)) + ((stars[a].y - stars[b].y) * (stars[a].y - stars[b].y));
+                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                        opacityValue = 1 - (distance / 20000);
+                        ctx.strokeStyle = `rgba(185, 151, 91, ${opacityValue})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(stars[a].x, stars[a].y);
+                        ctx.lineTo(stars[b].x, stars[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let star of stars) { star.update(); }
+            connect();
+        }
+        resizeCanvas();
+        animate();
+    </script>
+</body>
+</html>
