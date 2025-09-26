@@ -44,6 +44,11 @@
             animation: fadeInUp 1s ease 0.5s forwards;
         }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        /* Always show caption with larger images */
+        .spotlight-group .group .image-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -80,39 +85,39 @@
             <div class="fade-in bg-black/5 backdrop-blur-sm rounded-xl shadow-lg w-full max-w-6xl mt-10 p-10">
                 <h1 class="text-4xl font-bold text-slate-800 mb-8 text-center" style="color: var(--charlotte-green);">Gallery</h1>
                 
-                <div class="spotlight-group columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6">
+                <div class="spotlight-group columns-1 lg:columns-2 gap-6 space-y-6">
                     
                     <a href="/images/1.jpeg" class="spotlight block rounded-lg shadow-md overflow-hidden group relative break-inside-avoid">
                         <img src="/images/1.jpeg" alt="Presenting Poster at UNC Charlotte GRS 2025" class="w-full h-auto object-cover">
-                        <div class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                        <div class="image-caption absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white">
                             <p class="text-sm">Presenting Poster at UNC Charlotte GRS 2025</p>
                         </div>
                     </a>
 
                     <a href="/images/2.jpeg" class="spotlight block rounded-lg shadow-md overflow-hidden group relative break-inside-avoid">
                         <img src="/images/2.jpeg" alt="Group Photo April, 2025" class="w-full h-auto object-cover">
-                        <div class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                        <div class="image-caption absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white">
                             <p class="text-sm">Group Photo April, 2025</p>
                         </div>
                     </a>
 
                     <a href="/images/3.jpeg" class="spotlight block rounded-lg shadow-md overflow-hidden group relative break-inside-avoid">
                         <img src="/images/3.jpeg" alt="Group Photo August, 2024" class="w-full h-auto object-cover">
-                        <div class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                        <div class="image-caption absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white">
                             <p class="text-sm">Group Photo August, 2024</p>
                         </div>
                     </a>
 
                     <a href="/images/Allerton.jpg" class="spotlight block rounded-lg shadow-md overflow-hidden group relative break-inside-avoid">
                         <img src="/images/Allerton.jpg" alt="Presented at Allerton 2025" class="w-full h-auto object-cover">
-                        <div class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                        <div class="image-caption absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white">
                             <p class="text-sm">Presented at Allerton 2025</p>
                         </div>
                     </a>
 
                     <a href="/images/Group Photo Sep.jpg" class="spotlight block rounded-lg shadow-md overflow-hidden group relative break-inside-avoid">
                         <img src="/images/Group Photo Sep.jpg" alt="Group Photo September, 2025" class="w-full h-auto object-cover">
-                        <div class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                        <div class="image-caption absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white">
                             <p class="text-sm">Group Photo September, 2025 (with Abdelrahman Elmaradny from UCI)</p>
                         </div>
                     </a>
