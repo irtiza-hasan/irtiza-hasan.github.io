@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/spotlight.js@0.7.8/dist/spotlight.min.css" />
     <style>
         :root {
             --charlotte-green: #004F2D;
@@ -79,55 +80,49 @@
             <div class="fade-in bg-black/5 backdrop-blur-sm rounded-xl shadow-lg w-full max-w-6xl mt-10 p-10">
                 <h1 class="text-4xl font-bold text-slate-800 mb-8 text-center" style="color: var(--charlotte-green);">Gallery</h1>
                 
-                <div class="flex flex-wrap justify-center gap-8">
+                <div class="spotlight-group columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6">
                     
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 w-full sm:w-auto">
-                        <img src="/images/1.jpg" 
-                             alt="Gallery image 1" class="w-full h-64 object-cover sm:w-80">
-                        <div class="p-4">
-                            <p class="text-center text-slate-600">Presenting Poster at UNC Charlotte GRS 2025</p>
+                    <a href="/images/1.jpeg" class="spotlight block rounded-lg shadow-md overflow-hidden group relative break-inside-avoid">
+                        <img src="/images/1.jpeg" alt="Presenting Poster at UNC Charlotte GRS 2025" class="w-full h-auto object-cover">
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <p class="text-sm">Presenting Poster at UNC Charlotte GRS 2025</p>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 w-full sm:w-auto">
-                        <img src="/images/2.jpeg" 
-                             alt="Gallery image 2" class="w-full h-64 object-cover sm:w-80">
-                        <div class="p-4">
-                            <p class="text-center text-slate-600">Group Photo April, 2025</p>
+                    <a href="/images/2.jpeg" class="spotlight block rounded-lg shadow-md overflow-hidden group relative break-inside-avoid">
+                        <img src="/images/2.jpeg" alt="Group Photo April, 2025" class="w-full h-auto object-cover">
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <p class="text-sm">Group Photo April, 2025</p>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 w-full sm:w-auto">
-                        <img src="/images/3.jpeg" 
-                             alt="Gallery image 3" class="w-full h-64 object-cover sm:w-80">
-                        <div class="p-4">
-                            <p class="text-center text-slate-600">Group Photo August, 2024</p>
+                    <a href="/images/3.jpeg" class="spotlight block rounded-lg shadow-md overflow-hidden group relative break-inside-avoid">
+                        <img src="/images/3.jpeg" alt="Group Photo August, 2024" class="w-full h-auto object-cover">
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <p class="text-sm">Group Photo August, 2024</p>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 w-full sm:w-auto">
-                        <img src="/images/Allerton.jpg" 
-                             alt="Gallery image 4" class="w-full h-64 object-cover sm:w-80">
-                        <div class="p-4">
-                            <p class="text-center text-slate-600">Presented at Allerton 2025</p>
+                    <a href="/images/Allerton.jpg" class="spotlight block rounded-lg shadow-md overflow-hidden group relative break-inside-avoid">
+                        <img src="/images/Allerton.jpg" alt="Presented at Allerton 2025" class="w-full h-auto object-cover">
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <p class="text-sm">Presented at Allerton 2025</p>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 w-full sm:w-auto">
-                        <img src="/images/Group Photo Sep.jpg" 
-                             alt="Gallery image 5" class="w-full h-64 object-cover sm:w-80">
-                        <div class="p-4">
-                            <p class="text-center text-slate-600">Group Photo September, 2025 (along with  	
-
-Abdelrahman Elmaradny from UCI) </p>
+                    <a href="/images/Group Photo Sep.jpg" class="spotlight block rounded-lg shadow-md overflow-hidden group relative break-inside-avoid">
+                        <img src="/images/Group Photo Sep.jpg" alt="Group Photo September, 2025" class="w-full h-auto object-cover">
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <p class="text-sm">Group Photo September, 2025 (with Abdelrahman Elmaradny from UCI)</p>
                         </div>
-                    </div>
-                    
+                    </a>
+
                 </div>
             </div>
         </main>
     </div>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/spotlight.js@0.7.8/dist/spotlight.min.js" defer></script>
     <script>
         const canvas = document.getElementById('constellation-canvas'); const ctx = canvas.getContext('2d'); let stars = []; const numStars = window.innerWidth > 768 ? 150 : 50;
         function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; stars = []; init(); }
