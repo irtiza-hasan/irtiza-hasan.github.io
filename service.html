@@ -1,327 +1,799 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service - Irtiza Hasan</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <title>Service - Irtiza Hasan</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<style>
+  <style>
     :root {
-        --charlotte-green: #004F2D;
-        --charlotte-gold: #B9975B;
-        --page-green: #006B3F;
+      --charlotte-green: #004F2D;
+      --charlotte-gold: #B9975B;
+      --page-green: #006B3F;
+      --deep-green: #003D24;
+      --glass-bg: rgba(255, 255, 255, 0.10);
+      --glass-border: rgba(255, 255, 255, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-        font-family: 'Poppins', sans-serif;
-        background-color: var(--page-green);
-        color: #ffffff;
-        margin: 0;
-        overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--page-green);
+      color: #ffffff;
+      margin: 0;
+      overflow-x: hidden;
     }
 
     #constellation-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(185, 151, 91, 0.18), transparent 28%),
+        radial-gradient(circle at 84% 78%, rgba(255, 255, 255, 0.10), transparent 30%),
+        linear-gradient(135deg, rgba(0, 79, 45, 0.25), rgba(0, 61, 36, 0.45));
     }
 
     #content-container {
-        position: relative;
-        z-index: 1;
-        overflow-y: auto;
-        height: 100vh;
-        background-color: transparent;
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      background-color: transparent;
     }
 
     .top-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 60px;
-        background: var(--charlotte-green);
-        color: white;
-        z-index: 20;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: rgba(0, 79, 45, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: white;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      border-bottom: 1px solid rgba(185, 151, 91, 0.35);
     }
 
-    .top-header a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 1.2rem;
+    .brand {
+      color: white;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: 0.01em;
+      transition: color 0.25s ease;
+    }
+
+    .brand:hover {
+      color: var(--charlotte-gold);
     }
 
     .navbar a {
-        font-size: 1rem;
-        font-weight: 500;
-        margin-left: 20px;
-        transition: color 0.3s ease, transform 0.3s ease;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-left: 22px;
+      text-decoration: none;
+      transition: color 0.25s ease, transform 0.25s ease;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.25);
     }
 
     .navbar a:hover {
-        color: var(--charlotte-gold);
-        transform: scale(1.05);
+      color: var(--charlotte-gold);
+      transform: translateY(-1px);
     }
 
-    .fade-in {
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeInUp 1s ease 0.5s forwards;
+    .navbar a.active {
+      color: var(--charlotte-gold);
     }
 
-    @keyframes fadeInUp {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .mobile-link {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .mobile-link:hover {
+      color: var(--charlotte-gold);
+    }
+
+    .page-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 110px 24px 70px;
     }
 
     .content-card {
-        background: rgba(255, 255, 255, 0.10);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 255, 255, 0.18);
+      position: relative;
+      width: 100%;
+      max-width: 1120px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.27);
+      padding: 56px;
+      overflow: hidden;
+      animation: fadeInUp 0.65s ease forwards;
     }
 
-    .gold-link {
-        color: var(--charlotte-gold);
+    .content-card::before {
+      content: "";
+      position: absolute;
+      width: 460px;
+      height: 460px;
+      right: -190px;
+      top: -170px;
+      border: 1px solid rgba(185, 151, 91, 0.28);
+      border-radius: 50%;
+      box-shadow:
+        inset 0 0 55px rgba(185, 151, 91, 0.08),
+        0 0 80px rgba(185, 151, 91, 0.12);
+      animation: slowRotate 22s linear infinite;
     }
 
-    .gold-link:hover {
-        color: #ffffff;
-        text-decoration: underline;
+    .content-card::after {
+      content: "";
+      position: absolute;
+      width: 270px;
+      height: 270px;
+      left: -120px;
+      bottom: -120px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 50%;
+      box-shadow: 0 0 85px rgba(185, 151, 91, 0.12);
+      animation: slowFloat 8s ease-in-out infinite;
+    }
+
+    .page-dial {
+      position: absolute;
+      right: 82px;
+      top: 70px;
+      width: 145px;
+      height: 145px;
+      opacity: 0.34;
+      pointer-events: none;
+      transform-origin: center;
+      animation: dialBreath 4.5s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    .dial-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid rgba(185, 151, 91, 0.48);
+      box-shadow:
+        inset 0 0 38px rgba(185, 151, 91, 0.08),
+        0 0 38px rgba(185, 151, 91, 0.10);
+    }
+
+    .dial-ring::before,
+    .dial-ring::after {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    .dial-ring::after {
+      inset: 48px;
+      border-color: rgba(185, 151, 91, 0.16);
+    }
+
+    .dial-dot {
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      background: var(--charlotte-gold);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 24px rgba(185, 151, 91, 0.95);
+    }
+
+    .page-service {
+      transform: rotate(216deg);
+    }
+
+    .gold-line {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, transparent, var(--charlotte-gold), transparent);
+      opacity: 0.85;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slowRotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes slowFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-18px);
+      }
+    }
+
+    @keyframes dialBreath {
+      0%, 100% {
+        opacity: 0.26;
+        filter: drop-shadow(0 0 0 rgba(185, 151, 91, 0.0));
+      }
+
+      50% {
+        opacity: 0.46;
+        filter: drop-shadow(0 0 16px rgba(185, 151, 91, 0.18));
+      }
+    }
+
+    .main-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-kicker {
+      color: var(--charlotte-gold);
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    .page-title {
+      font-size: clamp(3rem, 6vw, 5.4rem);
+      font-weight: 800;
+      line-height: 0.98;
+      margin: 0;
+      color: #ffffff;
+      letter-spacing: -0.055em;
+    }
+
+    .page-title span {
+      color: var(--charlotte-gold);
+    }
+
+    .page-subtitle {
+      color: #e5e7eb;
+      line-height: 1.75;
+      font-size: 1.08rem;
+      margin-top: 24px;
+      margin-bottom: 42px;
+      max-width: 820px;
+    }
+
+    .gold-rule {
+      width: 130px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--charlotte-gold), transparent);
+      margin-top: 26px;
+      margin-bottom: 38px;
+      border-radius: 99px;
     }
 
     .service-card {
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        border-radius: 0.9rem;
-        padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 22px;
+      padding: 1.8rem 1.9rem;
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
     }
 
-    .service-list li {
-        margin-bottom: 0.65rem;
-        color: #e5e7eb;
+    .service-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(185, 151, 91, 0.68);
+      background: rgba(255, 255, 255, 0.11);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.18);
     }
-</style>
-```
 
+    .service-heading {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 0.8rem;
+    }
+
+    .service-description {
+      color: #e5e7eb;
+      line-height: 1.75;
+      font-size: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem;
+      margin-top: 1.3rem;
+    }
+
+    .service-item {
+      border: 1px solid rgba(185, 151, 91, 0.42);
+      background: rgba(0, 79, 45, 0.28);
+      border-radius: 14px;
+      padding: 0.95rem 1rem;
+      color: #f3f4f6;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .service-item:hover {
+      transform: translateY(-2px);
+      background: rgba(0, 79, 45, 0.42);
+      border-color: rgba(185, 151, 91, 0.75);
+    }
+
+    .service-item i {
+      color: var(--charlotte-gold);
+      margin-right: 0.55rem;
+    }
+
+    .contact-strip {
+      margin-top: 44px;
+      padding-top: 26px;
+      border-top: 1px solid rgba(255,255,255,0.18);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      color: #e5e7eb;
+      font-size: 0.95rem;
+    }
+
+    .contact-strip a {
+      color: var(--charlotte-gold);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .contact-strip a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .page-transition {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.18), transparent 20%),
+        linear-gradient(135deg, var(--charlotte-gold), #d8c08a, var(--charlotte-green));
+      clip-path: circle(0% at 50% 50%);
+    }
+
+    .page-transition.slide-in {
+      animation: goldenReveal 0.28s cubic-bezier(.7,0,.3,1) forwards;
+    }
+
+    .page-transition.slide-out {
+      animation: goldenCover 0.28s cubic-bezier(.7,0,.3,1) forwards;
+    }
+
+    @keyframes goldenReveal {
+      0% {
+        opacity: 1;
+        clip-path: circle(150% at 50% 50%);
+      }
+
+      100% {
+        opacity: 1;
+        clip-path: circle(0% at 50% 50%);
+      }
+    }
+
+    @keyframes goldenCover {
+      0% {
+        opacity: 1;
+        clip-path: circle(0% at 50% 50%);
+      }
+
+      100% {
+        opacity: 1;
+        clip-path: circle(150% at 50% 50%);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .content-card {
+        padding: 42px 32px;
+      }
+
+      .main-content {
+        text-align: center;
+      }
+
+      .page-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .gold-rule {
+        margin-left: auto;
+        margin-right: auto;
+        background: linear-gradient(90deg, transparent, var(--charlotte-gold), transparent);
+      }
+
+      .service-grid {
+        grid-template-columns: 1fr;
+        text-align: left;
+      }
+
+      .contact-strip {
+        justify-content: center;
+      }
+
+      .page-dial {
+        right: -35px;
+        top: 70px;
+        opacity: 0.18;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-wrap {
+        padding: 94px 16px 46px;
+      }
+
+      .content-card {
+        padding: 34px 22px;
+        border-radius: 22px;
+      }
+
+      .page-title {
+        font-size: 3rem;
+      }
+
+      .section-kicker {
+        font-size: 0.76rem;
+        letter-spacing: 0.11em;
+      }
+
+      .service-card {
+        padding: 1.25rem;
+      }
+
+      .service-heading {
+        font-size: 1.22rem;
+      }
+
+      .service-item {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <canvas id="constellation-canvas"></canvas>
+  <canvas id="constellation-canvas"></canvas>
+  <div class="page-transition"></div>
 
-```
-<div id="content-container">
+  <div id="content-container">
     <header class="top-header">
-        <a href="/">Irtiza Hasan</a>
+      <a href="/" class="brand">Irtiza Hasan</a>
 
-        <nav class="navbar hidden md:flex">
-            <a href="/education.html">Education</a>
-            <a href="/publications.html">Publications</a>
-            <a href="/service.html">Service</a>
-            <a href="/gallery.html">Gallery</a>
-        </nav>
+      <nav class="navbar hidden md:flex">
+        <a href="/">Home</a>
+        <a href="/education.html">Education</a>
+        <a href="/publications.html">Publications</a>
+        <a href="/service.html" class="active">Service</a>
+        <a href="/gallery.html">Gallery</a>
+      </nav>
 
-        <div class="md:hidden">
-            <button id="mobile-menu-button" class="text-white focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                          d="M4 6h16M4 12h16m-7 6h7">
-                    </path>
-                </svg>
-            </button>
-        </div>
+      <div class="md:hidden">
+        <button id="mobile-menu-button" class="text-white focus:outline-none" aria-label="Open mobile menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7">
+            </path>
+          </svg>
+        </button>
+      </div>
     </header>
 
     <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-black/80 backdrop-blur-sm z-10">
-        <div class="flex flex-col items-center justify-center h-full text-white text-2xl space-y-8">
-            <a href="/education.html">Education</a>
-            <a href="/publications.html">Publications</a>
-            <a href="/service.html">Service</a>
-            <a href="/gallery.html">Gallery</a>
-        </div>
+      <div class="flex flex-col items-center justify-center h-full text-white text-2xl space-y-8">
+        <a href="/" class="mobile-link">Home</a>
+        <a href="/education.html" class="mobile-link">Education</a>
+        <a href="/publications.html" class="mobile-link">Publications</a>
+        <a href="/service.html" class="mobile-link">Service</a>
+        <a href="/gallery.html" class="mobile-link">Gallery</a>
+      </div>
     </div>
 
-    <main class="min-h-screen flex items-center justify-center px-4 pt-24 pb-20">
-        <div class="fade-in content-card rounded-xl shadow-lg w-full max-w-5xl mt-10 grid md:grid-cols-3 gap-10 p-10">
-
-            <div class="md:col-span-1 text-center md:text-left">
-                <img src="/images/profile.png" 
-                     alt="Profile Photo" 
-                     class="w-48 h-48 rounded-full mx-auto md:mx-0 shadow-lg border-4 border-white/50">
-
-                <h2 class="text-2xl font-bold mt-4 text-white">Irtiza Hasan</h2>
-
-                <p class="text-gray-200 mt-2">
-                    <i class="fas fa-map-marker-alt mr-2"></i>Charlotte, North Carolina
-                </p>
-
-                <div class="mt-4 space-y-2 text-gray-200">
-                    <p>
-                        <i class="fas fa-envelope mr-2 w-4 text-center"></i>
-                        <a href="mailto:ihasan@charlotte.edu" class="gold-link">ihasan@charlotte.edu</a>
-                    </p>
-
-                    <p>
-                        <i class="fas fa-graduation-cap mr-2 w-4 text-center"></i>
-                        <a href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ" target="_blank" class="gold-link">Google Scholar</a>
-                    </p>
-                </div>
-            </div>
-
-            <div class="md:col-span-2">
-                <h1 class="text-4xl font-bold mb-8" style="color: var(--charlotte-gold);">Service</h1>
-
-                <div class="service-card text-left">
-                    <h2 class="text-2xl font-semibold text-white">Reviewer</h2>
-
-                    <p class="text-lg text-gray-200 mt-4">
-                        I have served as a peer reviewer for the following academic journals and conferences:
-                    </p>
-
-                    <ul class="service-list list-disc list-inside mt-5 space-y-2">
-                        <li>IEEE Transactions on Communications (TCOM)</li>
-                        <li>IEEE Transactions on Wireless Communications (TWC)</li>
-                        <li>IEEE Transactions on Green Communications and Networking (TGCN)</li>
-                        <li>IEEE Transactions on Vehicular Technology (TVT)</li>
-                        <li>Journal of Communications and Networks (JCN)</li>
-                        <li>IEEE International Conference on Communications (ICC)</li>
-                        <li>IEEE Global Communications Conference (GLOBECOM)</li>
-                        <li>IEEE Wireless Communications and Networking Conference (WCNC)</li>
-                        <li>International Symposium on Modeling and Optimization in Mobile, Ad Hoc, and Wireless Networks (WiOpt)</li>
-                    </ul>
-                </div>
-            </div>
+    <main class="page-wrap">
+      <section class="content-card">
+        <div class="page-dial page-service">
+          <div class="dial-ring"></div>
+          <div class="dial-dot"></div>
         </div>
+
+        <div class="gold-line"></div>
+
+        <section class="main-content">
+          <div class="section-kicker">Academic Service</div>
+
+          <h1 class="page-title">
+            Service<span>.</span>
+          </h1>
+
+          <p class="page-subtitle">
+            I contribute to the research community through peer review for journals and conferences
+            in communications, wireless networks, vehicular technology, and network optimization.
+          </p>
+
+          <div class="gold-rule"></div>
+
+          <div class="service-card">
+            <h2 class="service-heading">Reviewer</h2>
+
+            <p class="service-description">
+              I have served as a peer reviewer for the following academic journals and conferences.
+            </p>
+
+            <div class="service-grid">
+              <div class="service-item">
+                <i class="fas fa-check-circle"></i>
+                IEEE Transactions on Communications (TCOM)
+              </div>
+
+              <div class="service-item">
+                <i class="fas fa-check-circle"></i>
+                IEEE Transactions on Wireless Communications (TWC)
+              </div>
+
+              <div class="service-item">
+                <i class="fas fa-check-circle"></i>
+                IEEE Transactions on Green Communications and Networking (TGCN)
+              </div>
+
+              <div class="service-item">
+                <i class="fas fa-check-circle"></i>
+                IEEE Transactions on Vehicular Technology (TVT)
+              </div>
+
+              <div class="service-item">
+                <i class="fas fa-check-circle"></i>
+                Journal of Communications and Networks (JCN)
+              </div>
+
+              <div class="service-item">
+                <i class="fas fa-check-circle"></i>
+                IEEE International Conference on Communications (ICC)
+              </div>
+
+              <div class="service-item">
+                <i class="fas fa-check-circle"></i>
+                IEEE Global Communications Conference (GLOBECOM)
+              </div>
+
+              <div class="service-item">
+                <i class="fas fa-check-circle"></i>
+                IEEE Wireless Communications and Networking Conference (WCNC)
+              </div>
+
+              <div class="service-item">
+                <i class="fas fa-check-circle"></i>
+                International Symposium on Modeling and Optimization in Mobile, Ad Hoc, and Wireless Networks (WiOpt)
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-strip">
+            <span><i class="fas fa-map-marker-alt mr-2"></i>Charlotte, North Carolina</span>
+            <span><i class="fas fa-envelope mr-2"></i><a href="mailto:ihasan@charlotte.edu">ihasan@charlotte.edu</a></span>
+            <span><i class="fas fa-graduation-cap mr-2"></i><a href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ" target="_blank">Google Scholar</a></span>
+          </div>
+        </section>
+      </section>
     </main>
-</div>
+  </div>
 
-<script>
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
 
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      const transition = document.querySelector(".page-transition");
+
+      if (transition) {
+        transition.classList.add("slide-in");
+
+        setTimeout(() => {
+          transition.classList.remove("slide-in");
+        }, 320);
+      }
+
+      const links = document.querySelectorAll("a[href]");
+
+      links.forEach(link => {
+        const href = link.getAttribute("href");
+
+        const isInternalPage =
+          href &&
+          !href.startsWith("#") &&
+          !href.startsWith("mailto:") &&
+          !href.startsWith("tel:") &&
+          !href.startsWith("http") &&
+          !link.hasAttribute("target");
+
+        if (isInternalPage) {
+          link.addEventListener("click", event => {
+            event.preventDefault();
+
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+              mobileMenu.classList.add('hidden');
+            }
+
+            transition.classList.add("slide-out");
+
+            setTimeout(() => {
+              window.location.href = href;
+            }, 260);
+          });
         }
+      });
     });
-</script>
+  </script>
 
-<script>
+  <script>
     const canvas = document.getElementById('constellation-canvas');
     const ctx = canvas.getContext('2d');
     let stars = [];
     const numStars = window.innerWidth > 768 ? 150 : 50;
 
     function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        stars = [];
-        init();
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = [];
+      init();
     }
 
     window.addEventListener('resize', resizeCanvas);
 
     class Star {
-        constructor(x, y, radius, dx, dy) {
-            this.x = x;
-            this.y = y;
-            this.radius = radius;
-            this.dx = dx;
-            this.dy = dy;
+      constructor(x, y, radius, dx, dy) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.dx = dx;
+        this.dy = dy;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.fill();
+      }
+
+      update() {
+        if (this.x > canvas.width || this.x < 0) {
+          this.dx = -this.dx;
         }
 
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-            ctx.fill();
+        if (this.y > canvas.height || this.y < 0) {
+          this.dy = -this.dy;
         }
 
-        update() {
-            if (this.x > canvas.width || this.x < 0) {
-                this.dx = -this.dx;
-            }
-
-            if (this.y > canvas.height || this.y < 0) {
-                this.dy = -this.dy;
-            }
-
-            this.x += this.dx;
-            this.y += this.dy;
-            this.draw();
-        }
+        this.x += this.dx;
+        this.y += this.dy;
+        this.draw();
+      }
     }
 
     function init() {
-        for (let i = 0; i < numStars; i++) {
-            let radius = Math.random() * 2 + 1;
-            let x = Math.random() * (canvas.width - radius * 2) + radius;
-            let y = Math.random() * (canvas.height - radius * 2) + radius;
-            let dx = (Math.random() - 0.5) * 0.5;
-            let dy = (Math.random() - 0.5) * 0.5;
+      for (let i = 0; i < numStars; i++) {
+        let radius = Math.random() * 2 + 1;
+        let x = Math.random() * (canvas.width - radius * 2) + radius;
+        let y = Math.random() * (canvas.height - radius * 2) + radius;
+        let dx = (Math.random() - 0.5) * 0.5;
+        let dy = (Math.random() - 0.5) * 0.5;
 
-            stars.push(new Star(x, y, radius, dx, dy));
-        }
+        stars.push(new Star(x, y, radius, dx, dy));
+      }
     }
 
     function connect() {
-        let opacityValue = 1;
+      let opacityValue = 1;
 
-        for (let a = 0; a < stars.length; a++) {
-            for (let b = a; b < stars.length; b++) {
-                let distance =
-                    ((stars[a].x - stars[b].x) * (stars[a].x - stars[b].x)) +
-                    ((stars[a].y - stars[b].y) * (stars[a].y - stars[b].y));
+      for (let a = 0; a < stars.length; a++) {
+        for (let b = a; b < stars.length; b++) {
+          let distance =
+            ((stars[a].x - stars[b].x) * (stars[a].x - stars[b].x)) +
+            ((stars[a].y - stars[b].y) * (stars[a].y - stars[b].y));
 
-                if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                    opacityValue = 1 - (distance / 20000);
-                    ctx.strokeStyle = `rgba(185, 151, 91, ${opacityValue})`;
-                    ctx.lineWidth = 1;
-                    ctx.beginPath();
-                    ctx.moveTo(stars[a].x, stars[a].y);
-                    ctx.lineTo(stars[b].x, stars[b].y);
-                    ctx.stroke();
-                }
-            }
+          if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+            opacityValue = 1 - (distance / 20000);
+            ctx.strokeStyle = `rgba(185, 151, 91, ${opacityValue})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(stars[a].x, stars[a].y);
+            ctx.lineTo(stars[b].x, stars[b].y);
+            ctx.stroke();
+          }
         }
+      }
     }
 
     function animate() {
-        requestAnimationFrame(animate);
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        for (let star of stars) {
-            star.update();
-        }
+      for (let star of stars) {
+        star.update();
+      }
 
-        connect();
+      connect();
     }
 
     resizeCanvas();
     animate();
-</script>
-
-
+  </script>
 </body>
 </html>
