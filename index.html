@@ -58,8 +58,8 @@
       z-index: 0;
       pointer-events: none;
       background:
-        radial-gradient(circle at 18% 25%, rgba(185, 151, 91, 0.18), transparent 28%),
-        radial-gradient(circle at 82% 76%, rgba(255, 255, 255, 0.10), transparent 30%),
+        radial-gradient(circle at 16% 18%, rgba(185, 151, 91, 0.18), transparent 28%),
+        radial-gradient(circle at 84% 78%, rgba(255, 255, 255, 0.10), transparent 30%),
         linear-gradient(135deg, rgba(0, 79, 45, 0.25), rgba(0, 61, 36, 0.45));
     }
 
@@ -132,55 +132,54 @@
 
     .hero-wrap {
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 110px 24px 70px;
+      padding: 60px 0 0;
     }
 
     .hero-card {
       position: relative;
       width: 100%;
-      max-width: 1080px;
-      min-height: 560px;
-      background: var(--glass-bg);
+      min-height: calc(100vh - 60px);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.105), rgba(255,255,255,0.065)),
+        radial-gradient(circle at 22% 28%, rgba(255,255,255,0.10), transparent 24%),
+        radial-gradient(circle at 72% 72%, rgba(185,151,91,0.11), transparent 30%);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      border-radius: 28px;
-      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.27);
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      border-bottom: 1px solid rgba(185, 151, 91, 0.25);
+      box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.13);
       overflow: hidden;
-      padding: 64px;
+      padding: 7.5vw 8.5vw;
       display: flex;
       align-items: center;
-      animation: fadeInUp 0.65s ease forwards;
+      animation: fadeInUp 0.55s ease forwards;
     }
 
     .hero-card::before {
       content: "";
       position: absolute;
-      width: 520px;
-      height: 520px;
-      right: -170px;
-      top: -120px;
-      border: 1px solid rgba(185, 151, 91, 0.26);
+      width: 680px;
+      height: 680px;
+      right: -210px;
+      top: -250px;
+      border: 1px solid rgba(185, 151, 91, 0.18);
       border-radius: 50%;
       box-shadow:
-        inset 0 0 55px rgba(185, 151, 91, 0.08),
-        0 0 80px rgba(185, 151, 91, 0.12);
-      animation: slowRotate 24s linear infinite;
+        inset 0 0 55px rgba(185, 151, 91, 0.06),
+        0 0 80px rgba(185, 151, 91, 0.08);
+      animation: slowRotate 30s linear infinite;
     }
 
     .hero-card::after {
       content: "";
       position: absolute;
-      width: 340px;
-      height: 340px;
-      right: 70px;
-      bottom: -180px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      width: 480px;
+      height: 480px;
+      left: -190px;
+      bottom: -210px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
       border-radius: 50%;
-      box-shadow: 0 0 85px rgba(185, 151, 91, 0.12);
+      box-shadow: 0 0 85px rgba(185, 151, 91, 0.10);
       animation: slowFloat 8s ease-in-out infinite;
     }
 
@@ -191,93 +190,101 @@
       width: 100%;
       height: 5px;
       background: linear-gradient(90deg, transparent, var(--charlotte-gold), transparent);
-      opacity: 0.85;
+      opacity: 0.82;
     }
 
     .page-dial {
       position: absolute;
-      right: 120px;
-      top: 110px;
-      width: 180px;
-      height: 180px;
-      opacity: 0.85;
+      right: -95px;
+      bottom: -115px;
+      width: 430px;
+      height: 430px;
+      opacity: 0.95;
       pointer-events: none;
       transform-origin: center;
-      animation: dialBreath 4.5s ease-in-out infinite;
+      animation: dialBreath 5.2s ease-in-out infinite;
+      z-index: 1;
     }
 
     .dial-ring {
       position: absolute;
       inset: 0;
       border-radius: 50%;
-      border: 2px solid rgba(185, 151, 91, 0.48);
+      border: 1px solid rgba(185, 151, 91, 0.46);
       box-shadow:
-        inset 0 0 38px rgba(185, 151, 91, 0.08),
-        0 0 38px rgba(185, 151, 91, 0.10);
+        inset 0 0 75px rgba(185, 151, 91, 0.09),
+        0 0 90px rgba(185, 151, 91, 0.14);
     }
 
     .dial-ring::before,
     .dial-ring::after {
       content: "";
       position: absolute;
-      inset: 26px;
       border-radius: 50%;
       border: 1px solid rgba(255, 255, 255, 0.10);
     }
 
-    .dial-ring::after {
+    .dial-ring::before {
       inset: 58px;
-      border-color: rgba(185, 151, 91, 0.16);
+    }
+
+    .dial-ring::after {
+      inset: 126px;
+      border-color: rgba(185, 151, 91, 0.20);
+      box-shadow: inset 0 0 40px rgba(185, 151, 91, 0.05);
+    }
+
+    .dial-core {
+      position: absolute;
+      inset: 184px;
+      border-radius: 50%;
+      background: rgba(185, 151, 91, 0.07);
+      border: 1px solid rgba(185, 151, 91, 0.20);
+      box-shadow: 0 0 45px rgba(185, 151, 91, 0.10);
     }
 
     .dial-dot {
       position: absolute;
-      top: -2px;
+      top: 18px;
       left: 50%;
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       background: var(--charlotte-gold);
       border-radius: 50%;
       transform: translateX(-50%);
-      box-shadow: 0 0 24px rgba(185, 151, 91, 0.95);
+      box-shadow:
+        0 0 24px rgba(185, 151, 91, 0.95),
+        0 0 60px rgba(185, 151, 91, 0.35);
+    }
+
+    .dial-orbit {
+      position: absolute;
+      inset: 82px;
+      border-radius: 50%;
+      border: 1px dashed rgba(185, 151, 91, 0.24);
+      animation: slowRotate 42s linear infinite;
     }
 
     .page-home {
       transform: rotate(0deg);
     }
 
-    .page-education {
-      transform: rotate(72deg);
-    }
-
-    .page-publications {
-      transform: rotate(144deg);
-    }
-
-    .page-service {
-      transform: rotate(216deg);
-    }
-
-    .page-gallery {
-      transform: rotate(288deg);
-    }
-
     @keyframes dialBreath {
       0%, 100% {
-        opacity: 0.68;
-        filter: drop-shadow(0 0 0 rgba(185, 151, 91, 0.0));
+        opacity: 0.58;
+        filter: drop-shadow(0 0 0 rgba(185, 151, 91, 0));
       }
 
       50% {
-        opacity: 1;
-        filter: drop-shadow(0 0 16px rgba(185, 151, 91, 0.22));
+        opacity: 0.95;
+        filter: drop-shadow(0 0 28px rgba(185, 151, 91, 0.18));
       }
     }
 
     @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(22px);
+        transform: translateY(18px);
       }
 
       to {
@@ -322,7 +329,7 @@
     }
 
     .hero-title {
-      font-size: clamp(3.2rem, 7vw, 6.6rem);
+      font-size: clamp(3.2rem, 7vw, 6.8rem);
       font-weight: 800;
       line-height: 0.98;
       margin: 0;
@@ -420,60 +427,18 @@
       color: var(--charlotte-green);
     }
 
-    .page-transition {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      pointer-events: none;
-      opacity: 0;
-      background:
-        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.18), transparent 20%),
-        linear-gradient(135deg, var(--charlotte-gold), #d8c08a, var(--charlotte-green));
-      clip-path: circle(0% at 50% 50%);
-    }
-
-    .page-transition.slide-in {
-      animation: goldenReveal 0.28s cubic-bezier(.7,0,.3,1) forwards;
-    }
-
-    .page-transition.slide-out {
-      animation: goldenCover 0.28s cubic-bezier(.7,0,.3,1) forwards;
-    }
-
-    @keyframes goldenReveal {
-      0% {
-        opacity: 1;
-        clip-path: circle(150% at 50% 50%);
-      }
-
-      100% {
-        opacity: 1;
-        clip-path: circle(0% at 50% 50%);
-      }
-    }
-
-    @keyframes goldenCover {
-      0% {
-        opacity: 1;
-        clip-path: circle(0% at 50% 50%);
-      }
-
-      100% {
-        opacity: 1;
-        clip-path: circle(150% at 50% 50%);
-      }
-    }
-
     @media (max-width: 900px) {
       .hero-card {
-        padding: 44px 34px;
-        min-height: auto;
+        padding: 80px 34px 64px;
+        min-height: calc(100vh - 60px);
       }
 
       .page-dial {
-        right: -42px;
-        top: 84px;
-        opacity: 0.28;
+        right: -170px;
+        bottom: -180px;
+        width: 390px;
+        height: 390px;
+        opacity: 0.35;
       }
 
       .hero-content {
@@ -493,13 +458,8 @@
     }
 
     @media (max-width: 640px) {
-      .hero-wrap {
-        padding: 94px 16px 46px;
-      }
-
       .hero-card {
-        padding: 36px 22px;
-        border-radius: 22px;
+        padding: 72px 22px 52px;
       }
 
       .hero-title {
@@ -529,7 +489,6 @@
 
 <body>
   <canvas id="constellation-canvas"></canvas>
-  <div class="page-transition"></div>
 
   <div id="content-container">
     <header class="top-header">
@@ -568,6 +527,8 @@
       <section class="hero-card">
         <div class="page-dial page-home">
           <div class="dial-ring"></div>
+          <div class="dial-orbit"></div>
+          <div class="dial-core"></div>
           <div class="dial-dot"></div>
         </div>
 
@@ -636,46 +597,6 @@
 
         setTimeout(type, 400);
       }
-
-      const transition = document.querySelector(".page-transition");
-
-      if (transition) {
-        transition.classList.add("slide-in");
-
-        setTimeout(() => {
-          transition.classList.remove("slide-in");
-        }, 320);
-      }
-
-      const links = document.querySelectorAll("a[href]");
-
-      links.forEach(link => {
-        const href = link.getAttribute("href");
-
-        const isInternalPage =
-          href &&
-          !href.startsWith("#") &&
-          !href.startsWith("mailto:") &&
-          !href.startsWith("tel:") &&
-          !href.startsWith("http") &&
-          !link.hasAttribute("target");
-
-        if (isInternalPage) {
-          link.addEventListener("click", event => {
-            event.preventDefault();
-
-            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-              mobileMenu.classList.add('hidden');
-            }
-
-            transition.classList.add("slide-out");
-
-            setTimeout(() => {
-              window.location.href = href;
-            }, 260);
-          });
-        }
-      });
     });
   </script>
 
@@ -741,7 +662,7 @@
       let opacityValue = 1;
 
       for (let a = 0; a < stars.length; a++) {
-        for (let b = a; b < stars.length; b++) {
+        for (let b = a + 1; b < stars.length; b++) {
           let distance =
             ((stars[a].x - stars[b].x) * (stars[a].x - stars[b].x)) +
             ((stars[a].y - stars[b].y) * (stars[a].y - stars[b].y));
@@ -752,7 +673,6 @@
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(stars[a].x, stars[a].y);
-            ctx.lineTo(stars[b].x);
             ctx.lineTo(stars[b].x, stars[b].y);
             ctx.stroke();
           }
