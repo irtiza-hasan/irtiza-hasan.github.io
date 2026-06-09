@@ -22,7 +22,6 @@
       --charlotte-gold: #B9975B;
       --page-green: #006B3F;
       --deep-green: #003D24;
-      --soft-gold: rgba(185, 151, 91, 0.86);
       --glass-bg: rgba(255, 255, 255, 0.10);
       --glass-border: rgba(255, 255, 255, 0.18);
     }
@@ -154,7 +153,7 @@
       padding: 64px;
       display: flex;
       align-items: center;
-      animation: fadeInUp 0.9s ease forwards;
+      animation: fadeInUp 0.65s ease forwards;
     }
 
     .hero-card::before {
@@ -164,12 +163,12 @@
       height: 520px;
       right: -170px;
       top: -120px;
-      border: 1px solid rgba(185, 151, 91, 0.36);
+      border: 1px solid rgba(185, 151, 91, 0.26);
       border-radius: 50%;
       box-shadow:
         inset 0 0 55px rgba(185, 151, 91, 0.08),
         0 0 80px rgba(185, 151, 91, 0.12);
-      animation: slowRotate 18s linear infinite;
+      animation: slowRotate 24s linear infinite;
     }
 
     .hero-card::after {
@@ -179,34 +178,10 @@
       height: 340px;
       right: 70px;
       bottom: -180px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 50%;
       box-shadow: 0 0 85px rgba(185, 151, 91, 0.12);
       animation: slowFloat 8s ease-in-out infinite;
-    }
-
-    .gold-orbit {
-      position: absolute;
-      right: 120px;
-      top: 110px;
-      width: 165px;
-      height: 165px;
-      border-radius: 50%;
-      border: 2px solid rgba(185, 151, 91, 0.58);
-      opacity: 0.85;
-      animation: orbitPulse 4s ease-in-out infinite;
-    }
-
-    .gold-orbit::before {
-      content: "";
-      position: absolute;
-      top: 18px;
-      left: 18px;
-      width: 18px;
-      height: 18px;
-      background: var(--charlotte-gold);
-      border-radius: 50%;
-      box-shadow: 0 0 22px rgba(185, 151, 91, 0.9);
     }
 
     .gold-line {
@@ -219,10 +194,90 @@
       opacity: 0.85;
     }
 
+    .page-dial {
+      position: absolute;
+      right: 120px;
+      top: 110px;
+      width: 180px;
+      height: 180px;
+      opacity: 0.85;
+      pointer-events: none;
+      transform-origin: center;
+      animation: dialBreath 4.5s ease-in-out infinite;
+    }
+
+    .dial-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid rgba(185, 151, 91, 0.48);
+      box-shadow:
+        inset 0 0 38px rgba(185, 151, 91, 0.08),
+        0 0 38px rgba(185, 151, 91, 0.10);
+    }
+
+    .dial-ring::before,
+    .dial-ring::after {
+      content: "";
+      position: absolute;
+      inset: 26px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    .dial-ring::after {
+      inset: 58px;
+      border-color: rgba(185, 151, 91, 0.16);
+    }
+
+    .dial-dot {
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      background: var(--charlotte-gold);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 24px rgba(185, 151, 91, 0.95);
+    }
+
+    .page-home {
+      transform: rotate(0deg);
+    }
+
+    .page-education {
+      transform: rotate(72deg);
+    }
+
+    .page-publications {
+      transform: rotate(144deg);
+    }
+
+    .page-service {
+      transform: rotate(216deg);
+    }
+
+    .page-gallery {
+      transform: rotate(288deg);
+    }
+
+    @keyframes dialBreath {
+      0%, 100% {
+        opacity: 0.68;
+        filter: drop-shadow(0 0 0 rgba(185, 151, 91, 0.0));
+      }
+
+      50% {
+        opacity: 1;
+        filter: drop-shadow(0 0 16px rgba(185, 151, 91, 0.22));
+      }
+    }
+
     @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(26px);
+        transform: translateY(22px);
       }
 
       to {
@@ -248,18 +303,6 @@
 
       50% {
         transform: translateY(-18px);
-      }
-    }
-
-    @keyframes orbitPulse {
-      0%, 100% {
-        transform: scale(1);
-        opacity: 0.62;
-      }
-
-      50% {
-        transform: scale(1.08);
-        opacity: 1;
       }
     }
 
@@ -355,7 +398,7 @@
       border-radius: 7px;
       font-weight: 800;
       text-decoration: none;
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
       letter-spacing: 0.01em;
     }
 
@@ -384,17 +427,17 @@
       pointer-events: none;
       opacity: 0;
       background:
-        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.20), transparent 22%),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.18), transparent 20%),
         linear-gradient(135deg, var(--charlotte-gold), #d8c08a, var(--charlotte-green));
       clip-path: circle(0% at 50% 50%);
     }
 
     .page-transition.slide-in {
-      animation: goldenReveal 0.75s cubic-bezier(.65,0,.35,1) forwards;
+      animation: goldenReveal 0.28s cubic-bezier(.7,0,.3,1) forwards;
     }
 
     .page-transition.slide-out {
-      animation: goldenCover 0.75s cubic-bezier(.65,0,.35,1) forwards;
+      animation: goldenCover 0.28s cubic-bezier(.7,0,.3,1) forwards;
     }
 
     @keyframes goldenReveal {
@@ -427,10 +470,10 @@
         min-height: auto;
       }
 
-      .gold-orbit {
-        right: -35px;
-        top: 80px;
-        opacity: 0.35;
+      .page-dial {
+        right: -42px;
+        top: 84px;
+        opacity: 0.28;
       }
 
       .hero-content {
@@ -523,7 +566,11 @@
 
     <main class="hero-wrap">
       <section class="hero-card">
-        <div class="gold-orbit"></div>
+        <div class="page-dial page-home">
+          <div class="dial-ring"></div>
+          <div class="dial-dot"></div>
+        </div>
+
         <div class="gold-line"></div>
 
         <section class="hero-content">
@@ -579,15 +626,15 @@
           if (index < text.length) {
             nameElement.textContent += text.charAt(index);
             index++;
-            setTimeout(type, 115);
+            setTimeout(type, 95);
           } else if (cursorElement) {
             setTimeout(() => {
               cursorElement.style.display = 'none';
-            }, 500);
+            }, 300);
           }
         }
 
-        setTimeout(type, 650);
+        setTimeout(type, 400);
       }
 
       const transition = document.querySelector(".page-transition");
@@ -597,7 +644,7 @@
 
         setTimeout(() => {
           transition.classList.remove("slide-in");
-        }, 780);
+        }, 320);
       }
 
       const links = document.querySelectorAll("a[href]");
@@ -625,7 +672,7 @@
 
             setTimeout(() => {
               window.location.href = href;
-            }, 730);
+            }, 260);
           });
         }
       });
@@ -705,6 +752,7 @@
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(stars[a].x, stars[a].y);
+            ctx.lineTo(stars[b].x);
             ctx.lineTo(stars[b].x, stars[b].y);
             ctx.stroke();
           }
