@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Publications - Irtiza Hasan</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -16,6 +17,17 @@
       --charlotte-green: #004F2D;
       --charlotte-gold: #B9975B;
       --page-green: #006B3F;
+      --deep-green: #003D24;
+      --glass-bg: rgba(255, 255, 255, 0.10);
+      --glass-border: rgba(255, 255, 255, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -23,7 +35,7 @@
       background-color: var(--page-green);
       color: #ffffff;
       margin: 0;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
     #constellation-canvas {
@@ -35,11 +47,22 @@
       z-index: 0;
     }
 
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(185, 151, 91, 0.18), transparent 28%),
+        radial-gradient(circle at 84% 78%, rgba(255, 255, 255, 0.10), transparent 30%),
+        linear-gradient(135deg, rgba(0, 79, 45, 0.25), rgba(0, 61, 36, 0.45));
+    }
+
     #content-container {
       position: relative;
       z-index: 1;
-      overflow-y: auto;
-      height: 100vh;
+      min-height: 100vh;
       background-color: transparent;
     }
 
@@ -49,76 +72,210 @@
       left: 0;
       width: 100%;
       height: 60px;
-      background: var(--charlotte-green);
+      background: rgba(0, 79, 45, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       color: white;
       z-index: 20;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
+      padding: 0 22px;
+      border-bottom: 1px solid rgba(185, 151, 91, 0.35);
     }
 
-    .top-header a {
+    .brand {
       color: white;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 800;
       font-size: 1.2rem;
+      letter-spacing: 0.01em;
+      transition: color 0.25s ease;
+    }
+
+    .brand:hover {
+      color: var(--charlotte-gold);
     }
 
     .navbar a {
+      color: white;
       font-size: 1rem;
       font-weight: 500;
-      margin-left: 20px;
-      transition: color 0.3s ease, transform 0.3s ease;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      margin-left: 22px;
+      text-decoration: none;
+      transition: color 0.25s ease, transform 0.25s ease;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.25);
     }
 
     .navbar a:hover {
       color: var(--charlotte-gold);
-      transform: scale(1.05);
+      transform: translateY(-1px);
     }
 
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 1s ease 0.5s forwards;
+    .navbar a.active {
+      color: var(--charlotte-gold);
+    }
+
+    .mobile-link {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .mobile-link:hover {
+      color: var(--charlotte-gold);
+    }
+
+    .page-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 110px 24px 70px;
+    }
+
+    .content-card {
+      position: relative;
+      width: 100%;
+      max-width: 1180px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.27);
+      padding: 56px;
+      overflow: hidden;
+      animation: fadeInUp 0.9s ease forwards;
+    }
+
+    .content-card::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      right: -210px;
+      top: -190px;
+      border: 1px solid rgba(185, 151, 91, 0.36);
+      border-radius: 50%;
+      box-shadow:
+        inset 0 0 55px rgba(185, 151, 91, 0.08),
+        0 0 80px rgba(185, 151, 91, 0.12);
+      animation: slowRotate 22s linear infinite;
+    }
+
+    .content-card::after {
+      content: "";
+      position: absolute;
+      width: 270px;
+      height: 270px;
+      left: -120px;
+      bottom: -120px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 50%;
+      box-shadow: 0 0 85px rgba(185, 151, 91, 0.12);
+      animation: slowFloat 8s ease-in-out infinite;
+    }
+
+    .gold-line {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, transparent, var(--charlotte-gold), transparent);
+      opacity: 0.85;
     }
 
     @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(26px);
+      }
+
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
-    .content-card {
-      background: rgba(255, 255, 255, 0.10);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+    @keyframes slowRotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
-    .gold-link {
+    @keyframes slowFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-18px);
+      }
+    }
+
+    .main-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-kicker {
+      color: var(--charlotte-gold);
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    .page-title {
+      font-size: clamp(3rem, 6vw, 5.4rem);
+      font-weight: 800;
+      line-height: 0.98;
+      margin: 0;
+      color: #ffffff;
+      letter-spacing: -0.055em;
+    }
+
+    .page-title span {
       color: var(--charlotte-gold);
     }
 
-    .gold-link:hover {
-      color: #ffffff;
-      text-decoration: underline;
+    .page-subtitle {
+      color: #e5e7eb;
+      line-height: 1.75;
+      font-size: 1.08rem;
+      margin-top: 24px;
+      margin-bottom: 42px;
+      max-width: 820px;
+    }
+
+    .gold-rule {
+      width: 130px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--charlotte-gold), transparent);
+      margin-top: 26px;
+      margin-bottom: 38px;
+      border-radius: 99px;
     }
 
     .pub-list {
       display: flex;
       flex-direction: column;
-      gap: 3.2rem;
+      gap: 2.7rem;
     }
 
     .pub-row {
       display: grid;
-      grid-template-columns: 155px 1fr;
-      gap: 2.5rem;
+      grid-template-columns: 160px 1fr;
+      gap: 2.4rem;
       align-items: flex-start;
-      padding-bottom: 2.2rem;
+      padding-bottom: 2.4rem;
       border-bottom: 1px solid rgba(255,255,255,0.18);
     }
 
@@ -132,49 +289,65 @@
       color: var(--charlotte-green);
       font-weight: 800;
       font-size: 0.9rem;
-      padding: 0.5rem 1rem;
+      padding: 0.58rem 1rem;
       border-radius: 4px;
       text-align: center;
       box-shadow: 0 8px 18px rgba(0,0,0,0.25);
-      letter-spacing: 0.03em;
+      letter-spacing: 0.05em;
       white-space: nowrap;
+    }
+
+    .pub-details {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 20px;
+      padding: 1.65rem 1.75rem;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .pub-details:hover {
+      transform: translateY(-4px);
+      border-color: rgba(185, 151, 91, 0.68);
+      background: rgba(255, 255, 255, 0.11);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.18);
     }
 
     .pub-title {
       font-size: 1.35rem;
-      font-weight: 700;
+      font-weight: 800;
       line-height: 1.45;
       color: #ffffff;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.45rem;
     }
 
     .pub-authors {
-      font-size: 1.08rem;
+      font-size: 1.05rem;
       color: #f3f4f6;
-      margin-bottom: 0.25rem;
-      line-height: 1.5;
+      margin-bottom: 0.35rem;
+      line-height: 1.55;
     }
 
     .pub-venue {
-      font-size: 1.02rem;
+      font-size: 1rem;
       font-style: italic;
       line-height: 1.65;
       color: #e5e7eb;
     }
 
     .pub-buttons {
-      margin-top: 1rem;
+      margin-top: 1.15rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
     }
 
     .pub-buttons a {
       display: inline-block;
       border: 2px solid var(--charlotte-gold);
       color: #ffffff;
-      padding: 0.45rem 1.35rem;
-      margin-right: 0.75rem;
-      margin-bottom: 0.5rem;
-      border-radius: 4px;
-      font-weight: 700;
+      padding: 0.48rem 1.35rem;
+      border-radius: 5px;
+      font-weight: 800;
       text-decoration: none;
       transition: all 0.25s ease;
     }
@@ -182,20 +355,131 @@
     .pub-buttons a:hover {
       background: var(--charlotte-gold);
       color: var(--charlotte-green);
+      transform: translateY(-2px);
     }
 
-    @media (max-width: 768px) {
-      body {
-        overflow: auto;
+    .contact-strip {
+      margin-top: 44px;
+      padding-top: 26px;
+      border-top: 1px solid rgba(255,255,255,0.18);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      color: #e5e7eb;
+      font-size: 0.95rem;
+    }
+
+    .contact-strip a {
+      color: var(--charlotte-gold);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .contact-strip a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .page-transition {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.20), transparent 22%),
+        linear-gradient(135deg, var(--charlotte-gold), #d8c08a, var(--charlotte-green));
+      clip-path: circle(0% at 50% 50%);
+    }
+
+    .page-transition.slide-in {
+      animation: goldenReveal 0.75s cubic-bezier(.65,0,.35,1) forwards;
+    }
+
+    .page-transition.slide-out {
+      animation: goldenCover 0.75s cubic-bezier(.65,0,.35,1) forwards;
+    }
+
+    @keyframes goldenReveal {
+      0% {
+        opacity: 1;
+        clip-path: circle(150% at 50% 50%);
+      }
+
+      100% {
+        opacity: 1;
+        clip-path: circle(0% at 50% 50%);
+      }
+    }
+
+    @keyframes goldenCover {
+      0% {
+        opacity: 1;
+        clip-path: circle(0% at 50% 50%);
+      }
+
+      100% {
+        opacity: 1;
+        clip-path: circle(150% at 50% 50%);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .content-card {
+        padding: 42px 32px;
+      }
+
+      .main-content {
+        text-align: center;
+      }
+
+      .page-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .gold-rule {
+        margin-left: auto;
+        margin-right: auto;
+        background: linear-gradient(90deg, transparent, var(--charlotte-gold), transparent);
       }
 
       .pub-row {
         grid-template-columns: 1fr;
         gap: 1rem;
+        text-align: left;
       }
 
       .pub-badge {
         width: fit-content;
+      }
+
+      .contact-strip {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-wrap {
+        padding: 94px 16px 46px;
+      }
+
+      .content-card {
+        padding: 34px 22px;
+        border-radius: 22px;
+      }
+
+      .page-title {
+        font-size: 3rem;
+      }
+
+      .section-kicker {
+        font-size: 0.76rem;
+        letter-spacing: 0.11em;
+      }
+
+      .pub-details {
+        padding: 1.25rem;
       }
 
       .pub-title {
@@ -204,7 +488,7 @@
 
       .pub-authors,
       .pub-venue {
-        font-size: 0.98rem;
+        font-size: 0.96rem;
       }
     }
   </style>
@@ -212,20 +496,22 @@
 
 <body>
   <canvas id="constellation-canvas"></canvas>
+  <div class="page-transition"></div>
 
   <div id="content-container">
     <header class="top-header">
-      <a href="/">Irtiza Hasan</a>
+      <a href="/" class="brand">Irtiza Hasan</a>
 
       <nav class="navbar hidden md:flex">
+        <a href="/">Home</a>
         <a href="/education.html">Education</a>
-        <a href="/publications.html">Publications</a>
+        <a href="/publications.html" class="active">Publications</a>
         <a href="/service.html">Service</a>
         <a href="/gallery.html">Gallery</a>
       </nav>
 
       <div class="md:hidden">
-        <button id="mobile-menu-button" class="text-white focus:outline-none">
+        <button id="mobile-menu-button" class="text-white focus:outline-none" aria-label="Open mobile menu">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M4 6h16M4 12h16m-7 6h7">
@@ -237,91 +523,117 @@
 
     <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-black/80 backdrop-blur-sm z-10">
       <div class="flex flex-col items-center justify-center h-full text-white text-2xl space-y-8">
-        <a href="/education.html">Education</a>
-        <a href="/publications.html">Publications</a>
-        <a href="/service.html">Service</a>
-        <a href="/gallery.html">Gallery</a>
+        <a href="/" class="mobile-link">Home</a>
+        <a href="/education.html" class="mobile-link">Education</a>
+        <a href="/publications.html" class="mobile-link">Publications</a>
+        <a href="/service.html" class="mobile-link">Service</a>
+        <a href="/gallery.html" class="mobile-link">Gallery</a>
       </div>
     </div>
 
-    <main class="min-h-screen flex items-center justify-center px-4 pt-24 pb-20">
-      <div class="fade-in content-card rounded-xl shadow-lg w-full max-w-6xl mt-10 grid md:grid-cols-3 gap-10 p-10">
+    <main class="page-wrap">
+      <section class="content-card">
+        <div class="gold-line"></div>
 
-        <div class="md:col-span-1 text-center md:text-left">
-          <img src="/images/profile.png"
-               alt="Profile Photo"
-               class="w-48 h-48 rounded-full mx-auto md:mx-0 shadow-lg border-4 border-white/50">
+        <section class="main-content">
+          <div class="section-kicker">Research Output</div>
 
-          <h2 class="text-2xl font-bold mt-4 text-white">Irtiza Hasan</h2>
+          <h1 class="page-title">
+            Selected Publications<span>.</span>
+          </h1>
 
-          <p class="text-gray-200 mt-2">
-            <i class="fas fa-map-marker-alt mr-2"></i>Charlotte, North Carolina
+          <p class="page-subtitle">
+            My work focuses on information freshness, age of information, gossip networks,
+            scheduling, and signal-processing applications.
           </p>
 
-          <div class="mt-4 space-y-2 text-gray-200">
-            <p>
-              <i class="fas fa-envelope mr-2 w-4 text-center"></i>
-              <a href="mailto:ihasan@charlotte.edu" class="gold-link">ihasan@charlotte.edu</a>
-            </p>
-
-            <p>
-              <i class="fas fa-graduation-cap mr-2 w-4 text-center"></i>
-              <a href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ" target="_blank" class="gold-link">Google Scholar</a>
-            </p>
-          </div>
-        </div>
-
-        <div class="md:col-span-2">
-          <h1 class="text-5xl font-semibold mb-12" style="color: var(--charlotte-gold);">
-            Selected Publications
-          </h1>
+          <div class="gold-rule"></div>
 
           <div class="pub-list">
 
             <div class="pub-row">
               <div class="pub-badge">ICC</div>
+
               <div class="pub-details">
-                <div class="pub-title">Transmit or Idle: Efficient AoI Optimal Transmission Policy for Gossiping Receivers</div>
-                <div class="pub-authors"><strong>Irtiza Hasan</strong> and Ahmed Arafa</div>
-                <div class="pub-venue">In IEEE International Conference on Communications (ICC), Glasgow, Scotland, 2026</div>
+                <div class="pub-title">
+                  Transmit or Idle: Efficient AoI Optimal Transmission Policy for Gossiping Receivers
+                </div>
+
+                <div class="pub-authors">
+                  <strong>Irtiza Hasan</strong> and Ahmed Arafa
+                </div>
+
+                <div class="pub-venue">
+                  In IEEE International Conference on Communications (ICC), Glasgow, Scotland, 2026
+                </div>
+
                 <div class="pub-buttons">
-                  <a href="https://arxiv.org/abs/2602.12264" target="_blank">ABS</a>
-                  <a href="https://arxiv.org/pdf/2602.12264" target="_blank">PDF</a>
+                  <a href="https://arxiv.org/abs/2602.12264" target="_blank">arXiv</a>
                 </div>
               </div>
             </div>
 
             <div class="pub-row">
               <div class="pub-badge">ASILOMAR</div>
+
               <div class="pub-details">
-                <div class="pub-title">RC-Gossip: Information Freshness in Clustered Networks with Rate-Changing Gossip</div>
-                <div class="pub-authors"><strong>Irtiza Hasan</strong> and Ahmed Arafa</div>
-                <div class="pub-venue">In 59th Asilomar Conference on Signals, Systems, and Computers, Pacific Grove, California, 2025</div>
+                <div class="pub-title">
+                  RC-Gossip: Information Freshness in Clustered Networks with Rate-Changing Gossip
+                </div>
+
+                <div class="pub-authors">
+                  <strong>Irtiza Hasan</strong> and Ahmed Arafa
+                </div>
+
+                <div class="pub-venue">
+                  In 59th Asilomar Conference on Signals, Systems, and Computers, Pacific Grove, California, 2025
+                </div>
+
                 <div class="pub-buttons">
-                  <a href="https://arxiv.org/abs/2508.02657" target="_blank">ABS</a>
-                  <a href="https://drive.google.com/file/d/1v9_6l-k2eTlD_uGeJJm0-b4Ozv7ixfH0/view?usp=sharing" target="_blank">POSTER</a>
+                  <a href="https://arxiv.org/abs/2508.02657" target="_blank">arXiv</a>
+                  <a href="https://drive.google.com/file/d/1v9_6l-k2eTlD_uGeJJm0-b4Ozv7ixfH0/view?usp=sharing" target="_blank">Poster</a>
                 </div>
               </div>
             </div>
 
             <div class="pub-row">
               <div class="pub-badge">ALLERTON</div>
+
               <div class="pub-details">
-                <div class="pub-title">Version Age of Information with Contact Mobility in Gossip Networks</div>
-                <div class="pub-authors"><strong>Irtiza Hasan</strong> and Ahmed Arafa</div>
-                <div class="pub-venue">In 61st Allerton Conference on Communication, Control, and Computing, Urbana-Champaign, Illinois, 2025</div>
+                <div class="pub-title">
+                  Version Age of Information with Contact Mobility in Gossip Networks
+                </div>
+
+                <div class="pub-authors">
+                  <strong>Irtiza Hasan</strong> and Ahmed Arafa
+                </div>
+
+                <div class="pub-venue">
+                  In 61st Allerton Conference on Communication, Control, and Computing, Urbana-Champaign, Illinois, 2025
+                </div>
+
                 <div class="pub-buttons">
-                  <a href="https://arxiv.org/abs/2509.15184" target="_blank">ABS</a>
+                  <a href="https://arxiv.org/abs/2509.15184" target="_blank">arXiv</a>
                 </div>
               </div>
             </div>
 
             <div class="pub-row">
               <div class="pub-badge">KPEC</div>
+
               <div class="pub-details">
-                <div class="pub-title">Optimal Scheduling of Thermostatically Controlled and Energy Constrained Electric Loads Under Real Time Pricing</div>
-                <div class="pub-authors"><strong>Irtiza Hasan</strong>, A. M. El-Shazly, M. J. Hassan, and M. Islam</div>
-                <div class="pub-venue">In IEEE Kansas Power and Energy Conference (KPEC), Manhattan, Kansas, 2025</div>
+                <div class="pub-title">
+                  Optimal Scheduling of Thermostatically Controlled and Energy Constrained Electric Loads Under Real Time Pricing
+                </div>
+
+                <div class="pub-authors">
+                  <strong>Irtiza Hasan</strong>, A. M. El-Shazly, M. J. Hassan, and M. Islam
+                </div>
+
+                <div class="pub-venue">
+                  In IEEE Kansas Power and Energy Conference (KPEC), Manhattan, Kansas, 2025
+                </div>
+
                 <div class="pub-buttons">
                   <a href="https://ieeexplore.ieee.org/document/11045042" target="_blank">IEEE</a>
                 </div>
@@ -330,10 +642,20 @@
 
             <div class="pub-row">
               <div class="pub-badge">BECITHCON</div>
+
               <div class="pub-details">
-                <div class="pub-title">A Framework for Early Diabetes Prediction and Interpretation: Sex-specific Factor Analysis Approach Using Ensemble Classifiers</div>
-                <div class="pub-authors"><strong>Irtiza Hasan</strong>, M. Islam, M. E. Hoque, and S. J. Jim</div>
-                <div class="pub-venue">In IEEE BECITHCON, Dhaka, Bangladesh, 2024</div>
+                <div class="pub-title">
+                  A Framework for Early Diabetes Prediction and Interpretation: Sex-specific Factor Analysis Approach Using Ensemble Classifiers
+                </div>
+
+                <div class="pub-authors">
+                  <strong>Irtiza Hasan</strong>, M. Islam, M. E. Hoque, and S. J. Jim
+                </div>
+
+                <div class="pub-venue">
+                  In IEEE BECITHCON, Dhaka, Bangladesh, 2024
+                </div>
+
                 <div class="pub-buttons">
                   <a href="https://ieeexplore.ieee.org/document/10962795" target="_blank">IEEE</a>
                 </div>
@@ -342,10 +664,20 @@
 
             <div class="pub-row">
               <div class="pub-badge">TENSYMP</div>
+
               <div class="pub-details">
-                <div class="pub-title">Electrohysterography based Preterm Birth Classification in the CEEMDAN Domain</div>
-                <div class="pub-authors"><strong>Irtiza Hasan</strong>, A. Das, and M. I. H. Bhuiyan</div>
-                <div class="pub-venue">In IEEE TENSYMP, Kolkata, India, 2019</div>
+                <div class="pub-title">
+                  Electrohysterography based Preterm Birth Classification in the CEEMDAN Domain
+                </div>
+
+                <div class="pub-authors">
+                  <strong>Irtiza Hasan</strong>, A. Das, and M. I. H. Bhuiyan
+                </div>
+
+                <div class="pub-venue">
+                  In IEEE TENSYMP, Kolkata, India, 2019
+                </div>
+
                 <div class="pub-buttons">
                   <a href="https://ieeexplore.ieee.org/document/8971114" target="_blank">IEEE</a>
                 </div>
@@ -354,10 +686,20 @@
 
             <div class="pub-row">
               <div class="pub-badge">IC4ME2</div>
+
               <div class="pub-details">
-                <div class="pub-title">Nonlinear Temporal Analysis of Uterine EMG for Preterm Birth Classification</div>
-                <div class="pub-authors"><strong>Irtiza Hasan</strong>, A. Das, and M. I. H. Bhuiyan</div>
-                <div class="pub-venue">In IC4ME2, Rajshahi, Bangladesh, 2019</div>
+                <div class="pub-title">
+                  Nonlinear Temporal Analysis of Uterine EMG for Preterm Birth Classification
+                </div>
+
+                <div class="pub-authors">
+                  <strong>Irtiza Hasan</strong>, A. Das, and M. I. H. Bhuiyan
+                </div>
+
+                <div class="pub-venue">
+                  In IC4ME2, Rajshahi, Bangladesh, 2019
+                </div>
+
                 <div class="pub-buttons">
                   <a href="https://ieeexplore.ieee.org/document/9036595" target="_blank">IEEE</a>
                 </div>
@@ -365,9 +707,15 @@
             </div>
 
           </div>
-        </div>
 
-      </div>
+          <div class="contact-strip">
+            <span><i class="fas fa-map-marker-alt mr-2"></i>Charlotte, North Carolina</span>
+            <span><i class="fas fa-envelope mr-2"></i><a href="mailto:ihasan@charlotte.edu">ihasan@charlotte.edu</a></span>
+            <span><i class="fas fa-graduation-cap mr-2"></i><a href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ" target="_blank">Google Scholar</a></span>
+          </div>
+        </section>
+
+      </section>
     </main>
   </div>
 
@@ -381,6 +729,46 @@
           mobileMenu.classList.toggle('hidden');
         });
       }
+
+      const transition = document.querySelector(".page-transition");
+
+      if (transition) {
+        transition.classList.add("slide-in");
+
+        setTimeout(() => {
+          transition.classList.remove("slide-in");
+        }, 780);
+      }
+
+      const links = document.querySelectorAll("a[href]");
+
+      links.forEach(link => {
+        const href = link.getAttribute("href");
+
+        const isInternalPage =
+          href &&
+          !href.startsWith("#") &&
+          !href.startsWith("mailto:") &&
+          !href.startsWith("tel:") &&
+          !href.startsWith("http") &&
+          !link.hasAttribute("target");
+
+        if (isInternalPage) {
+          link.addEventListener("click", event => {
+            event.preventDefault();
+
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+              mobileMenu.classList.add('hidden');
+            }
+
+            transition.classList.add("slide-out");
+
+            setTimeout(() => {
+              window.location.href = href;
+            }, 730);
+          });
+        }
+      });
     });
   </script>
 
