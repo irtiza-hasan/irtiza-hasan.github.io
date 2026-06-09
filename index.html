@@ -1,280 +1,709 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Irtiza Hasan - Home</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <title>Irtiza Hasan - Home</title>
 
-<meta property="og:title" content="Irtiza Hasan">
-<meta property="og:description" content="Ph.D. Student | Electrical and Computer Engineering | UNC Charlotte">
-<meta property="og:image" content="/images/profile.png">
-<meta property="og:url" content="https://irtiza-hasan.github.io/">
-<meta property="og:type" content="website">
+  <meta property="og:title" content="Irtiza Hasan">
+  <meta property="og:description" content="Ph.D. Student | Electrical and Computer Engineering | UNC Charlotte">
+  <meta property="og:image" content="/images/profile.png">
+  <meta property="og:url" content="https://irtiza-hasan.github.io/">
+  <meta property="og:type" content="website">
 
-<script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<style>
+  <style>
     :root {
-        --charlotte-green: #004F2D;
-        --charlotte-gold: #B9975B;
+      --charlotte-green: #004F2D;
+      --charlotte-gold: #B9975B;
+      --page-green: #006B3F;
+      --soft-white: rgba(255, 255, 255, 0.88);
+      --glass-bg: rgba(255, 255, 255, 0.10);
+      --glass-border: rgba(255, 255, 255, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-        font-family: 'Poppins', sans-serif;
-        color: #222222;
-        margin: 0;
-        background-color: #006B3F;
-    }
-
-    .top-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 60px;
-        background: var(--charlotte-green);
-        color: white;
-        z-index: 20;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-    }
-
-    .top-header a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 1.2rem;
-    }
-
-    .navbar a {
-        font-size: 1rem;
-        font-weight: 500;
-        margin-left: 20px;
-        transition: color 0.3s ease;
-    }
-
-    .navbar a:hover {
-        color: var(--charlotte-gold);
-    }
-
-    .gradient-text {
-        background: linear-gradient(to right, #ffffff, #B9975B);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
-    }
-
-    .cursor {
-        display: inline-block;
-        font-weight: bold;
-        animation: blink 0.7s infinite;
-    }
-
-    @keyframes blink {
-        50% {
-            opacity: 0;
-        }
+      font-family: 'Poppins', sans-serif;
+      color: #ffffff;
+      margin: 0;
+      background-color: var(--page-green);
+      overflow-x: hidden;
     }
 
     #constellation-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
     }
 
-    main {
-        position: relative;
-        z-index: 1;
-        background-color: transparent;
+    #content-container {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      background-color: transparent;
     }
-</style>
-```
 
+    .top-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: rgba(0, 79, 45, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: white;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      border-bottom: 1px solid rgba(185, 151, 91, 0.32);
+    }
+
+    .brand {
+      color: white;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: 0.01em;
+    }
+
+    .brand:hover {
+      color: var(--charlotte-gold);
+    }
+
+    .navbar a {
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-left: 22px;
+      text-decoration: none;
+      transition: color 0.25s ease, transform 0.25s ease;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+    }
+
+    .navbar a:hover {
+      color: var(--charlotte-gold);
+      transform: translateY(-1px);
+    }
+
+    .navbar a.active {
+      color: var(--charlotte-gold);
+    }
+
+    .mobile-link {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .mobile-link:hover {
+      color: var(--charlotte-gold);
+    }
+
+    .hero-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 110px 24px 70px;
+    }
+
+    .hero-card {
+      width: 100%;
+      max-width: 1120px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(9px);
+      -webkit-backdrop-filter: blur(9px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+      padding: 44px;
+      display: grid;
+      grid-template-columns: 0.95fr 1.55fr;
+      gap: 44px;
+      align-items: center;
+      animation: fadeInUp 0.85s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-panel {
+      text-align: center;
+      padding: 28px 22px;
+      border-radius: 20px;
+      background: rgba(0, 79, 45, 0.28);
+      border: 1px solid rgba(185, 151, 91, 0.25);
+    }
+
+    .profile-img {
+      width: 210px;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 999px;
+      margin: 0 auto;
+      border: 4px solid rgba(255, 255, 255, 0.60);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.30);
+    }
+
+    .profile-name {
+      margin-top: 20px;
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .profile-role {
+      margin-top: 7px;
+      color: #e5e7eb;
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .gold-link {
+      color: var(--charlotte-gold);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .gold-link:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .hero-kicker {
+      color: var(--charlotte-gold);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.55rem, 6vw, 5.15rem);
+      font-weight: 800;
+      line-height: 1.04;
+      margin: 0;
+      color: white;
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #ffffff, var(--charlotte-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cursor {
+      display: inline-block;
+      font-weight: 800;
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .hero-subtitle {
+      margin-top: 18px;
+      color: #f3f4f6;
+      font-size: 1.18rem;
+      line-height: 1.75;
+      max-width: 680px;
+    }
+
+    .hero-subtitle strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .research-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .research-pill {
+      border: 1px solid rgba(185, 151, 91, 0.72);
+      color: #ffffff;
+      background: rgba(0, 79, 45, 0.35);
+      border-radius: 999px;
+      padding: 9px 15px;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .hero-buttons {
+      margin-top: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .hero-button {
+      display: inline-block;
+      border: 2px solid var(--charlotte-gold);
+      color: #ffffff;
+      padding: 0.75rem 1.35rem;
+      border-radius: 7px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-button:hover {
+      background: var(--charlotte-gold);
+      color: var(--charlotte-green);
+      transform: translateY(-2px);
+    }
+
+    .hero-button.primary {
+      background: var(--charlotte-gold);
+      color: var(--charlotte-green);
+    }
+
+    .hero-button.primary:hover {
+      background: #ffffff;
+      border-color: #ffffff;
+      color: var(--charlotte-green);
+    }
+
+    .quick-stats {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .stat-card {
+      padding: 16px 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .stat-number {
+      color: var(--charlotte-gold);
+      font-weight: 800;
+      font-size: 1.35rem;
+    }
+
+    .stat-label {
+      color: #e5e7eb;
+      font-size: 0.82rem;
+      margin-top: 3px;
+      line-height: 1.35;
+    }
+
+    .page-transition {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--page-green);
+      transform: translateY(100%);
+      pointer-events: none;
+    }
+
+    .page-transition.slide-in {
+      animation: slideInPage 0.55s ease forwards;
+    }
+
+    .page-transition.slide-out {
+      animation: slideOutPage 0.55s ease forwards;
+    }
+
+    @keyframes slideInPage {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-100%);
+      }
+    }
+
+    @keyframes slideOutPage {
+      from {
+        transform: translateY(100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero-card {
+        grid-template-columns: 1fr;
+        padding: 32px 24px;
+        gap: 30px;
+      }
+
+      .profile-panel {
+        max-width: 420px;
+        margin: 0 auto;
+      }
+
+      .hero-content {
+        text-align: center;
+      }
+
+      .hero-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .research-strip,
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .quick-stats {
+        max-width: 520px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-wrap {
+        padding: 94px 16px 46px;
+      }
+
+      .hero-card {
+        padding: 26px 18px;
+        border-radius: 20px;
+      }
+
+      .profile-img {
+        width: 170px;
+        height: 170px;
+      }
+
+      .quick-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-title {
+        font-size: 2.7rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <canvas id="constellation-canvas"></canvas>
+  <canvas id="constellation-canvas"></canvas>
+  <div class="page-transition"></div>
 
-```
-<header class="top-header">
-    <a href="/">Irtiza Hasan</a>
+  <div id="content-container">
+    <header class="top-header">
+      <a href="/" class="brand">Irtiza Hasan</a>
 
-    <nav class="navbar hidden md:flex">
+      <nav class="navbar hidden md:flex">
+        <a href="/" class="active">Home</a>
         <a href="/education.html">Education</a>
         <a href="/publications.html">Publications</a>
         <a href="/service.html">Service</a>
         <a href="/gallery.html">Gallery</a>
-    </nav>
+      </nav>
 
-    <div class="md:hidden">
-        <button id="mobile-menu-button" class="text-white focus:outline-none">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M4 6h16M4 12h16m-7 6h7">
-                </path>
-            </svg>
+      <div class="md:hidden">
+        <button id="mobile-menu-button" class="text-white focus:outline-none" aria-label="Open mobile menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7">
+            </path>
+          </svg>
         </button>
-    </div>
-</header>
+      </div>
+    </header>
 
-<div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-black/80 backdrop-blur-sm z-10">
-    <div class="flex flex-col items-center justify-center h-full text-white text-2xl space-y-8">
-        <a href="/education.html">Education</a>
-        <a href="/publications.html">Publications</a>
-        <a href="/service.html">Service</a>
-        <a href="/gallery.html">Gallery</a>
+    <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-black/80 backdrop-blur-sm z-10">
+      <div class="flex flex-col items-center justify-center h-full text-white text-2xl space-y-8">
+        <a href="/" class="mobile-link">Home</a>
+        <a href="/education.html" class="mobile-link">Education</a>
+        <a href="/publications.html" class="mobile-link">Publications</a>
+        <a href="/service.html" class="mobile-link">Service</a>
+        <a href="/gallery.html" class="mobile-link">Gallery</a>
+      </div>
     </div>
-</div>
 
-<main class="min-h-screen flex flex-col justify-center items-center text-center p-8 md:p-12 pt-[60px]">
-    <div class="max-w-xl">
-        <h1 class="text-5xl md:text-6xl font-bold text-white mb-3">
+    <main class="hero-wrap">
+      <section class="hero-card">
+
+        <aside class="profile-panel">
+          <img src="/images/profile.png"
+               alt="Profile Photo"
+               class="profile-img">
+
+          <h2 class="profile-name">Irtiza Hasan</h2>
+
+          <p class="profile-role">
+            Ph.D. Student<br>
+            Electrical & Computer Engineering<br>
+            UNC Charlotte
+          </p>
+
+          <div class="mt-5 space-y-2 text-gray-200 text-sm">
+            <p>Charlotte, North Carolina</p>
+            <p>
+              <a href="mailto:ihasan@charlotte.edu" class="gold-link">ihasan@charlotte.edu</a>
+            </p>
+            <p>
+              <a href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ" target="_blank" class="gold-link">Google Scholar</a>
+            </p>
+          </div>
+        </aside>
+
+        <section class="hero-content">
+          <div class="hero-kicker">UNC Charlotte · ECE · Information Freshness</div>
+
+          <h1 class="hero-title">
             Hi, I'm <span id="typewriter-name" class="gradient-text"></span><span class="cursor gradient-text">|</span>
-        </h1>
+          </h1>
 
-        <p class="text-lg text-gray-300 max-w-2xl mx-auto">
-            Ph.D. Student | Electrical & Computer Engineering | UNC Charlotte
-        </p>
-    </div>
-</main>
+          <p class="hero-subtitle">
+            I am a Ph.D. student in <strong>Electrical and Computer Engineering</strong> at
+            <strong>UNC Charlotte</strong>. My research focuses on information freshness,
+            age of information, gossip networks, and scheduling policies for networked systems.
+          </p>
 
-<script>
+          <div class="research-strip">
+            <span class="research-pill">Age of Information</span>
+            <span class="research-pill">Gossip Networks</span>
+            <span class="research-pill">Scheduling</span>
+            <span class="research-pill">Wireless Networks</span>
+          </div>
+
+          <div class="hero-buttons">
+            <a href="/publications.html" class="hero-button primary">View Publications</a>
+            <a href="/education.html" class="hero-button">Education</a>
+            <a href="mailto:ihasan@charlotte.edu" class="hero-button">Contact</a>
+          </div>
+
+          <div class="quick-stats">
+            <div class="stat-card">
+              <div class="stat-number">Ph.D.</div>
+              <div class="stat-label">ECE at UNC Charlotte</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-number">AoI</div>
+              <div class="stat-label">Information freshness research</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-number">IEEE</div>
+              <div class="stat-label">Conference publications</div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+    </main>
+  </div>
+
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
 
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.onclick = () => mobileMenu.classList.toggle('hidden');
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      const nameElement = document.getElementById('typewriter-name');
+
+      if (nameElement) {
+        const cursorElement = document.querySelector('.cursor');
+        const text = "Irtiza Hasan";
+        let index = 0;
+
+        nameElement.textContent = '';
+
+        function type() {
+          if (index < text.length) {
+            nameElement.textContent += text.charAt(index);
+            index++;
+            setTimeout(type, 115);
+          } else if (cursorElement) {
+            setTimeout(() => {
+              cursorElement.style.display = 'none';
+            }, 500);
+          }
         }
 
-        const nameElement = document.getElementById('typewriter-name');
+        setTimeout(type, 650);
+      }
 
-        if (nameElement) {
-            const cursorElement = document.querySelector('.cursor');
-            const text = "Irtiza Hasan";
-            let index = 0;
+      const transition = document.querySelector(".page-transition");
 
-            nameElement.textContent = '';
+      if (transition) {
+        transition.classList.add("slide-in");
 
-            function type() {
-                if (index < text.length) {
-                    nameElement.textContent += text.charAt(index++);
-                    setTimeout(type, 150);
-                } else if (cursorElement) {
-                    cursorElement.style.display = 'none';
-                }
+        setTimeout(() => {
+          transition.classList.remove("slide-in");
+        }, 600);
+      }
+
+      const links = document.querySelectorAll("a[href]");
+
+      links.forEach(link => {
+        const href = link.getAttribute("href");
+
+        const isInternalPage =
+          href &&
+          !href.startsWith("#") &&
+          !href.startsWith("mailto:") &&
+          !href.startsWith("tel:") &&
+          !href.startsWith("http") &&
+          !link.hasAttribute("target");
+
+        if (isInternalPage) {
+          link.addEventListener("click", event => {
+            event.preventDefault();
+
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+              mobileMenu.classList.add('hidden');
             }
 
-            setTimeout(type, 1000);
-        }
-    });
-</script>
+            transition.classList.add("slide-out");
 
-<script>
+            setTimeout(() => {
+              window.location.href = href;
+            }, 550);
+          });
+        }
+      });
+    });
+  </script>
+
+  <script>
     const canvas = document.getElementById('constellation-canvas');
     const ctx = canvas.getContext('2d');
     let stars = [];
     const numStars = window.innerWidth > 768 ? 150 : 50;
 
     function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        stars = [];
-        init();
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = [];
+      init();
     }
 
     window.addEventListener('resize', resizeCanvas);
 
     class Star {
-        constructor(x, y, radius, dx, dy) {
-            this.x = x;
-            this.y = y;
-            this.radius = radius;
-            this.dx = dx;
-            this.dy = dy;
+      constructor(x, y, radius, dx, dy) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.dx = dx;
+        this.dy = dy;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.fill();
+      }
+
+      update() {
+        if (this.x > canvas.width || this.x < 0) {
+          this.dx = -this.dx;
         }
 
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-            ctx.fill();
+        if (this.y > canvas.height || this.y < 0) {
+          this.dy = -this.dy;
         }
 
-        update() {
-            if (this.x > canvas.width || this.x < 0) {
-                this.dx = -this.dx;
-            }
-
-            if (this.y > canvas.height || this.y < 0) {
-                this.dy = -this.dy;
-            }
-
-            this.x += this.dx;
-            this.y += this.dy;
-            this.draw();
-        }
+        this.x += this.dx;
+        this.y += this.dy;
+        this.draw();
+      }
     }
 
     function init() {
-        for (let i = 0; i < numStars; i++) {
-            let radius = Math.random() * 2 + 1;
-            let x = Math.random() * (canvas.width - radius * 2) + radius;
-            let y = Math.random() * (canvas.height - radius * 2) + radius;
-            let dx = (Math.random() - 0.5) * 0.5;
-            let dy = (Math.random() - 0.5) * 0.5;
+      for (let i = 0; i < numStars; i++) {
+        let radius = Math.random() * 2 + 1;
+        let x = Math.random() * (canvas.width - radius * 2) + radius;
+        let y = Math.random() * (canvas.height - radius * 2) + radius;
+        let dx = (Math.random() - 0.5) * 0.5;
+        let dy = (Math.random() - 0.5) * 0.5;
 
-            stars.push(new Star(x, y, radius, dx, dy));
-        }
+        stars.push(new Star(x, y, radius, dx, dy));
+      }
     }
 
     function connect() {
-        let opacityValue = 1;
+      let opacityValue = 1;
 
-        for (let a = 0; a < stars.length; a++) {
-            for (let b = a; b < stars.length; b++) {
-                let distance =
-                    ((stars[a].x - stars[b].x) * (stars[a].x - stars[b].x)) +
-                    ((stars[a].y - stars[b].y) * (stars[a].y - stars[b].y));
+      for (let a = 0; a < stars.length; a++) {
+        for (let b = a; b < stars.length; b++) {
+          let distance =
+            ((stars[a].x - stars[b].x) * (stars[a].x - stars[b].x)) +
+            ((stars[a].y - stars[b].y) * (stars[a].y - stars[b].y));
 
-                if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                    opacityValue = 1 - (distance / 20000);
-                    ctx.strokeStyle = `rgba(185, 151, 91, ${opacityValue})`;
-                    ctx.lineWidth = 1;
-                    ctx.beginPath();
-                    ctx.moveTo(stars[a].x, stars[a].y);
-                    ctx.lineTo(stars[b].x, stars[b].y);
-                    ctx.stroke();
-                }
-            }
+          if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+            opacityValue = 1 - (distance / 20000);
+            ctx.strokeStyle = `rgba(185, 151, 91, ${opacityValue})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(stars[a].x, stars[a].y);
+            ctx.lineTo(stars[b].x, stars[b].y);
+            ctx.stroke();
+          }
         }
+      }
     }
 
     function animate() {
-        requestAnimationFrame(animate);
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        for (let star of stars) {
-            star.update();
-        }
+      for (let star of stars) {
+        star.update();
+      }
 
-        connect();
+      connect();
     }
 
     resizeCanvas();
     animate();
-</script>
-
-
+  </script>
 </body>
 </html>
