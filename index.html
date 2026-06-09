@@ -21,7 +21,8 @@
       --charlotte-green: #004F2D;
       --charlotte-gold: #B9975B;
       --page-green: #006B3F;
-      --soft-white: rgba(255, 255, 255, 0.88);
+      --deep-green: #003D24;
+      --soft-gold: rgba(185, 151, 91, 0.86);
       --glass-bg: rgba(255, 255, 255, 0.10);
       --glass-border: rgba(255, 255, 255, 0.18);
     }
@@ -51,6 +52,18 @@
       z-index: 0;
     }
 
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 25%, rgba(185, 151, 91, 0.18), transparent 28%),
+        radial-gradient(circle at 82% 76%, rgba(255, 255, 255, 0.10), transparent 30%),
+        linear-gradient(135deg, rgba(0, 79, 45, 0.25), rgba(0, 61, 36, 0.45));
+    }
+
     #content-container {
       position: relative;
       z-index: 1;
@@ -73,7 +86,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 22px;
-      border-bottom: 1px solid rgba(185, 151, 91, 0.32);
+      border-bottom: 1px solid rgba(185, 151, 91, 0.35);
     }
 
     .brand {
@@ -82,6 +95,7 @@
       font-weight: 800;
       font-size: 1.2rem;
       letter-spacing: 0.01em;
+      transition: color 0.25s ease;
     }
 
     .brand:hover {
@@ -126,26 +140,89 @@
     }
 
     .hero-card {
+      position: relative;
       width: 100%;
-      max-width: 1120px;
+      max-width: 1080px;
+      min-height: 560px;
       background: var(--glass-bg);
-      backdrop-filter: blur(9px);
-      -webkit-backdrop-filter: blur(9px);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
-      padding: 44px;
-      display: grid;
-      grid-template-columns: 0.95fr 1.55fr;
-      gap: 44px;
+      border-radius: 28px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.27);
+      overflow: hidden;
+      padding: 64px;
+      display: flex;
       align-items: center;
-      animation: fadeInUp 0.85s ease forwards;
+      animation: fadeInUp 0.9s ease forwards;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      right: -170px;
+      top: -120px;
+      border: 1px solid rgba(185, 151, 91, 0.36);
+      border-radius: 50%;
+      box-shadow:
+        inset 0 0 55px rgba(185, 151, 91, 0.08),
+        0 0 80px rgba(185, 151, 91, 0.12);
+      animation: slowRotate 18s linear infinite;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      right: 70px;
+      bottom: -180px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 50%;
+      box-shadow: 0 0 85px rgba(185, 151, 91, 0.12);
+      animation: slowFloat 8s ease-in-out infinite;
+    }
+
+    .gold-orbit {
+      position: absolute;
+      right: 120px;
+      top: 110px;
+      width: 165px;
+      height: 165px;
+      border-radius: 50%;
+      border: 2px solid rgba(185, 151, 91, 0.58);
+      opacity: 0.85;
+      animation: orbitPulse 4s ease-in-out infinite;
+    }
+
+    .gold-orbit::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      width: 18px;
+      height: 18px;
+      background: var(--charlotte-gold);
+      border-radius: 50%;
+      box-shadow: 0 0 22px rgba(185, 151, 91, 0.9);
+    }
+
+    .gold-line {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, transparent, var(--charlotte-gold), transparent);
+      opacity: 0.85;
     }
 
     @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(24px);
+        transform: translateY(26px);
       }
 
       to {
@@ -154,64 +231,60 @@
       }
     }
 
-    .profile-panel {
-      text-align: center;
-      padding: 28px 22px;
-      border-radius: 20px;
-      background: rgba(0, 79, 45, 0.28);
-      border: 1px solid rgba(185, 151, 91, 0.25);
+    @keyframes slowRotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
-    .profile-img {
-      width: 210px;
-      height: 210px;
-      object-fit: cover;
-      border-radius: 999px;
-      margin: 0 auto;
-      border: 4px solid rgba(255, 255, 255, 0.60);
-      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.30);
+    @keyframes slowFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-18px);
+      }
     }
 
-    .profile-name {
-      margin-top: 20px;
-      font-size: 1.65rem;
-      font-weight: 800;
-      color: #ffffff;
+    @keyframes orbitPulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.62;
+      }
+
+      50% {
+        transform: scale(1.08);
+        opacity: 1;
+      }
     }
 
-    .profile-role {
-      margin-top: 7px;
-      color: #e5e7eb;
-      font-size: 0.98rem;
-      line-height: 1.55;
-    }
-
-    .gold-link {
-      color: var(--charlotte-gold);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .gold-link:hover {
-      color: white;
-      text-decoration: underline;
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
     }
 
     .hero-kicker {
       color: var(--charlotte-gold);
       font-weight: 800;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      font-size: 0.88rem;
-      margin-bottom: 12px;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
     }
 
     .hero-title {
-      font-size: clamp(2.55rem, 6vw, 5.15rem);
+      font-size: clamp(3.2rem, 7vw, 6.6rem);
       font-weight: 800;
-      line-height: 1.04;
+      line-height: 0.98;
       margin: 0;
       color: white;
+      letter-spacing: -0.055em;
     }
 
     .gradient-text {
@@ -234,11 +307,11 @@
     }
 
     .hero-subtitle {
-      margin-top: 18px;
+      margin-top: 28px;
       color: #f3f4f6;
-      font-size: 1.18rem;
-      line-height: 1.75;
-      max-width: 680px;
+      font-size: 1.25rem;
+      line-height: 1.8;
+      max-width: 720px;
     }
 
     .hero-subtitle strong {
@@ -246,25 +319,29 @@
       font-weight: 700;
     }
 
-    .research-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 24px;
+    .gold-rule {
+      width: 120px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--charlotte-gold), transparent);
+      margin-top: 30px;
+      margin-bottom: 30px;
+      border-radius: 99px;
     }
 
-    .research-pill {
-      border: 1px solid rgba(185, 151, 91, 0.72);
-      color: #ffffff;
-      background: rgba(0, 79, 45, 0.35);
-      border-radius: 999px;
-      padding: 9px 15px;
-      font-size: 0.92rem;
-      font-weight: 600;
+    .hero-focus {
+      color: #e5e7eb;
+      font-size: 1.02rem;
+      line-height: 1.8;
+      max-width: 700px;
+    }
+
+    .hero-focus span {
+      color: var(--charlotte-gold);
+      font-weight: 700;
     }
 
     .hero-buttons {
-      margin-top: 32px;
+      margin-top: 36px;
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
@@ -274,7 +351,7 @@
       display: inline-block;
       border: 2px solid var(--charlotte-gold);
       color: #ffffff;
-      padding: 0.75rem 1.35rem;
+      padding: 0.78rem 1.42rem;
       border-radius: 7px;
       font-weight: 800;
       text-decoration: none;
@@ -286,6 +363,7 @@
       background: var(--charlotte-gold);
       color: var(--charlotte-green);
       transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.18);
     }
 
     .hero-button.primary {
@@ -299,100 +377,75 @@
       color: var(--charlotte-green);
     }
 
-    .quick-stats {
-      margin-top: 34px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .stat-card {
-      padding: 16px 14px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-    }
-
-    .stat-number {
-      color: var(--charlotte-gold);
-      font-weight: 800;
-      font-size: 1.35rem;
-    }
-
-    .stat-label {
-      color: #e5e7eb;
-      font-size: 0.82rem;
-      margin-top: 3px;
-      line-height: 1.35;
-    }
-
     .page-transition {
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: var(--page-green);
-      transform: translateY(100%);
       pointer-events: none;
+      opacity: 0;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.20), transparent 22%),
+        linear-gradient(135deg, var(--charlotte-gold), #d8c08a, var(--charlotte-green));
+      clip-path: circle(0% at 50% 50%);
     }
 
     .page-transition.slide-in {
-      animation: slideInPage 0.55s ease forwards;
+      animation: goldenReveal 0.75s cubic-bezier(.65,0,.35,1) forwards;
     }
 
     .page-transition.slide-out {
-      animation: slideOutPage 0.55s ease forwards;
+      animation: goldenCover 0.75s cubic-bezier(.65,0,.35,1) forwards;
     }
 
-    @keyframes slideInPage {
-      from {
-        transform: translateY(0);
+    @keyframes goldenReveal {
+      0% {
+        opacity: 1;
+        clip-path: circle(150% at 50% 50%);
       }
 
-      to {
-        transform: translateY(-100%);
+      100% {
+        opacity: 1;
+        clip-path: circle(0% at 50% 50%);
       }
     }
 
-    @keyframes slideOutPage {
-      from {
-        transform: translateY(100%);
+    @keyframes goldenCover {
+      0% {
+        opacity: 1;
+        clip-path: circle(0% at 50% 50%);
       }
 
-      to {
-        transform: translateY(0);
+      100% {
+        opacity: 1;
+        clip-path: circle(150% at 50% 50%);
       }
     }
 
     @media (max-width: 900px) {
       .hero-card {
-        grid-template-columns: 1fr;
-        padding: 32px 24px;
-        gap: 30px;
+        padding: 44px 34px;
+        min-height: auto;
       }
 
-      .profile-panel {
-        max-width: 420px;
-        margin: 0 auto;
+      .gold-orbit {
+        right: -35px;
+        top: 80px;
+        opacity: 0.35;
       }
 
       .hero-content {
         text-align: center;
+        margin: 0 auto;
       }
 
-      .hero-subtitle {
+      .gold-rule {
         margin-left: auto;
         margin-right: auto;
+        background: linear-gradient(90deg, transparent, var(--charlotte-gold), transparent);
       }
 
-      .research-strip,
       .hero-buttons {
         justify-content: center;
-      }
-
-      .quick-stats {
-        max-width: 520px;
-        margin-left: auto;
-        margin-right: auto;
       }
     }
 
@@ -402,21 +455,30 @@
       }
 
       .hero-card {
-        padding: 26px 18px;
-        border-radius: 20px;
-      }
-
-      .profile-img {
-        width: 170px;
-        height: 170px;
-      }
-
-      .quick-stats {
-        grid-template-columns: 1fr;
+        padding: 36px 22px;
+        border-radius: 22px;
       }
 
       .hero-title {
-        font-size: 2.7rem;
+        font-size: 3.2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.06rem;
+      }
+
+      .hero-kicker {
+        font-size: 0.76rem;
+        letter-spacing: 0.11em;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .hero-button {
+        width: 100%;
+        text-align: center;
       }
     }
   </style>
@@ -461,75 +523,34 @@
 
     <main class="hero-wrap">
       <section class="hero-card">
-
-        <aside class="profile-panel">
-          <img src="/images/profile.png"
-               alt="Profile Photo"
-               class="profile-img">
-
-          <h2 class="profile-name">Irtiza Hasan</h2>
-
-          <p class="profile-role">
-            Ph.D. Student<br>
-            Electrical & Computer Engineering<br>
-            UNC Charlotte
-          </p>
-
-          <div class="mt-5 space-y-2 text-gray-200 text-sm">
-            <p>Charlotte, North Carolina</p>
-            <p>
-              <a href="mailto:ihasan@charlotte.edu" class="gold-link">ihasan@charlotte.edu</a>
-            </p>
-            <p>
-              <a href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ" target="_blank" class="gold-link">Google Scholar</a>
-            </p>
-          </div>
-        </aside>
+        <div class="gold-orbit"></div>
+        <div class="gold-line"></div>
 
         <section class="hero-content">
-          <div class="hero-kicker">UNC Charlotte · ECE · Information Freshness</div>
+          <div class="hero-kicker">Ph.D. Student · Electrical & Computer Engineering</div>
 
           <h1 class="hero-title">
             Hi, I'm <span id="typewriter-name" class="gradient-text"></span><span class="cursor gradient-text">|</span>
           </h1>
 
           <p class="hero-subtitle">
-            I am a Ph.D. student in <strong>Electrical and Computer Engineering</strong> at
-            <strong>UNC Charlotte</strong>. My research focuses on information freshness,
+            I am a Ph.D. student at <strong>UNC Charlotte</strong> working on information freshness,
             age of information, gossip networks, and scheduling policies for networked systems.
           </p>
 
-          <div class="research-strip">
-            <span class="research-pill">Age of Information</span>
-            <span class="research-pill">Gossip Networks</span>
-            <span class="research-pill">Scheduling</span>
-            <span class="research-pill">Wireless Networks</span>
-          </div>
+          <div class="gold-rule"></div>
+
+          <p class="hero-focus">
+            My current research studies how information spreads, becomes stale, and can be controlled in
+            <span>gossip-based communication systems</span>.
+          </p>
 
           <div class="hero-buttons">
             <a href="/publications.html" class="hero-button primary">View Publications</a>
             <a href="/education.html" class="hero-button">Education</a>
             <a href="mailto:ihasan@charlotte.edu" class="hero-button">Contact</a>
           </div>
-
-          <div class="quick-stats">
-            <div class="stat-card">
-              <div class="stat-number">Ph.D.</div>
-              <div class="stat-label">ECE at UNC Charlotte</div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-number">AoI</div>
-              <div class="stat-label">Information freshness research</div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-number">IEEE</div>
-              <div class="stat-label">Conference publications</div>
-            </div>
-          </div>
         </section>
-
       </section>
     </main>
   </div>
@@ -576,7 +597,7 @@
 
         setTimeout(() => {
           transition.classList.remove("slide-in");
-        }, 600);
+        }, 780);
       }
 
       const links = document.querySelectorAll("a[href]");
@@ -604,7 +625,7 @@
 
             setTimeout(() => {
               window.location.href = href;
-            }, 550);
+            }, 730);
           });
         }
       });
