@@ -1,345 +1,722 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Education - Irtiza Hasan</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <title>Education - Irtiza Hasan</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<style>
+  <style>
     :root {
-        --charlotte-green: #004F2D;
-        --charlotte-gold: #B9975B;
-        --page-green: #006B3F;
+      --charlotte-green: #004F2D;
+      --charlotte-gold: #B9975B;
+      --page-green: #006B3F;
+      --glass-bg: rgba(255, 255, 255, 0.10);
+      --glass-border: rgba(255, 255, 255, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-        font-family: 'Poppins', sans-serif;
-        background-color: var(--page-green);
-        color: #ffffff;
-        margin: 0;
-        overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--page-green);
+      color: #ffffff;
+      margin: 0;
+      overflow-x: hidden;
     }
 
     #constellation-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
     }
 
     #content-container {
-        position: relative;
-        z-index: 1;
-        overflow-y: auto;
-        height: 100vh;
-        background-color: transparent;
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      background-color: transparent;
     }
 
     .top-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 60px;
-        background: var(--charlotte-green);
-        color: white;
-        z-index: 20;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: rgba(0, 79, 45, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: white;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      border-bottom: 1px solid rgba(185, 151, 91, 0.32);
     }
 
-    .top-header a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 1.2rem;
+    .brand {
+      color: white;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: 0.01em;
+    }
+
+    .brand:hover {
+      color: var(--charlotte-gold);
     }
 
     .navbar a {
-        font-size: 1rem;
-        font-weight: 500;
-        margin-left: 20px;
-        transition: color 0.3s ease, transform 0.3s ease;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-left: 22px;
+      text-decoration: none;
+      transition: color 0.25s ease, transform 0.25s ease;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.25);
     }
 
     .navbar a:hover {
-        color: var(--charlotte-gold);
-        transform: scale(1.05);
+      color: var(--charlotte-gold);
+      transform: translateY(-1px);
     }
 
-    .fade-in {
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeInUp 1s ease 0.5s forwards;
+    .navbar a.active {
+      color: var(--charlotte-gold);
     }
 
-    @keyframes fadeInUp {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .mobile-link {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .mobile-link:hover {
+      color: var(--charlotte-gold);
+    }
+
+    .page-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 110px 24px 70px;
     }
 
     .content-card {
-        background: rgba(255, 255, 255, 0.10);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 255, 255, 0.18);
+      width: 100%;
+      max-width: 1120px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(9px);
+      -webkit-backdrop-filter: blur(9px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+      padding: 44px;
+      display: grid;
+      grid-template-columns: 0.95fr 1.55fr;
+      gap: 44px;
+      align-items: start;
+      animation: fadeInUp 0.85s ease forwards;
     }
 
-    .education-card {
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        border-radius: 0.9rem;
-        padding: 1.5rem;
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-panel {
+      text-align: center;
+      padding: 28px 22px;
+      border-radius: 20px;
+      background: rgba(0, 79, 45, 0.28);
+      border: 1px solid rgba(185, 151, 91, 0.25);
+      position: sticky;
+      top: 90px;
+    }
+
+    .profile-img {
+      width: 210px;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 999px;
+      margin: 0 auto;
+      border: 4px solid rgba(255, 255, 255, 0.60);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.30);
+    }
+
+    .profile-name {
+      margin-top: 20px;
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .profile-role {
+      margin-top: 7px;
+      color: #e5e7eb;
+      font-size: 0.98rem;
+      line-height: 1.55;
     }
 
     .gold-link {
-        color: var(--charlotte-gold);
+      color: var(--charlotte-gold);
+      text-decoration: none;
+      font-weight: 600;
     }
 
     .gold-link:hover {
-        color: #ffffff;
-        text-decoration: underline;
+      color: #ffffff;
+      text-decoration: underline;
     }
-</style>
-```
 
+    .section-kicker {
+      color: var(--charlotte-gold);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.88rem;
+      margin-bottom: 10px;
+    }
+
+    .page-title {
+      font-size: clamp(2.35rem, 5vw, 4.25rem);
+      font-weight: 800;
+      line-height: 1.05;
+      margin: 0 0 16px;
+      color: #ffffff;
+    }
+
+    .page-title span {
+      color: var(--charlotte-gold);
+    }
+
+    .page-subtitle {
+      color: #e5e7eb;
+      line-height: 1.75;
+      font-size: 1.05rem;
+      margin-bottom: 34px;
+      max-width: 720px;
+    }
+
+    .education-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .education-row {
+      display: grid;
+      grid-template-columns: 155px 1fr;
+      gap: 2.2rem;
+      align-items: flex-start;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .education-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .education-badge {
+      background: var(--charlotte-gold);
+      color: var(--charlotte-green);
+      font-weight: 800;
+      font-size: 0.88rem;
+      padding: 0.55rem 1rem;
+      border-radius: 4px;
+      text-align: center;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .education-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 18px;
+      padding: 1.45rem 1.55rem;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .education-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(185, 151, 91, 0.62);
+      background: rgba(255, 255, 255, 0.11);
+    }
+
+    .school-name {
+      font-size: 1.38rem;
+      font-weight: 800;
+      line-height: 1.35;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .school-name:hover {
+      color: var(--charlotte-gold);
+      text-decoration: none;
+    }
+
+    .degree {
+      font-size: 1.05rem;
+      color: #f3f4f6;
+      margin-top: 0.55rem;
+      line-height: 1.55;
+      font-weight: 600;
+    }
+
+    .edu-meta {
+      margin-top: 1rem;
+      color: #e5e7eb;
+      line-height: 1.7;
+      font-size: 0.98rem;
+    }
+
+    .edu-meta b {
+      color: #ffffff;
+    }
+
+    .edu-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 1.2rem;
+    }
+
+    .edu-tag {
+      border: 1px solid rgba(185, 151, 91, 0.72);
+      color: #ffffff;
+      background: rgba(0, 79, 45, 0.35);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .page-transition {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--page-green);
+      transform: translateY(100%);
+      pointer-events: none;
+    }
+
+    .page-transition.slide-in {
+      animation: slideInPage 0.55s ease forwards;
+    }
+
+    .page-transition.slide-out {
+      animation: slideOutPage 0.55s ease forwards;
+    }
+
+    @keyframes slideInPage {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-100%);
+      }
+    }
+
+    @keyframes slideOutPage {
+      from {
+        transform: translateY(100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .content-card {
+        grid-template-columns: 1fr;
+        padding: 32px 24px;
+        gap: 30px;
+      }
+
+      .profile-panel {
+        max-width: 420px;
+        margin: 0 auto;
+        position: static;
+      }
+
+      .main-content {
+        text-align: center;
+      }
+
+      .page-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .education-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        text-align: left;
+      }
+
+      .education-badge {
+        width: fit-content;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-wrap {
+        padding: 94px 16px 46px;
+      }
+
+      .content-card {
+        padding: 26px 18px;
+        border-radius: 20px;
+      }
+
+      .profile-img {
+        width: 170px;
+        height: 170px;
+      }
+
+      .page-title {
+        font-size: 2.65rem;
+      }
+
+      .education-card {
+        padding: 1.25rem;
+      }
+
+      .school-name {
+        font-size: 1.16rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <canvas id="constellation-canvas"></canvas>
+  <canvas id="constellation-canvas"></canvas>
+  <div class="page-transition"></div>
 
-```
-<div id="content-container">
+  <div id="content-container">
     <header class="top-header">
-        <a href="/">Irtiza Hasan</a>
+      <a href="/" class="brand">Irtiza Hasan</a>
 
-        <nav class="navbar hidden md:flex">
-            <a href="/education.html">Education</a>
-            <a href="/publications.html">Publications</a>
-            <a href="/service.html">Service</a>
-            <a href="/gallery.html">Gallery</a>
-        </nav>
+      <nav class="navbar hidden md:flex">
+        <a href="/">Home</a>
+        <a href="/education.html" class="active">Education</a>
+        <a href="/publications.html">Publications</a>
+        <a href="/service.html">Service</a>
+        <a href="/gallery.html">Gallery</a>
+      </nav>
 
-        <div class="md:hidden">
-            <button id="mobile-menu-button" class="text-white focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                          d="M4 6h16M4 12h16m-7 6h7">
-                    </path>
-                </svg>
-            </button>
-        </div>
+      <div class="md:hidden">
+        <button id="mobile-menu-button" class="text-white focus:outline-none" aria-label="Open mobile menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7">
+            </path>
+          </svg>
+        </button>
+      </div>
     </header>
 
     <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-black/80 backdrop-blur-sm z-10">
-        <div class="flex flex-col items-center justify-center h-full text-white text-2xl space-y-8">
-            <a href="/education.html">Education</a>
-            <a href="/publications.html">Publications</a>
-            <a href="/service.html">Service</a>
-            <a href="/gallery.html">Gallery</a>
-        </div>
+      <div class="flex flex-col items-center justify-center h-full text-white text-2xl space-y-8">
+        <a href="/" class="mobile-link">Home</a>
+        <a href="/education.html" class="mobile-link">Education</a>
+        <a href="/publications.html" class="mobile-link">Publications</a>
+        <a href="/service.html" class="mobile-link">Service</a>
+        <a href="/gallery.html" class="mobile-link">Gallery</a>
+      </div>
     </div>
 
-    <main class="min-h-screen flex items-center justify-center px-4 pt-24 pb-20">
-        <div class="fade-in content-card rounded-xl shadow-lg w-full max-w-5xl mt-10 grid md:grid-cols-3 gap-10 p-10">
+    <main class="page-wrap">
+      <section class="content-card">
 
-            <div class="md:col-span-1 text-center md:text-left">
-                <img src="/images/profile.png" 
-                     alt="Profile Photo" 
-                     class="w-48 h-48 rounded-full mx-auto md:mx-0 shadow-lg border-4 border-white/50">
+        <aside class="profile-panel">
+          <img src="/images/profile.png"
+               alt="Profile Photo"
+               class="profile-img">
 
-                <h2 class="text-2xl font-bold mt-4 text-white">Irtiza Hasan</h2>
+          <h2 class="profile-name">Irtiza Hasan</h2>
 
-                <p class="text-gray-200 mt-2">
-                    <i class="fas fa-map-marker-alt mr-2"></i>Charlotte, North Carolina
-                </p>
+          <p class="profile-role">
+            Ph.D. Student<br>
+            Electrical & Computer Engineering<br>
+            UNC Charlotte
+          </p>
 
-                <div class="mt-4 space-y-2 text-gray-200">
-                    <p>
-                        <i class="fas fa-envelope mr-2 w-4 text-center"></i>
-                        <a href="mailto:ihasan@charlotte.edu" class="gold-link">ihasan@charlotte.edu</a>
-                    </p>
+          <div class="mt-5 space-y-2 text-gray-200 text-sm">
+            <p>
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              Charlotte, North Carolina
+            </p>
 
-                    <p>
-                        <i class="fas fa-graduation-cap mr-2 w-4 text-center"></i>
-                        <a href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ" target="_blank" class="gold-link">Google Scholar</a>
-                    </p>
+            <p>
+              <i class="fas fa-envelope mr-2"></i>
+              <a href="mailto:ihasan@charlotte.edu" class="gold-link">ihasan@charlotte.edu</a>
+            </p>
+
+            <p>
+              <i class="fas fa-graduation-cap mr-2"></i>
+              <a href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ" target="_blank" class="gold-link">Google Scholar</a>
+            </p>
+          </div>
+        </aside>
+
+        <section class="main-content">
+          <div class="section-kicker">Academic Background</div>
+
+          <h1 class="page-title">
+            Education<span>.</span>
+          </h1>
+
+          <p class="page-subtitle">
+            My academic training combines electrical and computer engineering, information freshness,
+            optimization, signal processing, and networked systems.
+          </p>
+
+          <div class="education-list">
+
+            <div class="education-row">
+              <div class="education-badge">PH.D.</div>
+
+              <div class="education-card">
+                <a href="https://ece.charlotte.edu/" target="_blank" class="school-name">
+                  University of North Carolina at Charlotte
+                </a>
+
+                <div class="degree">
+                  Ph.D. in Electrical and Computer Engineering
                 </div>
+
+                <div class="edu-meta">
+                  <b>Research Supervisor:</b>
+                  <a href="https://webpages.charlotte.edu/aarafa/index.html" target="_blank" class="gold-link">
+                    Prof. Ahmed Arafa
+                  </a>,
+                  University of North Carolina at Charlotte.
+                </div>
+
+                <div class="edu-tags">
+                  <span class="edu-tag">Age of Information</span>
+                  <span class="edu-tag">Gossip Networks</span>
+                  <span class="edu-tag">Scheduling</span>
+                  <span class="edu-tag">Wireless Networks</span>
+                </div>
+              </div>
             </div>
 
-            <div class="md:col-span-2">
-                <h1 class="text-4xl font-bold mb-8" style="color: var(--charlotte-gold);">Education</h1>
+            <div class="education-row">
+              <div class="education-badge">B.Sc.</div>
 
-                <div class="space-y-6 text-left">
+              <div class="education-card">
+                <a href="https://eee.buet.ac.bd/" target="_blank" class="school-name">
+                  Bangladesh University of Engineering and Technology
+                </a>
 
-                    <div class="education-card">
-                        <a href="https://ece.charlotte.edu/" target="_blank" class="text-2xl font-semibold gold-link transition">
-                            University of North Carolina at Charlotte
-                        </a>
-
-                        <p class="text-lg text-gray-200 mt-2">
-                            Ph.D. in Electrical and Computer Engineering
-                        </p>
-
-                        <p class="text-gray-200 mt-4">
-                            <b>Research Supervisor:</b>
-                            <a href="https://webpages.charlotte.edu/aarafa/index.html" target="_blank" class="font-semibold gold-link">
-                                Prof. Ahmed Arafa
-                            </a>,
-                            University of North Carolina at Charlotte
-                        </p>
-                    </div>
-
-                    <div class="education-card">
-                        <a href="https://eee.buet.ac.bd/" target="_blank" class="text-2xl font-semibold gold-link transition">
-                            Bangladesh University of Engineering and Technology
-                        </a>
-
-                        <p class="text-lg text-gray-200 mt-2">
-                            Bachelor of Science in Electrical and Electronic Engineering, 2019
-                        </p>
-
-                        <p class="text-gray-200 mt-4">
-                            Graduated with Honours, with academic focus in signal processing and power systems.
-                        </p>
-
-                        <p class="text-gray-200 mt-4">
-                            <b>Thesis Supervisor:</b>
-                            <a href="https://scholar.google.com/citations?user=pn8CJdYAAAAJ&hl=en" target="_blank" class="font-semibold gold-link">
-                                Dr. Mohammed Imamul Hassan Bhuiyan
-                            </a>
-                        </p>
-                    </div>
-
+                <div class="degree">
+                  Bachelor of Science in Electrical and Electronic Engineering, 2019
                 </div>
+
+                <div class="edu-meta">
+                  Graduated with Honours, with academic focus in signal processing and power systems.
+                </div>
+
+                <div class="edu-meta">
+                  <b>Thesis Supervisor:</b>
+                  <a href="https://scholar.google.com/citations?user=pn8CJdYAAAAJ&hl=en" target="_blank" class="gold-link">
+                    Dr. Mohammed Imamul Hassan Bhuiyan
+                  </a>.
+                </div>
+
+                <div class="edu-tags">
+                  <span class="edu-tag">Signal Processing</span>
+                  <span class="edu-tag">Power Systems</span>
+                  <span class="edu-tag">Biomedical Signals</span>
+                </div>
+              </div>
             </div>
-        </div>
+
+          </div>
+        </section>
+
+      </section>
     </main>
-</div>
+  </div>
 
-<script>
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
 
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      const transition = document.querySelector(".page-transition");
+
+      if (transition) {
+        transition.classList.add("slide-in");
+
+        setTimeout(() => {
+          transition.classList.remove("slide-in");
+        }, 600);
+      }
+
+      const links = document.querySelectorAll("a[href]");
+
+      links.forEach(link => {
+        const href = link.getAttribute("href");
+
+        const isInternalPage =
+          href &&
+          !href.startsWith("#") &&
+          !href.startsWith("mailto:") &&
+          !href.startsWith("tel:") &&
+          !href.startsWith("http") &&
+          !link.hasAttribute("target");
+
+        if (isInternalPage) {
+          link.addEventListener("click", event => {
+            event.preventDefault();
+
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+              mobileMenu.classList.add('hidden');
+            }
+
+            transition.classList.add("slide-out");
+
+            setTimeout(() => {
+              window.location.href = href;
+            }, 550);
+          });
         }
+      });
     });
-</script>
+  </script>
 
-<script>
+  <script>
     const canvas = document.getElementById('constellation-canvas');
     const ctx = canvas.getContext('2d');
     let stars = [];
     const numStars = window.innerWidth > 768 ? 150 : 50;
 
     function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        stars = [];
-        init();
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = [];
+      init();
     }
 
     window.addEventListener('resize', resizeCanvas);
 
     class Star {
-        constructor(x, y, radius, dx, dy) {
-            this.x = x;
-            this.y = y;
-            this.radius = radius;
-            this.dx = dx;
-            this.dy = dy;
+      constructor(x, y, radius, dx, dy) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.dx = dx;
+        this.dy = dy;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.fill();
+      }
+
+      update() {
+        if (this.x > canvas.width || this.x < 0) {
+          this.dx = -this.dx;
         }
 
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-            ctx.fill();
+        if (this.y > canvas.height || this.y < 0) {
+          this.dy = -this.dy;
         }
 
-        update() {
-            if (this.x > canvas.width || this.x < 0) {
-                this.dx = -this.dx;
-            }
-
-            if (this.y > canvas.height || this.y < 0) {
-                this.dy = -this.dy;
-            }
-
-            this.x += this.dx;
-            this.y += this.dy;
-            this.draw();
-        }
+        this.x += this.dx;
+        this.y += this.dy;
+        this.draw();
+      }
     }
 
     function init() {
-        for (let i = 0; i < numStars; i++) {
-            let radius = Math.random() * 2 + 1;
-            let x = Math.random() * (canvas.width - radius * 2) + radius;
-            let y = Math.random() * (canvas.height - radius * 2) + radius;
-            let dx = (Math.random() - 0.5) * 0.5;
-            let dy = (Math.random() - 0.5) * 0.5;
+      for (let i = 0; i < numStars; i++) {
+        let radius = Math.random() * 2 + 1;
+        let x = Math.random() * (canvas.width - radius * 2) + radius;
+        let y = Math.random() * (canvas.height - radius * 2) + radius;
+        let dx = (Math.random() - 0.5) * 0.5;
+        let dy = (Math.random() - 0.5) * 0.5;
 
-            stars.push(new Star(x, y, radius, dx, dy));
-        }
+        stars.push(new Star(x, y, radius, dx, dy));
+      }
     }
 
     function connect() {
-        let opacityValue = 1;
+      let opacityValue = 1;
 
-        for (let a = 0; a < stars.length; a++) {
-            for (let b = a; b < stars.length; b++) {
-                let distance =
-                    ((stars[a].x - stars[b].x) * (stars[a].x - stars[b].x)) +
-                    ((stars[a].y - stars[b].y) * (stars[a].y - stars[b].y));
+      for (let a = 0; a < stars.length; a++) {
+        for (let b = a; b < stars.length; b++) {
+          let distance =
+            ((stars[a].x - stars[b].x) * (stars[a].x - stars[b].x)) +
+            ((stars[a].y - stars[b].y) * (stars[a].y - stars[b].y));
 
-                if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                    opacityValue = 1 - (distance / 20000);
-                    ctx.strokeStyle = `rgba(185, 151, 91, ${opacityValue})`;
-                    ctx.lineWidth = 1;
-                    ctx.beginPath();
-                    ctx.moveTo(stars[a].x, stars[a].y);
-                    ctx.lineTo(stars[b].x, stars[b].y);
-                    ctx.stroke();
-                }
-            }
+          if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+            opacityValue = 1 - (distance / 20000);
+            ctx.strokeStyle = `rgba(185, 151, 91, ${opacityValue})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(stars[a].x, stars[a].y);
+            ctx.lineTo(stars[b].x, stars[b].y);
+            ctx.stroke();
+          }
         }
+      }
     }
 
     function animate() {
-        requestAnimationFrame(animate);
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        for (let star of stars) {
-            star.update();
-        }
+      for (let star of stars) {
+        star.update();
+      }
 
-        connect();
+      connect();
     }
 
     resizeCanvas();
     animate();
-</script>
-
-
+  </script>
 </body>
 </html>
