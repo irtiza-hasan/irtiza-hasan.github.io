@@ -1003,6 +1003,37 @@
         transition-duration: 0.01ms !important;
       }
     }
+
+    /* Page-to-page boundary scroll transition */
+    html {
+      transition: opacity 380ms ease, transform 380ms ease;
+    }
+
+    html.page-leaving-up {
+      opacity: 0;
+      transform: translateY(-18px);
+      pointer-events: none;
+    }
+
+    html.page-leaving-down {
+      opacity: 0;
+      transform: translateY(18px);
+      pointer-events: none;
+    }
+
+    body {
+      overflow-y: auto;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html,
+      html.page-leaving-up,
+      html.page-leaving-down {
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -1713,5 +1744,6 @@
     configureCanvas();
     startAnimation();
   </script>
+\n  <script>\n    (() => {\n      const pageSequence = [\n        "/",\n        "/education.html",\n        "/experience.html",\n        "/teaching.html",\n        "/publications.html",\n        "/service.html",\n        "/gallery.html"\n      ];\n\n      const transitionDelay = 380;\n      const wheelThreshold = 70;\n      const touchThreshold = 75;\n\n      let navigationLocked = false;\n      let accumulatedWheelDelta = 0;\n      let wheelResetTimer = null;\n      let touchStartY = null;\n      let touchStartedAtTop = false;\n      let touchStartedAtBottom = false;\n\n      function normalizePath(path) {\n        if (path === "" || path === "/" || path === "/index.html") {\n          return "/";\n        }\n        return path.replace(/\\/+$/, "");\n      }\n\n      const currentPath = normalizePath(window.location.pathname);\n      const currentPageIndex = pageSequence.findIndex(\n        (page) => normalizePath(page) === currentPath\n      );\n\n      if (currentPageIndex === -1) return;\n\n      const previousPage =\n        currentPageIndex > 0 ? pageSequence[currentPageIndex - 1] : null;\n      const nextPage =\n        currentPageIndex < pageSequence.length - 1\n          ? pageSequence[currentPageIndex + 1]\n          : null;\n\n      function documentHeight() {\n        return Math.max(\n          document.body.scrollHeight,\n          document.documentElement.scrollHeight,\n          document.body.offsetHeight,\n          document.documentElement.offsetHeight\n        );\n      }\n\n      function isAtTop() {\n        return window.scrollY <= 2;\n      }\n\n      function isAtBottom() {\n        return window.scrollY + window.innerHeight >= documentHeight() - 2;\n      }\n\n      function targetHasIndependentScroll(target, deltaY) {\n        if (!(target instanceof Element)) return false;\n\n        if (\n          target.closest(\n            "input, textarea, select, button, [contenteditable='true']"\n          )\n        ) {\n          return true;\n        }\n\n        let element = target;\n        while (\n          element &&\n          element !== document.body &&\n          element !== document.documentElement\n        ) {\n          const style = getComputedStyle(element);\n          const scrollable =\n            /(auto|scroll)/.test(style.overflowY) &&\n            element.scrollHeight > element.clientHeight;\n\n          if (scrollable) {\n            const canScrollUp = element.scrollTop > 0;\n            const canScrollDown =\n              element.scrollTop + element.clientHeight <\n              element.scrollHeight - 1;\n\n            if ((deltaY < 0 && canScrollUp) || (deltaY > 0 && canScrollDown)) {\n              return true;\n            }\n          }\n          element = element.parentElement;\n        }\n        return false;\n      }\n\n      function navigateTo(destination, direction) {\n        if (!destination || navigationLocked) return;\n        navigationLocked = true;\n\n        document.documentElement.classList.add(\n          direction === "next" ? "page-leaving-up" : "page-leaving-down"\n        );\n\n        window.setTimeout(() => {\n          window.location.assign(destination);\n        }, transitionDelay);\n      }\n\n      window.addEventListener(\n        "wheel",\n        (event) => {\n          if (\n            navigationLocked ||\n            targetHasIndependentScroll(event.target, event.deltaY)\n          ) {\n            return;\n          }\n\n          clearTimeout(wheelResetTimer);\n          wheelResetTimer = window.setTimeout(() => {\n            accumulatedWheelDelta = 0;\n          }, 180);\n\n          if (event.deltaY < 0 && isAtTop() && previousPage) {\n            accumulatedWheelDelta += event.deltaY;\n            if (accumulatedWheelDelta <= -wheelThreshold) {\n              event.preventDefault();\n              navigateTo(previousPage, "previous");\n            }\n            return;\n          }\n\n          if (event.deltaY > 0 && isAtBottom() && nextPage) {\n            accumulatedWheelDelta += event.deltaY;\n            if (accumulatedWheelDelta >= wheelThreshold) {\n              event.preventDefault();\n              navigateTo(nextPage, "next");\n            }\n            return;\n          }\n\n          accumulatedWheelDelta = 0;\n        },\n        { passive: false }\n      );\n\n      window.addEventListener(\n        "touchstart",\n        (event) => {\n          if (navigationLocked || event.touches.length !== 1) {\n            touchStartY = null;\n            return;\n          }\n\n          touchStartY = event.touches[0].clientY;\n          touchStartedAtTop = isAtTop();\n          touchStartedAtBottom = isAtBottom();\n        },\n        { passive: true }\n      );\n\n      window.addEventListener(\n        "touchend",\n        (event) => {\n          if (\n            navigationLocked ||\n            touchStartY === null ||\n            event.changedTouches.length !== 1\n          ) {\n            touchStartY = null;\n            return;\n          }\n\n          const swipeDistance =\n            event.changedTouches[0].clientY - touchStartY;\n\n          if (\n            swipeDistance >= touchThreshold &&\n            touchStartedAtTop &&\n            isAtTop() &&\n            previousPage\n          ) {\n            navigateTo(previousPage, "previous");\n          } else if (\n            swipeDistance <= -touchThreshold &&\n            touchStartedAtBottom &&\n            isAtBottom() &&\n            nextPage\n          ) {\n            navigateTo(nextPage, "next");\n          }\n\n          touchStartY = null;\n          touchStartedAtTop = false;\n          touchStartedAtBottom = false;\n        },\n        { passive: true }\n      );\n\n      window.addEventListener("keydown", (event) => {\n        if (navigationLocked) return;\n\n        const activeElement = document.activeElement;\n        if (\n          activeElement &&\n          activeElement.matches(\n            "input, textarea, select, [contenteditable='true']"\n          )\n        ) {\n          return;\n        }\n\n        if (event.key === "PageUp" && isAtTop() && previousPage) {\n          event.preventDefault();\n          navigateTo(previousPage, "previous");\n        }\n\n        if (event.key === "PageDown" && isAtBottom() && nextPage) {\n          event.preventDefault();\n          navigateTo(nextPage, "next");\n        }\n      });\n    })();\n  </script>\n
 </body>
 </html>
