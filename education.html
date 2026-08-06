@@ -8,555 +8,17 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <style>
-    :root {
-      --charlotte-green: #004F2D;
-      --charlotte-gold: #B9975B;
-      --page-green: #006B3F;
-      --deep-green: #003D24;
-      --glass-bg: rgba(255, 255, 255, 0.10);
-      --glass-border: rgba(255, 255, 255, 0.18);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--page-green);
-      color: #ffffff;
-      margin: 0;
-      overflow-x: hidden;
-    }
-
-    #constellation-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 16% 18%, rgba(185, 151, 91, 0.18), transparent 28%),
-        radial-gradient(circle at 84% 78%, rgba(255, 255, 255, 0.10), transparent 30%),
-        linear-gradient(135deg, rgba(0, 79, 45, 0.25), rgba(0, 61, 36, 0.45));
-    }
-
-    #content-container {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      background-color: transparent;
-    }
-
-    .top-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 60px;
-      background: rgba(0, 79, 45, 0.92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      color: white;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 22px;
-      border-bottom: 1px solid rgba(185, 151, 91, 0.35);
-    }
-
-    .brand {
-      color: white;
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 1.2rem;
-      letter-spacing: 0.01em;
-      transition: color 0.25s ease;
-    }
-
-    .brand:hover {
-      color: var(--charlotte-gold);
-    }
-
-    .navbar a {
-      color: white;
-      font-size: 1rem;
-      font-weight: 500;
-      margin-left: 22px;
-      text-decoration: none;
-      transition: color 0.25s ease, transform 0.25s ease;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.25);
-    }
-
-    .navbar a:hover {
-      color: var(--charlotte-gold);
-      transform: translateY(-1px);
-    }
-
-    .navbar a.active {
-      color: var(--charlotte-gold);
-    }
-
-    .mobile-link {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .mobile-link:hover {
-      color: var(--charlotte-gold);
-    }
-
-    .page-wrap {
-      min-height: 100vh;
-      padding: 60px 0 0;
-    }
-
-    .content-card {
-      position: relative;
-      width: 100%;
-      min-height: calc(100vh - 60px);
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.105), rgba(255,255,255,0.065)),
-        radial-gradient(circle at 22% 28%, rgba(255,255,255,0.10), transparent 24%),
-        radial-gradient(circle at 72% 72%, rgba(185,151,91,0.11), transparent 30%);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255, 255, 255, 0.16);
-      border-bottom: 1px solid rgba(185, 151, 91, 0.25);
-      box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.13);
-      overflow: hidden;
-      padding: 6.8vw 8.5vw;
-      animation: fadeInUp 0.55s ease forwards;
-    }
-
-    .content-card::before {
-      content: "";
-      position: absolute;
-      width: 680px;
-      height: 680px;
-      right: -210px;
-      top: -250px;
-      border: 1px solid rgba(185, 151, 91, 0.18);
-      border-radius: 50%;
-      box-shadow:
-        inset 0 0 55px rgba(185, 151, 91, 0.06),
-        0 0 80px rgba(185, 151, 91, 0.08);
-      animation: slowRotate 30s linear infinite;
-    }
-
-    .content-card::after {
-      content: "";
-      position: absolute;
-      width: 480px;
-      height: 480px;
-      left: -190px;
-      bottom: -210px;
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      border-radius: 50%;
-      box-shadow: 0 0 85px rgba(185, 151, 91, 0.10);
-      animation: slowFloat 8s ease-in-out infinite;
-    }
-
-    .gold-line {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 5px;
-      background: linear-gradient(90deg, transparent, var(--charlotte-gold), transparent);
-      opacity: 0.82;
-    }
-
-    .page-dial {
-      position: absolute;
-      right: -95px;
-      bottom: -115px;
-      width: 430px;
-      height: 430px;
-      opacity: 0.95;
-      pointer-events: none;
-      transform-origin: center;
-      animation: dialBreath 5.2s ease-in-out infinite;
-      z-index: 1;
-    }
-
-    .dial-ring {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      border: 1px solid rgba(185, 151, 91, 0.46);
-      box-shadow:
-        inset 0 0 75px rgba(185, 151, 91, 0.09),
-        0 0 90px rgba(185, 151, 91, 0.14);
-    }
-
-    .dial-ring::before,
-    .dial-ring::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.10);
-    }
-
-    .dial-ring::before {
-      inset: 58px;
-    }
-
-    .dial-ring::after {
-      inset: 126px;
-      border-color: rgba(185, 151, 91, 0.20);
-      box-shadow: inset 0 0 40px rgba(185, 151, 91, 0.05);
-    }
-
-    .dial-core {
-      position: absolute;
-      inset: 184px;
-      border-radius: 50%;
-      background: rgba(185, 151, 91, 0.07);
-      border: 1px solid rgba(185, 151, 91, 0.20);
-      box-shadow: 0 0 45px rgba(185, 151, 91, 0.10);
-    }
-
-    .dial-dot {
-      position: absolute;
-      top: 18px;
-      left: 50%;
-      width: 22px;
-      height: 22px;
-      background: var(--charlotte-gold);
-      border-radius: 50%;
-      transform: translateX(-50%);
-      box-shadow:
-        0 0 24px rgba(185, 151, 91, 0.95),
-        0 0 60px rgba(185, 151, 91, 0.35);
-    }
-
-    .dial-orbit {
-      position: absolute;
-      inset: 82px;
-      border-radius: 50%;
-      border: 1px dashed rgba(185, 151, 91, 0.24);
-      animation: slowRotate 42s linear infinite;
-    }
-
-    .page-education {
-      transform: rotate(72deg);
-    }
-
-    @keyframes dialBreath {
-      0%, 100% {
-        opacity: 0.50;
-        filter: drop-shadow(0 0 0 rgba(185, 151, 91, 0));
-      }
-
-      50% {
-        opacity: 0.90;
-        filter: drop-shadow(0 0 28px rgba(185, 151, 91, 0.18));
-      }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slowRotate {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes slowFloat {
-      0%, 100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-18px);
-      }
-    }
-
-    .main-content {
-      position: relative;
-      z-index: 2;
-      max-width: 1120px;
-    }
-
-    .section-kicker {
-      color: var(--charlotte-gold);
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      margin-bottom: 18px;
-    }
-
-    .page-title {
-      font-size: clamp(3.2rem, 7vw, 6.4rem);
-      font-weight: 800;
-      line-height: 0.98;
-      margin: 0;
-      color: #ffffff;
-      letter-spacing: -0.055em;
-    }
-
-    .page-title span {
-      color: var(--charlotte-gold);
-    }
-
-    .page-subtitle {
-      color: #f3f4f6;
-      line-height: 1.8;
-      font-size: 1.2rem;
-      margin-top: 28px;
-      max-width: 820px;
-    }
-
-    .gold-rule {
-      width: 120px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--charlotte-gold), transparent);
-      margin-top: 30px;
-      margin-bottom: 36px;
-      border-radius: 99px;
-    }
-
-    .education-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1.6rem;
-      max-width: 980px;
-    }
-
-    .education-row {
-      display: grid;
-      grid-template-columns: 150px 1fr;
-      gap: 2rem;
-      align-items: flex-start;
-    }
-
-    .education-badge {
-      background: var(--charlotte-gold);
-      color: var(--charlotte-green);
-      font-weight: 800;
-      font-size: 0.9rem;
-      padding: 0.62rem 1rem;
-      border-radius: 7px;
-      text-align: center;
-      box-shadow: 0 10px 22px rgba(0,0,0,0.20);
-      letter-spacing: 0.05em;
-      white-space: nowrap;
-    }
-
-    .education-card {
-      background: rgba(255, 255, 255, 0.075);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 22px;
-      padding: 1.65rem 1.75rem;
-      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
-    }
-
-    .education-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(185, 151, 91, 0.68);
-      background: rgba(255, 255, 255, 0.105);
-      box-shadow: 0 16px 36px rgba(0,0,0,0.18);
-    }
-
-    .school-name {
-      font-size: 1.45rem;
-      font-weight: 800;
-      line-height: 1.35;
-      color: #ffffff;
-      text-decoration: none;
-    }
-
-    .school-name:hover {
-      color: var(--charlotte-gold);
-      text-decoration: none;
-    }
-
-    .degree {
-      font-size: 1.08rem;
-      color: #f3f4f6;
-      margin-top: 0.6rem;
-      line-height: 1.55;
-      font-weight: 600;
-    }
-
-    .edu-meta {
-      margin-top: 1rem;
-      color: #e5e7eb;
-      line-height: 1.7;
-      font-size: 0.98rem;
-    }
-
-    .edu-meta b {
-      color: #ffffff;
-    }
-
-    .gold-link {
-      color: var(--charlotte-gold);
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .gold-link:hover {
-      color: #ffffff;
-      text-decoration: underline;
-    }
-
-    .edu-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 1.2rem;
-    }
-
-    .edu-tag {
-      border: 1px solid rgba(185, 151, 91, 0.72);
-      color: #ffffff;
-      background: rgba(0, 79, 45, 0.35);
-      border-radius: 999px;
-      padding: 7px 12px;
-      font-size: 0.82rem;
-      font-weight: 600;
-    }
-
-    .contact-strip {
-      max-width: 980px;
-      margin-top: 44px;
-      padding-top: 26px;
-      border-top: 1px solid rgba(255,255,255,0.18);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      color: #e5e7eb;
-      font-size: 0.95rem;
-    }
-
-    .contact-strip a {
-      color: var(--charlotte-gold);
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .contact-strip a:hover {
-      color: white;
-      text-decoration: underline;
-    }
-
-    @media (max-width: 900px) {
-      .content-card {
-        padding: 80px 34px 64px;
-      }
-
-      .main-content {
-        text-align: center;
-        margin: 0 auto;
-      }
-
-      .page-subtitle {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .gold-rule {
-        margin-left: auto;
-        margin-right: auto;
-        background: linear-gradient(90deg, transparent, var(--charlotte-gold), transparent);
-      }
-
-      .education-row {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        text-align: left;
-      }
-
-      .education-badge {
-        width: fit-content;
-      }
-
-      .education-list {
-        max-width: 100%;
-      }
-
-      .contact-strip {
-        justify-content: center;
-        max-width: 100%;
-      }
-
-      .page-dial {
-        right: -170px;
-        bottom: -180px;
-        width: 390px;
-        height: 390px;
-        opacity: 0.35;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .content-card {
-        padding: 72px 22px 52px;
-      }
-
-      .page-title {
-        font-size: 3.2rem;
-      }
-
-      .page-subtitle {
-        font-size: 1.06rem;
-      }
-
-      .section-kicker {
-        font-size: 0.76rem;
-        letter-spacing: 0.11em;
-      }
-
-      .education-card {
-        padding: 1.25rem;
-      }
-
-      .school-name {
-        font-size: 1.16rem;
-      }
-
-      .degree {
-        font-size: 1rem;
-      }
-    }
-  </style>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  >
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -575,17 +37,33 @@
       </nav>
 
       <div class="md:hidden">
-        <button id="mobile-menu-button" class="text-white focus:outline-none" aria-label="Open mobile menu">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 6h16M4 12h16m-7 6h7">
+        <button
+          id="mobile-menu-button"
+          class="text-white focus:outline-none"
+          aria-label="Open mobile menu"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            >
             </path>
           </svg>
         </button>
       </div>
     </header>
 
-    <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-black/80 backdrop-blur-sm z-10">
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-black/80 backdrop-blur-sm z-10"
+    >
       <div class="flex flex-col items-center justify-center h-full text-white text-2xl space-y-8">
         <a href="/" class="mobile-link">Home</a>
         <a href="/education.html" class="mobile-link">Education</a>
@@ -607,26 +85,35 @@
         <div class="gold-line"></div>
 
         <section class="main-content">
-          <div class="section-kicker">Academic Background</div>
+          <div class="section-kicker">
+            Academic Background
+          </div>
 
           <h1 class="page-title">
             Education<span>.</span>
           </h1>
 
           <p class="page-subtitle">
-            My academic training combines electrical and computer engineering, information freshness,
-            optimization, signal processing, and networked systems.
+            My academic training combines electrical and computer engineering,
+            information freshness, optimization, signal processing, and
+            networked systems.
           </p>
 
           <div class="gold-rule"></div>
 
           <div class="education-list">
-
             <div class="education-row">
-              <div class="education-badge">PH.D.</div>
+              <div class="education-badge">
+                PH.D.
+              </div>
 
               <div class="education-card">
-                <a href="https://ece.charlotte.edu/" target="_blank" class="school-name">
+                <a
+                  href="https://ece.charlotte.edu/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="school-name"
+                >
                   University of North Carolina at Charlotte
                 </a>
 
@@ -636,9 +123,16 @@
 
                 <div class="edu-meta">
                   <b>Research Supervisor:</b>
-                  <a href="https://webpages.charlotte.edu/aarafa/index.html" target="_blank" class="gold-link">
+
+                  <a
+                    href="https://webpages.charlotte.edu/aarafa/index.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="gold-link"
+                  >
                     Prof. Ahmed Arafa
                   </a>,
+
                   University of North Carolina at Charlotte.
                 </div>
 
@@ -652,24 +146,39 @@
             </div>
 
             <div class="education-row">
-              <div class="education-badge">B.Sc.</div>
+              <div class="education-badge">
+                B.Sc.
+              </div>
 
               <div class="education-card">
-                <a href="https://eee.buet.ac.bd/" target="_blank" class="school-name">
+                <a
+                  href="https://eee.buet.ac.bd/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="school-name"
+                >
                   Bangladesh University of Engineering and Technology
                 </a>
 
                 <div class="degree">
-                  Bachelor of Science in Electrical and Electronic Engineering, 2019
+                  Bachelor of Science in Electrical and Electronic Engineering,
+                  2019
                 </div>
 
                 <div class="edu-meta">
-                  Graduated with Honours, with academic focus in signal processing and power systems.
+                  Graduated with Honours, with academic focus in signal
+                  processing and power systems.
                 </div>
 
                 <div class="edu-meta">
                   <b>Thesis Supervisor:</b>
-                  <a href="https://scholar.google.com/citations?user=pn8CJdYAAAAJ&hl=en" target="_blank" class="gold-link">
+
+                  <a
+                    href="https://scholar.google.com/citations?user=pn8CJdYAAAAJ&hl=en"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="gold-link"
+                  >
                     Dr. Mohammed Imamul Hassan Bhuiyan
                   </a>.
                 </div>
@@ -681,13 +190,33 @@
                 </div>
               </div>
             </div>
-
           </div>
 
           <div class="contact-strip">
-            <span><i class="fas fa-map-marker-alt mr-2"></i>Charlotte, North Carolina</span>
-            <span><i class="fas fa-envelope mr-2"></i><a href="mailto:ihasan@charlotte.edu">ihasan@charlotte.edu</a></span>
-            <span><i class="fas fa-graduation-cap mr-2"></i><a href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ" target="_blank">Google Scholar</a></span>
+            <span>
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              Charlotte, North Carolina
+            </span>
+
+            <span>
+              <i class="fas fa-envelope mr-2"></i>
+
+              <a href="mailto:ihasan@charlotte.edu">
+                ihasan@charlotte.edu
+              </a>
+            </span>
+
+            <span>
+              <i class="fas fa-graduation-cap mr-2"></i>
+
+              <a
+                href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Google Scholar
+              </a>
+            </span>
           </div>
         </section>
       </section>
@@ -695,32 +224,43 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const mobileMenuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
+    document.addEventListener("DOMContentLoaded", () => {
+      const mobileMenuButton = document.getElementById(
+        "mobile-menu-button"
+      );
+
+      const mobileMenu = document.getElementById("mobile-menu");
 
       if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
+        mobileMenuButton.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+
+        mobileMenu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+          });
         });
       }
     });
-  </script>
 
-  <script>
-    const canvas = document.getElementById('constellation-canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.getElementById("constellation-canvas");
+    const ctx = canvas.getContext("2d");
+
     let stars = [];
+
     const numStars = window.innerWidth > 768 ? 150 : 50;
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+
       stars = [];
-      init();
+
+      initializeStars();
     }
 
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
 
     class Star {
       constructor(x, y, radius, dx, dy) {
@@ -733,8 +273,21 @@
 
       draw() {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+
+        ctx.arc(
+          this.x,
+          this.y,
+          this.radius,
+          0,
+          Math.PI * 2
+        );
+
+        /*
+         * Dark green dots remain visible against the new
+         * white background.
+         */
+        ctx.fillStyle = "rgba(0, 79, 45, 0.34)";
+
         ctx.fill();
       }
 
@@ -749,38 +302,85 @@
 
         this.x += this.dx;
         this.y += this.dy;
+
         this.draw();
       }
     }
 
-    function init() {
+    function initializeStars() {
       for (let i = 0; i < numStars; i++) {
-        let radius = Math.random() * 2 + 1;
-        let x = Math.random() * (canvas.width - radius * 2) + radius;
-        let y = Math.random() * (canvas.height - radius * 2) + radius;
-        let dx = (Math.random() - 0.5) * 0.5;
-        let dy = (Math.random() - 0.5) * 0.5;
+        const radius = Math.random() * 2 + 1;
 
-        stars.push(new Star(x, y, radius, dx, dy));
+        const x =
+          Math.random() * (canvas.width - radius * 2) +
+          radius;
+
+        const y =
+          Math.random() * (canvas.height - radius * 2) +
+          radius;
+
+        const dx = (Math.random() - 0.5) * 0.5;
+        const dy = (Math.random() - 0.5) * 0.5;
+
+        stars.push(
+          new Star(
+            x,
+            y,
+            radius,
+            dx,
+            dy
+          )
+        );
       }
     }
 
-    function connect() {
-      let opacityValue = 1;
-
+    function connectStars() {
       for (let a = 0; a < stars.length; a++) {
         for (let b = a + 1; b < stars.length; b++) {
-          let distance =
-            ((stars[a].x - stars[b].x) * (stars[a].x - stars[b].x)) +
-            ((stars[a].y - stars[b].y) * (stars[a].y - stars[b].y));
+          const horizontalDistance =
+            stars[a].x - stars[b].x;
 
-          if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-            opacityValue = 1 - (distance / 20000);
-            ctx.strokeStyle = `rgba(185, 151, 91, ${opacityValue})`;
+          const verticalDistance =
+            stars[a].y - stars[b].y;
+
+          const distanceSquared =
+            horizontalDistance * horizontalDistance +
+            verticalDistance * verticalDistance;
+
+          const connectionThreshold =
+            (canvas.width / 7) *
+            (canvas.height / 7);
+
+          if (distanceSquared < connectionThreshold) {
+            /*
+             * Math.max prevents negative opacity values
+             * on large displays.
+             */
+            const opacityValue = Math.max(
+              0,
+              1 - distanceSquared / 20000
+            );
+
+            /*
+             * The constellation connections remain gold.
+             */
+            ctx.strokeStyle =
+              `rgba(185, 151, 91, ${opacityValue})`;
+
             ctx.lineWidth = 1;
+
             ctx.beginPath();
-            ctx.moveTo(stars[a].x, stars[a].y);
-            ctx.lineTo(stars[b].x, stars[b].y);
+
+            ctx.moveTo(
+              stars[a].x,
+              stars[a].y
+            );
+
+            ctx.lineTo(
+              stars[b].x,
+              stars[b].y
+            );
+
             ctx.stroke();
           }
         }
@@ -789,13 +389,19 @@
 
     function animate() {
       requestAnimationFrame(animate);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      for (let star of stars) {
+      ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      for (const star of stars) {
         star.update();
       }
 
-      connect();
+      connectStars();
     }
 
     resizeCanvas();
