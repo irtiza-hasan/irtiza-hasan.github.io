@@ -6,24 +6,39 @@
 
   <title>Irtiza Hasan - Home</title>
 
-  <meta property="og:title" content="Irtiza Hasan">
-  <meta property="og:description" content="Ph.D. Student | Electrical and Computer Engineering | UNC Charlotte">
-  <meta property="og:image" content="/images/profile.png">
-  <meta property="og:url" content="https://irtiza-hasan.github.io/">
-  <meta property="og:type" content="website">
+  <meta
+    name="description"
+    content="Irtiza Hasan is a Ph.D. student in Electrical and Computer Engineering at UNC Charlotte."
+  />
+
+  <meta property="og:title" content="Irtiza Hasan" />
+  <meta
+    property="og:description"
+    content="Ph.D. Student | Electrical and Computer Engineering | UNC Charlotte"
+  />
+  <meta property="og:image" content="/images/profile.png" />
+  <meta property="og:url" content="https://irtiza-hasan.github.io/" />
+  <meta property="og:type" content="website" />
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
     :root {
-      --charlotte-green: #004F2D;
-      --charlotte-gold: #B9975B;
-      --page-green: #006B3F;
-      --deep-green: #003D24;
-      --glass-bg: rgba(255, 255, 255, 0.10);
-      --glass-border: rgba(255, 255, 255, 0.18);
+      --charlotte-green: #004f2d;
+      --charlotte-gold: #b9975b;
+      --page-green: #006b3f;
+      --deep-green: #003d24;
+      --soft-white: #f4f7f5;
+      --muted-white: #dce5e0;
+      --header-height: 64px;
     }
 
     * {
@@ -35,251 +50,376 @@
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      color: #ffffff;
       margin: 0;
-      background-color: var(--page-green);
+      min-height: 100vh;
       overflow-x: hidden;
+      font-family: "Roboto Mono", monospace;
+      color: #ffffff;
+      background-color: var(--page-green);
     }
 
+    button,
+    a {
+      font-family: inherit;
+    }
+
+    /*
+      Animated connected-line background.
+      No overlay or blur filter is placed above it.
+    */
     #constellation-canvas {
       position: fixed;
-      top: 0;
-      left: 0;
+      inset: 0;
       width: 100vw;
       height: 100vh;
       z-index: 0;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 0;
       pointer-events: none;
-      background:
-        radial-gradient(circle at 16% 18%, rgba(185, 151, 91, 0.18), transparent 28%),
-        radial-gradient(circle at 84% 78%, rgba(255, 255, 255, 0.10), transparent 30%),
-        linear-gradient(135deg, rgba(0, 79, 45, 0.25), rgba(0, 61, 36, 0.45));
     }
 
     #content-container {
       position: relative;
       z-index: 1;
       min-height: 100vh;
-      background-color: transparent;
     }
+
+    /* =========================
+       HEADER
+    ========================= */
 
     .top-header {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 60px;
-      background: rgba(0, 79, 45, 0.92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      color: white;
-      z-index: 20;
+      z-index: 30;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 22px;
-      border-bottom: 1px solid rgba(185, 151, 91, 0.35);
+
+      width: 100%;
+      height: var(--header-height);
+      padding: 0 28px;
+
+      color: #ffffff;
+      background-color: var(--charlotte-green);
+      border-bottom: 1px solid rgba(185, 151, 91, 0.48);
     }
 
     .brand {
-      color: white;
+      color: #ffffff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       text-decoration: none;
-      font-weight: 800;
-      font-size: 1.2rem;
-      letter-spacing: 0.01em;
-      transition: color 0.25s ease;
+      transition:
+        color 0.2s ease,
+        transform 0.2s ease;
     }
 
     .brand:hover {
       color: var(--charlotte-gold);
-    }
-
-    .navbar a {
-      color: white;
-      font-size: 1rem;
-      font-weight: 500;
-      margin-left: 22px;
-      text-decoration: none;
-      transition: color 0.25s ease, transform 0.25s ease;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.25);
-    }
-
-    .navbar a:hover {
-      color: var(--charlotte-gold);
       transform: translateY(-1px);
     }
 
+    .navbar {
+      align-items: center;
+    }
+
+    .navbar a {
+      position: relative;
+      margin-left: 26px;
+      padding: 21px 0 19px;
+
+      color: #ffffff;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+
+      transition: color 0.2s ease;
+    }
+
+    .navbar a::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 13px;
+      left: 0;
+
+      height: 2px;
+
+      background-color: var(--charlotte-gold);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.2s ease;
+    }
+
+    .navbar a:hover,
     .navbar a.active {
       color: var(--charlotte-gold);
     }
 
-    .mobile-link {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
+    .navbar a:hover::after,
+    .navbar a.active::after {
+      transform: scaleX(1);
     }
 
-    .mobile-link:hover {
-      color: var(--charlotte-gold);
+    /* =========================
+       MOBILE MENU
+    ========================= */
+
+    #mobile-menu-button {
+      position: relative;
+      z-index: 50;
+      border: 0;
+      padding: 8px;
+      color: #ffffff;
+      background: transparent;
+      cursor: pointer;
     }
+
+    #mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 25;
+      background-color: var(--deep-green);
+    }
+
+    .mobile-menu-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+      height: 100%;
+      gap: 30px;
+    }
+
+    .mobile-link {
+      position: relative;
+      padding: 4px 0;
+
+      color: #ffffff;
+      font-size: 1.35rem;
+      font-weight: 600;
+      text-decoration: none;
+
+      transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .mobile-link:hover,
+    .mobile-link.active {
+      color: var(--charlotte-gold);
+      transform: translateX(4px);
+    }
+
+    /* =========================
+       HERO
+    ========================= */
 
     .hero-wrap {
       min-height: 100vh;
-      padding: 60px 0 0;
+      padding-top: var(--header-height);
     }
 
     .hero-card {
       position: relative;
-      width: 100%;
-      min-height: calc(100vh - 60px);
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.105), rgba(255,255,255,0.065)),
-        radial-gradient(circle at 22% 28%, rgba(255,255,255,0.10), transparent 24%),
-        radial-gradient(circle at 72% 72%, rgba(185,151,91,0.11), transparent 30%);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255, 255, 255, 0.16);
-      border-bottom: 1px solid rgba(185, 151, 91, 0.25);
-      box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.13);
-      overflow: hidden;
-      padding: 7.5vw 8.5vw;
+
       display: flex;
       align-items: center;
-      animation: fadeInUp 0.55s ease forwards;
-    }
 
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      width: 680px;
-      height: 680px;
-      right: -210px;
-      top: -250px;
-      border: 1px solid rgba(185, 151, 91, 0.18);
-      border-radius: 50%;
-      box-shadow:
-        inset 0 0 55px rgba(185, 151, 91, 0.06),
-        0 0 80px rgba(185, 151, 91, 0.08);
-      animation: slowRotate 30s linear infinite;
-    }
-
-    .hero-card::after {
-      content: "";
-      position: absolute;
-      width: 480px;
-      height: 480px;
-      left: -190px;
-      bottom: -210px;
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      border-radius: 50%;
-      box-shadow: 0 0 85px rgba(185, 151, 91, 0.10);
-      animation: slowFloat 8s ease-in-out infinite;
-    }
-
-    .gold-line {
-      position: absolute;
-      left: 0;
-      bottom: 0;
       width: 100%;
-      height: 5px;
-      background: linear-gradient(90deg, transparent, var(--charlotte-gold), transparent);
-      opacity: 0.82;
+      min-height: calc(100vh - var(--header-height));
+      padding: clamp(72px, 8vw, 120px) clamp(28px, 8.5vw, 140px);
+
+      /*
+        Intentionally transparent:
+        no backdrop blur,
+        no translucent white filter,
+        no radial overlays,
+        no circular decorations.
+      */
+      background: transparent;
+      overflow: hidden;
+
+      animation: fadeInUp 0.55s ease both;
     }
 
-    .page-dial {
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .hero-kicker {
+      margin-bottom: 22px;
+
+      color: var(--charlotte-gold);
+      font-size: clamp(0.72rem, 1.2vw, 0.88rem);
+      font-weight: 700;
+      line-height: 1.7;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      max-width: 1000px;
+      margin: 0;
+
+      color: #ffffff;
+      font-size: clamp(2.9rem, 7vw, 6.7rem);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -0.065em;
+
+      text-shadow: 0 4px 22px rgba(0, 36, 21, 0.22);
+    }
+
+    .gradient-text {
+      color: #ffffff;
+      background: linear-gradient(
+        90deg,
+        #ffffff 0%,
+        #ffffff 35%,
+        #d9c49e 72%,
+        var(--charlotte-gold) 100%
+      );
+
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cursor {
+      display: inline-block;
+      margin-left: 3px;
+      font-weight: 500;
+      animation: blink 0.75s step-end infinite;
+    }
+
+    .hero-subtitle {
+      max-width: 790px;
+      margin: 30px 0 0;
+
+      color: var(--soft-white);
+      font-size: clamp(1rem, 1.65vw, 1.23rem);
+      font-weight: 400;
+      line-height: 1.85;
+      letter-spacing: -0.025em;
+    }
+
+    .hero-subtitle strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .gold-rule {
+      width: 130px;
+      height: 3px;
+      margin: 32px 0;
+
+      background: linear-gradient(
+        90deg,
+        var(--charlotte-gold),
+        rgba(185, 151, 91, 0)
+      );
+    }
+
+    .hero-focus {
+      max-width: 760px;
+      margin: 0;
+
+      color: var(--muted-white);
+      font-size: clamp(0.94rem, 1.35vw, 1.05rem);
+      line-height: 1.85;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-focus span {
+      color: var(--charlotte-gold);
+      font-weight: 700;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 38px;
+    }
+
+    .hero-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 48px;
+      padding: 0.78rem 1.35rem;
+
+      color: #ffffff;
+      background-color: transparent;
+      border: 2px solid var(--charlotte-gold);
+      border-radius: 5px;
+
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+
+      transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .hero-button:hover {
+      color: var(--charlotte-green);
+      background-color: var(--charlotte-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(0, 35, 20, 0.22);
+    }
+
+    .hero-button.primary {
+      color: var(--charlotte-green);
+      background-color: var(--charlotte-gold);
+    }
+
+    .hero-button.primary:hover {
+      color: var(--charlotte-green);
+      background-color: #ffffff;
+      border-color: #ffffff;
+    }
+
+    /*
+      Simple bottom accent.
+      This replaces the circular page-dial decoration.
+    */
+    .bottom-accent {
       position: absolute;
-      right: -95px;
-      bottom: -115px;
-      width: 430px;
-      height: 430px;
-      opacity: 0.95;
-      pointer-events: none;
-      transform-origin: center;
-      animation: dialBreath 5.2s ease-in-out infinite;
-      z-index: 1;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      height: 4px;
+
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(185, 151, 91, 0.4) 18%,
+        var(--charlotte-gold) 50%,
+        rgba(185, 151, 91, 0.4) 82%,
+        transparent 100%
+      );
     }
 
-    .dial-ring {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      border: 1px solid rgba(185, 151, 91, 0.46);
-      box-shadow:
-        inset 0 0 75px rgba(185, 151, 91, 0.09),
-        0 0 90px rgba(185, 151, 91, 0.14);
-    }
-
-    .dial-ring::before,
-    .dial-ring::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.10);
-    }
-
-    .dial-ring::before {
-      inset: 58px;
-    }
-
-    .dial-ring::after {
-      inset: 126px;
-      border-color: rgba(185, 151, 91, 0.20);
-      box-shadow: inset 0 0 40px rgba(185, 151, 91, 0.05);
-    }
-
-    .dial-core {
-      position: absolute;
-      inset: 184px;
-      border-radius: 50%;
-      background: rgba(185, 151, 91, 0.07);
-      border: 1px solid rgba(185, 151, 91, 0.20);
-      box-shadow: 0 0 45px rgba(185, 151, 91, 0.10);
-    }
-
-    .dial-dot {
-      position: absolute;
-      top: 18px;
-      left: 50%;
-      width: 22px;
-      height: 22px;
-      background: var(--charlotte-gold);
-      border-radius: 50%;
-      transform: translateX(-50%);
-      box-shadow:
-        0 0 24px rgba(185, 151, 91, 0.95),
-        0 0 60px rgba(185, 151, 91, 0.35);
-    }
-
-    .dial-orbit {
-      position: absolute;
-      inset: 82px;
-      border-radius: 50%;
-      border: 1px dashed rgba(185, 151, 91, 0.24);
-      animation: slowRotate 42s linear infinite;
-    }
-
-    .page-home {
-      transform: rotate(0deg);
-    }
-
-    @keyframes dialBreath {
-      0%, 100% {
-        opacity: 0.58;
-        filter: drop-shadow(0 0 0 rgba(185, 151, 91, 0));
-      }
-
-      50% {
-        opacity: 0.95;
-        filter: drop-shadow(0 0 28px rgba(185, 151, 91, 0.18));
-      }
-    }
+    /* =========================
+       ANIMATIONS
+    ========================= */
 
     @keyframes fadeInUp {
       from {
@@ -293,163 +433,51 @@
       }
     }
 
-    @keyframes slowRotate {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes slowFloat {
-      0%, 100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-18px);
-      }
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 760px;
-    }
-
-    .hero-kicker {
-      color: var(--charlotte-gold);
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      margin-bottom: 18px;
-    }
-
-    .hero-title {
-      font-size: clamp(3.2rem, 7vw, 6.8rem);
-      font-weight: 800;
-      line-height: 0.98;
-      margin: 0;
-      color: white;
-      letter-spacing: -0.055em;
-    }
-
-    .gradient-text {
-      background: linear-gradient(to right, #ffffff, var(--charlotte-gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .cursor {
-      display: inline-block;
-      font-weight: 800;
-      animation: blink 0.7s infinite;
-    }
-
     @keyframes blink {
-      50% {
+      0%,
+      45% {
+        opacity: 1;
+      }
+
+      46%,
+      100% {
         opacity: 0;
       }
     }
 
-    .hero-subtitle {
-      margin-top: 28px;
-      color: #f3f4f6;
-      font-size: 1.25rem;
-      line-height: 1.8;
-      max-width: 720px;
-    }
-
-    .hero-subtitle strong {
-      color: #ffffff;
-      font-weight: 700;
-    }
-
-    .gold-rule {
-      width: 120px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--charlotte-gold), transparent);
-      margin-top: 30px;
-      margin-bottom: 30px;
-      border-radius: 99px;
-    }
-
-    .hero-focus {
-      color: #e5e7eb;
-      font-size: 1.02rem;
-      line-height: 1.8;
-      max-width: 700px;
-    }
-
-    .hero-focus span {
-      color: var(--charlotte-gold);
-      font-weight: 700;
-    }
-
-    .hero-buttons {
-      margin-top: 36px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .hero-button {
-      display: inline-block;
-      border: 2px solid var(--charlotte-gold);
-      color: #ffffff;
-      padding: 0.78rem 1.42rem;
-      border-radius: 7px;
-      font-weight: 800;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      letter-spacing: 0.01em;
-    }
-
-    .hero-button:hover {
-      background: var(--charlotte-gold);
-      color: var(--charlotte-green);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.18);
-    }
-
-    .hero-button.primary {
-      background: var(--charlotte-gold);
-      color: var(--charlotte-green);
-    }
-
-    .hero-button.primary:hover {
-      background: #ffffff;
-      border-color: #ffffff;
-      color: var(--charlotte-green);
-    }
+    /* =========================
+       RESPONSIVE
+    ========================= */
 
     @media (max-width: 900px) {
-      .hero-card {
-        padding: 80px 34px 64px;
-        min-height: calc(100vh - 60px);
+      .top-header {
+        padding: 0 20px;
       }
 
-      .page-dial {
-        right: -170px;
-        bottom: -180px;
-        width: 390px;
-        height: 390px;
-        opacity: 0.35;
+      .hero-card {
+        justify-content: center;
+        padding: 82px 34px 70px;
       }
 
       .hero-content {
-        text-align: center;
+        max-width: 760px;
         margin: 0 auto;
+        text-align: center;
+      }
+
+      .hero-title {
+        letter-spacing: -0.055em;
       }
 
       .gold-rule {
-        margin-left: auto;
         margin-right: auto;
-        background: linear-gradient(90deg, transparent, var(--charlotte-gold), transparent);
+        margin-left: auto;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--charlotte-gold),
+          transparent
+        );
       }
 
       .hero-buttons {
@@ -458,44 +486,88 @@
     }
 
     @media (max-width: 640px) {
+      :root {
+        --header-height: 60px;
+      }
+
+      .top-header {
+        padding: 0 14px 0 18px;
+      }
+
+      .brand {
+        font-size: 0.96rem;
+      }
+
       .hero-card {
-        padding: 72px 22px 52px;
-      }
-
-      .hero-title {
-        font-size: 3.2rem;
-      }
-
-      .hero-subtitle {
-        font-size: 1.06rem;
+        min-height: calc(100svh - var(--header-height));
+        padding: 70px 21px 54px;
       }
 
       .hero-kicker {
-        font-size: 0.76rem;
-        letter-spacing: 0.11em;
+        margin-bottom: 18px;
+        font-size: 0.7rem;
+        line-height: 1.75;
+        letter-spacing: 0.09em;
+      }
+
+      .hero-title {
+        font-size: clamp(2.65rem, 14vw, 4rem);
+        line-height: 1.05;
+        letter-spacing: -0.06em;
+      }
+
+      .hero-subtitle {
+        margin-top: 25px;
+        font-size: 0.98rem;
+        line-height: 1.75;
+      }
+
+      .gold-rule {
+        margin-top: 27px;
+        margin-bottom: 27px;
+      }
+
+      .hero-focus {
+        font-size: 0.9rem;
+        line-height: 1.75;
       }
 
       .hero-buttons {
         flex-direction: column;
+        width: 100%;
+        margin-top: 32px;
       }
 
       .hero-button {
         width: 100%;
-        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
 
 <body>
-  <canvas id="constellation-canvas"></canvas>
+  <canvas id="constellation-canvas" aria-hidden="true"></canvas>
 
   <div id="content-container">
     <header class="top-header">
       <a href="/" class="brand">Irtiza Hasan</a>
 
-      <nav class="navbar hidden md:flex">
-        <a href="/" class="active">Home</a>
+      <nav class="navbar hidden md:flex" aria-label="Main navigation">
+        <a href="/" class="active" aria-current="page">Home</a>
         <a href="/education.html">Education</a>
         <a href="/publications.html">Publications</a>
         <a href="/service.html">Service</a>
@@ -503,196 +575,475 @@
       </nav>
 
       <div class="md:hidden">
-        <button id="mobile-menu-button" class="text-white focus:outline-none" aria-label="Open mobile menu">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 6h16M4 12h16m-7 6h7">
-            </path>
+        <button
+          id="mobile-menu-button"
+          type="button"
+          aria-label="Open mobile menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <svg
+            id="menu-icon"
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+
+          <svg
+            id="close-icon"
+            class="hidden w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
           </svg>
         </button>
       </div>
     </header>
 
-    <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-black/80 backdrop-blur-sm z-10">
-      <div class="flex flex-col items-center justify-center h-full text-white text-2xl space-y-8">
-        <a href="/" class="mobile-link">Home</a>
+    <div id="mobile-menu" class="hidden md:hidden">
+      <nav class="mobile-menu-content" aria-label="Mobile navigation">
+        <a href="/" class="mobile-link active" aria-current="page">Home</a>
         <a href="/education.html" class="mobile-link">Education</a>
         <a href="/publications.html" class="mobile-link">Publications</a>
         <a href="/service.html" class="mobile-link">Service</a>
         <a href="/gallery.html" class="mobile-link">Gallery</a>
-      </div>
+      </nav>
     </div>
 
     <main class="hero-wrap">
       <section class="hero-card">
-        <div class="page-dial page-home">
-          <div class="dial-ring"></div>
-          <div class="dial-orbit"></div>
-          <div class="dial-core"></div>
-          <div class="dial-dot"></div>
-        </div>
-
-        <div class="gold-line"></div>
-
         <section class="hero-content">
-          <div class="hero-kicker">Ph.D. Student · Electrical & Computer Engineering</div>
+          <div class="hero-kicker">
+            Ph.D. Student · Electrical &amp; Computer Engineering
+          </div>
 
           <h1 class="hero-title">
-            Hi, I'm <span id="typewriter-name" class="gradient-text"></span><span class="cursor gradient-text">|</span>
+            Hi, I'm
+            <span
+              id="typewriter-name"
+              class="gradient-text"
+              aria-label="Irtiza Hasan"
+            ></span><span class="cursor gradient-text" aria-hidden="true">|</span>
           </h1>
 
           <p class="hero-subtitle">
-            I am a Ph.D. student at <strong>UNC Charlotte</strong> working on information freshness,
-            age of information, gossip networks, and scheduling policies for networked systems.
+            I am a Ph.D. student at <strong>UNC Charlotte</strong>
+            working on information freshness, age of information,
+            gossip networks, and scheduling policies for networked systems.
           </p>
 
-          <div class="gold-rule"></div>
+          <div class="gold-rule" aria-hidden="true"></div>
 
           <p class="hero-focus">
-            My current research studies how information spreads, becomes stale, and can be controlled in
+            My current research studies how information spreads,
+            becomes stale, and can be controlled in
             <span>gossip-based communication systems</span>.
           </p>
 
           <div class="hero-buttons">
-            <a href="/publications.html" class="hero-button primary">View Publications</a>
-            <a href="/education.html" class="hero-button">Education</a>
-            <a href="mailto:ihasan@charlotte.edu" class="hero-button">Contact</a>
+            <a href="/publications.html" class="hero-button primary">
+              View Publications
+            </a>
+
+            <a href="/education.html" class="hero-button">
+              Education
+            </a>
+
+            <a href="mailto:ihasan@charlotte.edu" class="hero-button">
+              Contact
+            </a>
           </div>
         </section>
+
+        <div class="bottom-accent" aria-hidden="true"></div>
       </section>
     </main>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const mobileMenuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
+    document.addEventListener("DOMContentLoaded", () => {
+      const mobileMenuButton =
+        document.getElementById("mobile-menu-button");
+
+      const mobileMenu =
+        document.getElementById("mobile-menu");
+
+      const menuIcon =
+        document.getElementById("menu-icon");
+
+      const closeIcon =
+        document.getElementById("close-icon");
+
+      function closeMobileMenu() {
+        if (!mobileMenu || !mobileMenuButton) {
+          return;
+        }
+
+        mobileMenu.classList.add("hidden");
+        mobileMenuButton.setAttribute("aria-expanded", "false");
+
+        if (menuIcon) {
+          menuIcon.classList.remove("hidden");
+        }
+
+        if (closeIcon) {
+          closeIcon.classList.add("hidden");
+        }
+
+        document.body.style.overflow = "";
+      }
+
+      function openMobileMenu() {
+        if (!mobileMenu || !mobileMenuButton) {
+          return;
+        }
+
+        mobileMenu.classList.remove("hidden");
+        mobileMenuButton.setAttribute("aria-expanded", "true");
+
+        if (menuIcon) {
+          menuIcon.classList.add("hidden");
+        }
+
+        if (closeIcon) {
+          closeIcon.classList.remove("hidden");
+        }
+
+        document.body.style.overflow = "hidden";
+      }
 
       if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
+        mobileMenuButton.addEventListener("click", () => {
+          const isOpen =
+            mobileMenuButton.getAttribute("aria-expanded") === "true";
+
+          if (isOpen) {
+            closeMobileMenu();
+          } else {
+            openMobileMenu();
+          }
         });
       }
 
-      const nameElement = document.getElementById('typewriter-name');
+      document.querySelectorAll(".mobile-link").forEach((link) => {
+        link.addEventListener("click", closeMobileMenu);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeMobileMenu();
+        }
+      });
+
+      const nameElement =
+        document.getElementById("typewriter-name");
+
+      const cursorElement =
+        document.querySelector(".cursor");
 
       if (nameElement) {
-        const cursorElement = document.querySelector('.cursor');
         const text = "Irtiza Hasan";
         let index = 0;
 
-        nameElement.textContent = '';
+        nameElement.textContent = "";
 
-        function type() {
+        function typeName() {
           if (index < text.length) {
             nameElement.textContent += text.charAt(index);
-            index++;
-            setTimeout(type, 95);
-          } else if (cursorElement) {
-            setTimeout(() => {
-              cursorElement.style.display = 'none';
-            }, 300);
+            index += 1;
+            window.setTimeout(typeName, 90);
+            return;
+          }
+
+          if (cursorElement) {
+            window.setTimeout(() => {
+              cursorElement.style.display = "none";
+            }, 500);
           }
         }
 
-        setTimeout(type, 400);
+        window.setTimeout(typeName, 350);
       }
     });
   </script>
 
   <script>
-    const canvas = document.getElementById('constellation-canvas');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    const numStars = window.innerWidth > 768 ? 150 : 50;
+    (() => {
+      const canvas =
+        document.getElementById("constellation-canvas");
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      stars = [];
-      init();
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-
-    class Star {
-      constructor(x, y, radius, dx, dy) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-        this.dx = dx;
-        this.dy = dy;
+      if (!canvas) {
+        return;
       }
 
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-        ctx.fill();
+      const context =
+        canvas.getContext("2d");
+
+      if (!context) {
+        return;
       }
 
-      update() {
-        if (this.x > canvas.width || this.x < 0) {
-          this.dx = -this.dx;
+      const prefersReducedMotion =
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      let particles = [];
+      let animationFrameId = null;
+      let devicePixelRatioValue = 1;
+
+      class Particle {
+        constructor(x, y, radius, velocityX, velocityY) {
+          this.x = x;
+          this.y = y;
+          this.radius = radius;
+          this.velocityX = velocityX;
+          this.velocityY = velocityY;
         }
 
-        if (this.y > canvas.height || this.y < 0) {
-          this.dy = -this.dy;
+        update() {
+          if (
+            this.x + this.radius >= window.innerWidth ||
+            this.x - this.radius <= 0
+          ) {
+            this.velocityX *= -1;
+          }
+
+          if (
+            this.y + this.radius >= window.innerHeight ||
+            this.y - this.radius <= 0
+          ) {
+            this.velocityY *= -1;
+          }
+
+          this.x += this.velocityX;
+          this.y += this.velocityY;
         }
 
-        this.x += this.dx;
-        this.y += this.dy;
-        this.draw();
+        draw() {
+          context.beginPath();
+
+          context.arc(
+            this.x,
+            this.y,
+            this.radius,
+            0,
+            Math.PI * 2
+          );
+
+          context.fillStyle =
+            "rgba(255, 255, 255, 0.56)";
+
+          context.fill();
+        }
       }
-    }
 
-    function init() {
-      for (let i = 0; i < numStars; i++) {
-        let radius = Math.random() * 2 + 1;
-        let x = Math.random() * (canvas.width - radius * 2) + radius;
-        let y = Math.random() * (canvas.height - radius * 2) + radius;
-        let dx = (Math.random() - 0.5) * 0.5;
-        let dy = (Math.random() - 0.5) * 0.5;
+      function getParticleCount() {
+        if (window.innerWidth <= 640) {
+          return 38;
+        }
 
-        stars.push(new Star(x, y, radius, dx, dy));
+        if (window.innerWidth <= 1024) {
+          return 62;
+        }
+
+        return 88;
       }
-    }
 
-    function connect() {
-      let opacityValue = 1;
+      function getConnectionDistance() {
+        if (window.innerWidth <= 640) {
+          return 105;
+        }
 
-      for (let a = 0; a < stars.length; a++) {
-        for (let b = a + 1; b < stars.length; b++) {
-          let distance =
-            ((stars[a].x - stars[b].x) * (stars[a].x - stars[b].x)) +
-            ((stars[a].y - stars[b].y) * (stars[a].y - stars[b].y));
+        if (window.innerWidth <= 1024) {
+          return 125;
+        }
 
-          if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-            opacityValue = 1 - (distance / 20000);
-            ctx.strokeStyle = `rgba(185, 151, 91, ${opacityValue})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(stars[a].x, stars[a].y);
-            ctx.lineTo(stars[b].x, stars[b].y);
-            ctx.stroke();
+        return 145;
+      }
+
+      function createParticles() {
+        particles = [];
+
+        const particleCount =
+          getParticleCount();
+
+        for (let index = 0; index < particleCount; index += 1) {
+          const radius =
+            Math.random() * 1.35 + 0.55;
+
+          const x =
+            Math.random() * window.innerWidth;
+
+          const y =
+            Math.random() * window.innerHeight;
+
+          const speed =
+            prefersReducedMotion ? 0 : 0.22;
+
+          const velocityX =
+            (Math.random() - 0.5) * speed;
+
+          const velocityY =
+            (Math.random() - 0.5) * speed;
+
+          particles.push(
+            new Particle(
+              x,
+              y,
+              radius,
+              velocityX,
+              velocityY
+            )
+          );
+        }
+      }
+
+      function resizeCanvas() {
+        devicePixelRatioValue =
+          Math.min(window.devicePixelRatio || 1, 2);
+
+        canvas.width =
+          window.innerWidth * devicePixelRatioValue;
+
+        canvas.height =
+          window.innerHeight * devicePixelRatioValue;
+
+        canvas.style.width =
+          `${window.innerWidth}px`;
+
+        canvas.style.height =
+          `${window.innerHeight}px`;
+
+        context.setTransform(
+          devicePixelRatioValue,
+          0,
+          0,
+          devicePixelRatioValue,
+          0,
+          0
+        );
+
+        createParticles();
+      }
+
+      function drawConnections() {
+        const maximumDistance =
+          getConnectionDistance();
+
+        const maximumDistanceSquared =
+          maximumDistance * maximumDistance;
+
+        for (
+          let firstIndex = 0;
+          firstIndex < particles.length;
+          firstIndex += 1
+        ) {
+          for (
+            let secondIndex = firstIndex + 1;
+            secondIndex < particles.length;
+            secondIndex += 1
+          ) {
+            const horizontalDistance =
+              particles[firstIndex].x -
+              particles[secondIndex].x;
+
+            const verticalDistance =
+              particles[firstIndex].y -
+              particles[secondIndex].y;
+
+            const distanceSquared =
+              horizontalDistance * horizontalDistance +
+              verticalDistance * verticalDistance;
+
+            if (distanceSquared > maximumDistanceSquared) {
+              continue;
+            }
+
+            const distance =
+              Math.sqrt(distanceSquared);
+
+            const opacity =
+              0.28 * (1 - distance / maximumDistance);
+
+            context.beginPath();
+
+            context.moveTo(
+              particles[firstIndex].x,
+              particles[firstIndex].y
+            );
+
+            context.lineTo(
+              particles[secondIndex].x,
+              particles[secondIndex].y
+            );
+
+            context.strokeStyle =
+              `rgba(185, 151, 91, ${opacity})`;
+
+            context.lineWidth = 0.8;
+            context.stroke();
           }
         }
       }
-    }
 
-    function animate() {
-      requestAnimationFrame(animate);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      function renderFrame() {
+        context.clearRect(
+          0,
+          0,
+          window.innerWidth,
+          window.innerHeight
+        );
 
-      for (let star of stars) {
-        star.update();
+        particles.forEach((particle) => {
+          particle.update();
+          particle.draw();
+        });
+
+        drawConnections();
+
+        if (!prefersReducedMotion) {
+          animationFrameId =
+            window.requestAnimationFrame(renderFrame);
+        }
       }
 
-      connect();
-    }
+      function restartAnimation() {
+        if (animationFrameId !== null) {
+          window.cancelAnimationFrame(animationFrameId);
+        }
 
-    resizeCanvas();
-    animate();
+        resizeCanvas();
+        renderFrame();
+      }
+
+      let resizeTimer = null;
+
+      window.addEventListener("resize", () => {
+        window.clearTimeout(resizeTimer);
+
+        resizeTimer = window.setTimeout(() => {
+          restartAnimation();
+        }, 150);
+      });
+
+      restartAnimation();
+    })();
   </script>
 </body>
 </html>
