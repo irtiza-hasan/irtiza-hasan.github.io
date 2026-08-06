@@ -6,22 +6,40 @@
 
   <title>Gallery - Irtiza Hasan</title>
 
+  <meta
+    name="description"
+    content="Conference moments, research presentations, group photographs, and academic memories from Irtiza Hasan."
+  />
+
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/spotlight.js@0.7.8/dist/spotlight.min.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/spotlight.js@0.7.8/dist/spotlight.min.css"
+  />
 
   <style>
     :root {
-      --charlotte-green: #004F2D;
-      --charlotte-gold: #B9975B;
-      --page-green: #006B3F;
-      --deep-green: #003D24;
-      --glass-bg: rgba(255, 255, 255, 0.10);
-      --glass-border: rgba(255, 255, 255, 0.18);
+      --charlotte-green: #004f2d;
+      --charlotte-gold: #b9975b;
+      --page-green: #006b3f;
+      --deep-green: #003d24;
+      --soft-white: #f4f7f5;
+      --muted-white: #dce5e0;
+      --header-height: 64px;
     }
 
     * {
@@ -33,249 +51,458 @@
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--page-green);
-      color: #ffffff;
       margin: 0;
+      min-height: 100vh;
       overflow-x: hidden;
+
+      color: #ffffff;
+      background-color: var(--page-green);
+
+      font-family: "Roboto Mono", monospace;
     }
 
+    button,
+    a {
+      font-family: inherit;
+    }
+
+    /*
+      Connected-line background.
+
+      There is no body overlay, radial gradient,
+      backdrop blur, or transparent filter above it.
+    */
     #constellation-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-    }
-
-    body::before {
-      content: "";
       position: fixed;
       inset: 0;
       z-index: 0;
+
+      width: 100vw;
+      height: 100vh;
+
       pointer-events: none;
-      background:
-        radial-gradient(circle at 16% 18%, rgba(185, 151, 91, 0.18), transparent 28%),
-        radial-gradient(circle at 84% 78%, rgba(255, 255, 255, 0.10), transparent 30%),
-        linear-gradient(135deg, rgba(0, 79, 45, 0.25), rgba(0, 61, 36, 0.45));
     }
 
     #content-container {
       position: relative;
       z-index: 1;
+
       min-height: 100vh;
-      background-color: transparent;
     }
+
+    /* =========================
+       HEADER
+    ========================= */
 
     .top-header {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 60px;
-      background: rgba(0, 79, 45, 0.92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      color: white;
-      z-index: 20;
+      z-index: 30;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 22px;
-      border-bottom: 1px solid rgba(185, 151, 91, 0.35);
+
+      width: 100%;
+      height: var(--header-height);
+      padding: 0 28px;
+
+      color: #ffffff;
+      background-color: var(--charlotte-green);
+
+      border-bottom: 1px solid rgba(185, 151, 91, 0.48);
     }
 
     .brand {
-      color: white;
+      color: #ffffff;
+
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       text-decoration: none;
-      font-weight: 800;
-      font-size: 1.2rem;
-      letter-spacing: 0.01em;
-      transition: color 0.25s ease;
+
+      transition:
+        color 0.2s ease,
+        transform 0.2s ease;
     }
 
     .brand:hover {
       color: var(--charlotte-gold);
-    }
-
-    .navbar a {
-      color: white;
-      font-size: 1rem;
-      font-weight: 500;
-      margin-left: 22px;
-      text-decoration: none;
-      transition: color 0.25s ease, transform 0.25s ease;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.25);
-    }
-
-    .navbar a:hover {
-      color: var(--charlotte-gold);
       transform: translateY(-1px);
     }
 
+    .navbar {
+      align-items: center;
+    }
+
+    .navbar a {
+      position: relative;
+
+      margin-left: 26px;
+      padding: 21px 0 19px;
+
+      color: #ffffff;
+
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+
+      transition: color 0.2s ease;
+    }
+
+    .navbar a::after {
+      content: "";
+
+      position: absolute;
+      right: 0;
+      bottom: 13px;
+      left: 0;
+
+      height: 2px;
+
+      background-color: var(--charlotte-gold);
+
+      transform: scaleX(0);
+      transform-origin: center;
+
+      transition: transform 0.2s ease;
+    }
+
+    .navbar a:hover,
     .navbar a.active {
       color: var(--charlotte-gold);
     }
 
-    .mobile-link {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
+    .navbar a:hover::after,
+    .navbar a.active::after {
+      transform: scaleX(1);
     }
 
-    .mobile-link:hover {
-      color: var(--charlotte-gold);
+    /* =========================
+       MOBILE MENU
+    ========================= */
+
+    #mobile-menu-button {
+      position: relative;
+      z-index: 50;
+
+      padding: 8px;
+
+      color: #ffffff;
+      background: transparent;
+      border: 0;
+
+      cursor: pointer;
     }
+
+    #mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 25;
+
+      background-color: var(--deep-green);
+    }
+
+    .mobile-menu-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+      height: 100%;
+      gap: 30px;
+    }
+
+    .mobile-link {
+      position: relative;
+
+      padding: 4px 0;
+
+      color: #ffffff;
+
+      font-size: 1.35rem;
+      font-weight: 600;
+      text-decoration: none;
+
+      transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .mobile-link:hover,
+    .mobile-link.active {
+      color: var(--charlotte-gold);
+      transform: translateX(4px);
+    }
+
+    /* =========================
+       PAGE LAYOUT
+    ========================= */
 
     .page-wrap {
       min-height: 100vh;
-      padding: 60px 0 0;
+      padding-top: var(--header-height);
     }
 
     .content-card {
       position: relative;
+
       width: 100%;
-      min-height: calc(100vh - 60px);
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.105), rgba(255,255,255,0.065)),
-        radial-gradient(circle at 22% 28%, rgba(255,255,255,0.10), transparent 24%),
-        radial-gradient(circle at 72% 72%, rgba(185,151,91,0.11), transparent 30%);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255, 255, 255, 0.16);
-      border-bottom: 1px solid rgba(185, 151, 91, 0.25);
-      box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.13);
+      min-height: calc(100vh - var(--header-height));
+
+      padding:
+        clamp(72px, 7vw, 110px)
+        clamp(28px, 8.5vw, 140px)
+        clamp(64px, 7vw, 105px);
+
+      /*
+        No translucent content layer.
+        No blur filter.
+        No circular pseudo-elements.
+      */
+      background: transparent;
+
       overflow: hidden;
-      padding: 6.8vw 8.5vw;
-      animation: fadeInUp 0.55s ease forwards;
+
+      animation: fadeInUp 0.55s ease both;
     }
 
-    .content-card::before {
-      content: "";
-      position: absolute;
-      width: 680px;
-      height: 680px;
-      right: -210px;
-      top: -250px;
-      border: 1px solid rgba(185, 151, 91, 0.18);
-      border-radius: 50%;
-      box-shadow:
-        inset 0 0 55px rgba(185, 151, 91, 0.06),
-        0 0 80px rgba(185, 151, 91, 0.08);
-      animation: slowRotate 30s linear infinite;
-    }
+    .main-content {
+      position: relative;
+      z-index: 2;
 
-    .content-card::after {
-      content: "";
-      position: absolute;
-      width: 480px;
-      height: 480px;
-      left: -190px;
-      bottom: -210px;
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      border-radius: 50%;
-      box-shadow: 0 0 85px rgba(185, 151, 91, 0.10);
-      animation: slowFloat 8s ease-in-out infinite;
-    }
-
-    .gold-line {
-      position: absolute;
-      left: 0;
-      bottom: 0;
       width: 100%;
-      height: 5px;
-      background: linear-gradient(90deg, transparent, var(--charlotte-gold), transparent);
-      opacity: 0.82;
+      max-width: 1180px;
     }
 
-    .page-dial {
+    /* =========================
+       PAGE INTRODUCTION
+    ========================= */
+
+    .section-kicker {
+      margin-bottom: 18px;
+
+      color: var(--charlotte-gold);
+
+      font-size: clamp(0.72rem, 1.2vw, 0.88rem);
+      font-weight: 700;
+      line-height: 1.7;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .page-title {
+      margin: 0;
+
+      color: #ffffff;
+
+      font-size: clamp(3rem, 7vw, 6.4rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.065em;
+
+      text-shadow: 0 4px 22px rgba(0, 36, 21, 0.22);
+    }
+
+    .page-title span {
+      color: var(--charlotte-gold);
+    }
+
+    .page-subtitle {
+      max-width: 820px;
+      margin: 28px 0 0;
+
+      color: var(--soft-white);
+
+      font-size: clamp(1rem, 1.6vw, 1.18rem);
+      font-weight: 400;
+      line-height: 1.85;
+      letter-spacing: -0.025em;
+    }
+
+    .gold-rule {
+      width: 130px;
+      height: 3px;
+
+      margin-top: 31px;
+      margin-bottom: 40px;
+
+      background: linear-gradient(
+        90deg,
+        var(--charlotte-gold),
+        rgba(185, 151, 91, 0)
+      );
+    }
+
+    /* =========================
+       GALLERY
+    ========================= */
+
+    .gallery-grid {
+      width: 100%;
+      max-width: 1120px;
+
+      column-count: 2;
+      column-gap: 1.4rem;
+    }
+
+    .gallery-item {
+      position: relative;
+
+      display: block;
+      break-inside: avoid;
+
+      width: 100%;
+      margin-bottom: 1.4rem;
+
+      background-color: var(--deep-green);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+
+      overflow: hidden;
+
+      box-shadow: 0 15px 35px rgba(0, 38, 22, 0.26);
+
+      text-decoration: none;
+
+      transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+
+      border-color: rgba(185, 151, 91, 0.85);
+
+      box-shadow: 0 20px 42px rgba(0, 38, 22, 0.34);
+    }
+
+    .gallery-item:focus-visible {
+      outline: 3px solid var(--charlotte-gold);
+      outline-offset: 4px;
+    }
+
+    .gallery-item img {
+      display: block;
+
+      width: 100%;
+      height: auto;
+
+      object-fit: cover;
+
+      transition: transform 0.35s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.025);
+    }
+
+    .image-caption {
       position: absolute;
-      right: -95px;
-      bottom: -115px;
-      width: 430px;
-      height: 430px;
-      opacity: 0.95;
-      pointer-events: none;
-      transform-origin: center;
-      animation: dialBreath 5.2s ease-in-out infinite;
-      z-index: 1;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      width: 100%;
+      padding: 2.8rem 1.1rem 1rem;
+
+      color: #ffffff;
+
+      background: linear-gradient(
+        180deg,
+        rgba(0, 30, 18, 0),
+        rgba(0, 30, 18, 0.88)
+      );
+
+      font-size: 0.84rem;
+      font-weight: 600;
+      line-height: 1.55;
+      letter-spacing: -0.02em;
     }
 
-    .dial-ring {
+    /* =========================
+       CONTACT STRIP
+    ========================= */
+
+    .contact-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+
+      width: 100%;
+      max-width: 1120px;
+      gap: 16px 28px;
+
+      margin-top: 46px;
+      padding-top: 28px;
+
+      color: var(--muted-white);
+
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+      font-size: 0.86rem;
+      line-height: 1.7;
+    }
+
+    .contact-strip span {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .contact-strip i {
+      width: 18px;
+      margin-right: 9px;
+
+      color: var(--charlotte-gold);
+
+      text-align: center;
+    }
+
+    .contact-strip a {
+      color: var(--charlotte-gold);
+
+      font-weight: 700;
+      text-decoration: none;
+
+      transition: color 0.2s ease;
+    }
+
+    .contact-strip a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    /*
+      Simple bottom accent replacing
+      the circular page-dial decoration.
+    */
+    .bottom-accent {
       position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      border: 1px solid rgba(185, 151, 91, 0.46);
-      box-shadow:
-        inset 0 0 75px rgba(185, 151, 91, 0.09),
-        0 0 90px rgba(185, 151, 91, 0.14);
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      height: 4px;
+
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(185, 151, 91, 0.4) 18%,
+        var(--charlotte-gold) 50%,
+        rgba(185, 151, 91, 0.4) 82%,
+        transparent 100%
+      );
     }
 
-    .dial-ring::before,
-    .dial-ring::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.10);
-    }
-
-    .dial-ring::before {
-      inset: 58px;
-    }
-
-    .dial-ring::after {
-      inset: 126px;
-      border-color: rgba(185, 151, 91, 0.20);
-      box-shadow: inset 0 0 40px rgba(185, 151, 91, 0.05);
-    }
-
-    .dial-core {
-      position: absolute;
-      inset: 184px;
-      border-radius: 50%;
-      background: rgba(185, 151, 91, 0.07);
-      border: 1px solid rgba(185, 151, 91, 0.20);
-      box-shadow: 0 0 45px rgba(185, 151, 91, 0.10);
-    }
-
-    .dial-dot {
-      position: absolute;
-      top: 18px;
-      left: 50%;
-      width: 22px;
-      height: 22px;
-      background: var(--charlotte-gold);
-      border-radius: 50%;
-      transform: translateX(-50%);
-      box-shadow:
-        0 0 24px rgba(185, 151, 91, 0.95),
-        0 0 60px rgba(185, 151, 91, 0.35);
-    }
-
-    .dial-orbit {
-      position: absolute;
-      inset: 82px;
-      border-radius: 50%;
-      border: 1px dashed rgba(185, 151, 91, 0.24);
-      animation: slowRotate 42s linear infinite;
-    }
-
-    .page-gallery {
-      transform: rotate(288deg);
-    }
-
-    @keyframes dialBreath {
-      0%, 100% {
-        opacity: 0.50;
-        filter: drop-shadow(0 0 0 rgba(185, 151, 91, 0));
-      }
-
-      50% {
-        opacity: 0.90;
-        filter: drop-shadow(0 0 28px rgba(185, 151, 91, 0.18));
-      }
-    }
+    /* =========================
+       ANIMATIONS
+    ========================= */
 
     @keyframes fadeInUp {
       from {
@@ -289,438 +516,866 @@
       }
     }
 
-    @keyframes slowRotate {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes slowFloat {
-      0%, 100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-18px);
-      }
-    }
-
-    .main-content {
-      position: relative;
-      z-index: 2;
-      max-width: 1180px;
-    }
-
-    .section-kicker {
-      color: var(--charlotte-gold);
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      margin-bottom: 18px;
-    }
-
-    .page-title {
-      font-size: clamp(3.2rem, 7vw, 6.4rem);
-      font-weight: 800;
-      line-height: 0.98;
-      margin: 0;
-      color: #ffffff;
-      letter-spacing: -0.055em;
-    }
-
-    .page-title span {
-      color: var(--charlotte-gold);
-    }
-
-    .page-subtitle {
-      color: #f3f4f6;
-      line-height: 1.8;
-      font-size: 1.2rem;
-      margin-top: 28px;
-      max-width: 820px;
-    }
-
-    .gold-rule {
-      width: 120px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--charlotte-gold), transparent);
-      margin-top: 30px;
-      margin-bottom: 36px;
-      border-radius: 99px;
-    }
-
-    .gallery-grid {
-      column-count: 2;
-      column-gap: 1.5rem;
-      max-width: 1120px;
-    }
-
-    .gallery-item {
-      position: relative;
-      display: block;
-      margin-bottom: 1.5rem;
-      break-inside: avoid;
-      border-radius: 22px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(255, 255, 255, 0.075);
-      box-shadow: 0 18px 38px rgba(0,0,0,0.18);
-      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
-    }
-
-    .gallery-item:hover {
-      transform: translateY(-4px);
-      border-color: rgba(185, 151, 91, 0.70);
-      box-shadow: 0 22px 46px rgba(0,0,0,0.24);
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-      transition: transform 0.35s ease, filter 0.35s ease;
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.035);
-      filter: saturate(1.05) contrast(1.02);
-    }
-
-    .image-caption {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      padding: 1rem 1.1rem;
-      color: white;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.72));
-      font-size: 0.9rem;
-      line-height: 1.5;
-      font-weight: 600;
-    }
-
-    .contact-strip {
-      max-width: 1120px;
-      margin-top: 44px;
-      padding-top: 26px;
-      border-top: 1px solid rgba(255,255,255,0.18);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      color: #e5e7eb;
-      font-size: 0.95rem;
-    }
-
-    .contact-strip a {
-      color: var(--charlotte-gold);
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .contact-strip a:hover {
-      color: white;
-      text-decoration: underline;
-    }
+    /* =========================
+       RESPONSIVE
+    ========================= */
 
     @media (max-width: 900px) {
+      .top-header {
+        padding: 0 20px;
+      }
+
       .content-card {
-        padding: 80px 34px 64px;
+        padding: 82px 34px 70px;
       }
 
       .main-content {
-        text-align: center;
         margin: 0 auto;
+        text-align: center;
       }
 
       .page-subtitle {
-        margin-left: auto;
         margin-right: auto;
+        margin-left: auto;
       }
 
       .gold-rule {
-        margin-left: auto;
         margin-right: auto;
-        background: linear-gradient(90deg, transparent, var(--charlotte-gold), transparent);
+        margin-left: auto;
+
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--charlotte-gold),
+          transparent
+        );
       }
 
       .gallery-grid {
         column-count: 1;
-        max-width: 100%;
+        max-width: 760px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .gallery-item {
+        text-align: left;
       }
 
       .contact-strip {
         justify-content: center;
-        max-width: 100%;
-      }
+        max-width: 760px;
 
-      .page-dial {
-        right: -170px;
-        bottom: -180px;
-        width: 390px;
-        height: 390px;
-        opacity: 0.35;
+        margin-right: auto;
+        margin-left: auto;
       }
     }
 
     @media (max-width: 640px) {
+      :root {
+        --header-height: 60px;
+      }
+
+      .top-header {
+        padding: 0 14px 0 18px;
+      }
+
+      .brand {
+        font-size: 0.96rem;
+      }
+
       .content-card {
-        padding: 72px 22px 52px;
-      }
-
-      .page-title {
-        font-size: 3.2rem;
-      }
-
-      .page-subtitle {
-        font-size: 1.06rem;
+        padding: 70px 20px 56px;
       }
 
       .section-kicker {
-        font-size: 0.76rem;
-        letter-spacing: 0.11em;
+        margin-bottom: 16px;
+
+        font-size: 0.7rem;
+        line-height: 1.75;
+        letter-spacing: 0.09em;
+      }
+
+      .page-title {
+        font-size: clamp(2.8rem, 15vw, 4.2rem);
+        letter-spacing: -0.06em;
+      }
+
+      .page-subtitle {
+        margin-top: 23px;
+
+        font-size: 0.95rem;
+        line-height: 1.75;
+      }
+
+      .gold-rule {
+        margin-top: 27px;
+        margin-bottom: 32px;
+      }
+
+      .gallery-grid {
+        column-gap: 0;
+      }
+
+      .gallery-item {
+        margin-bottom: 1.1rem;
+        border-radius: 6px;
       }
 
       .image-caption {
-        font-size: 0.8rem;
-        padding: 0.8rem 0.9rem;
+        padding: 2.5rem 0.9rem 0.8rem;
+
+        font-size: 0.75rem;
+        line-height: 1.5;
+      }
+
+      .contact-strip {
+        flex-direction: column;
+        align-items: center;
+
+        gap: 13px;
+
+        margin-top: 36px;
+        padding-top: 24px;
+
+        font-size: 0.78rem;
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
 
 <body>
-  <canvas id="constellation-canvas"></canvas>
+  <canvas
+    id="constellation-canvas"
+    aria-hidden="true"
+  ></canvas>
 
   <div id="content-container">
     <header class="top-header">
-      <a href="/" class="brand">Irtiza Hasan</a>
+      <a href="/" class="brand">
+        Irtiza Hasan
+      </a>
 
-      <nav class="navbar hidden md:flex">
-        <a href="/">Home</a>
-        <a href="/education.html">Education</a>
-        <a href="/publications.html">Publications</a>
-        <a href="/service.html">Service</a>
-        <a href="/gallery.html" class="active">Gallery</a>
+      <nav
+        class="navbar hidden md:flex"
+        aria-label="Main navigation"
+      >
+        <a href="/">
+          Home
+        </a>
+
+        <a href="/education.html">
+          Education
+        </a>
+
+        <a href="/publications.html">
+          Publications
+        </a>
+
+        <a href="/service.html">
+          Service
+        </a>
+
+        <a
+          href="/gallery.html"
+          class="active"
+          aria-current="page"
+        >
+          Gallery
+        </a>
       </nav>
 
       <div class="md:hidden">
-        <button id="mobile-menu-button" class="text-white focus:outline-none" aria-label="Open mobile menu">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 6h16M4 12h16m-7 6h7">
-            </path>
+        <button
+          id="mobile-menu-button"
+          type="button"
+          aria-label="Open mobile menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <svg
+            id="menu-icon"
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+
+          <svg
+            id="close-icon"
+            class="hidden w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
           </svg>
         </button>
       </div>
     </header>
 
-    <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-black/80 backdrop-blur-sm z-10">
-      <div class="flex flex-col items-center justify-center h-full text-white text-2xl space-y-8">
-        <a href="/" class="mobile-link">Home</a>
-        <a href="/education.html" class="mobile-link">Education</a>
-        <a href="/publications.html" class="mobile-link">Publications</a>
-        <a href="/service.html" class="mobile-link">Service</a>
-        <a href="/gallery.html" class="mobile-link">Gallery</a>
-      </div>
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden"
+    >
+      <nav
+        class="mobile-menu-content"
+        aria-label="Mobile navigation"
+      >
+        <a href="/" class="mobile-link">
+          Home
+        </a>
+
+        <a
+          href="/education.html"
+          class="mobile-link"
+        >
+          Education
+        </a>
+
+        <a
+          href="/publications.html"
+          class="mobile-link"
+        >
+          Publications
+        </a>
+
+        <a
+          href="/service.html"
+          class="mobile-link"
+        >
+          Service
+        </a>
+
+        <a
+          href="/gallery.html"
+          class="mobile-link active"
+          aria-current="page"
+        >
+          Gallery
+        </a>
+      </nav>
     </div>
 
     <main class="page-wrap">
       <section class="content-card">
-        <div class="page-dial page-gallery">
-          <div class="dial-ring"></div>
-          <div class="dial-orbit"></div>
-          <div class="dial-core"></div>
-          <div class="dial-dot"></div>
-        </div>
-
-        <div class="gold-line"></div>
-
         <section class="main-content">
-          <div class="section-kicker">Research Life</div>
+          <div class="section-kicker">
+            Research Life
+          </div>
 
           <h1 class="page-title">
             Gallery<span>.</span>
           </h1>
 
           <p class="page-subtitle">
-            A collection of conference moments, group photos, poster presentations, and research memories.
+            A collection of conference moments, group photos,
+            poster presentations, and research memories.
           </p>
 
-          <div class="gold-rule"></div>
+          <div
+            class="gold-rule"
+            aria-hidden="true"
+          ></div>
 
           <div class="spotlight-group gallery-grid">
+            <a
+              href="/images/ICC26.jpeg"
+              class="spotlight gallery-item"
+            >
+              <img
+                src="/images/ICC26.jpeg"
+                alt="Ahmed presenting our paper at IEEE ICC 2026"
+                loading="lazy"
+              />
 
-            <a href="/images/ICC26.jpeg" class="spotlight gallery-item">
-              <img src="/images/ICC26.jpeg" alt="Ahmed presenting our paper in IEEE ICC 2026">
-              <div class="image-caption">Ahmed presenting our paper in IEEE ICC 2026</div>
+              <div class="image-caption">
+                Ahmed presenting our paper at IEEE ICC 2026
+              </div>
             </a>
 
-            <a href="/images/GRP_Spring2026.jpg" class="spotlight gallery-item">
-              <img src="/images/GRP_Spring2026.jpg" alt="Group Photo Spring 2026">
-              <div class="image-caption">Group Photo Spring 2026</div>
+            <a
+              href="/images/GRP_Spring2026.jpg"
+              class="spotlight gallery-item"
+            >
+              <img
+                src="/images/GRP_Spring2026.jpg"
+                alt="Research group photo from Spring 2026"
+                loading="lazy"
+              />
+
+              <div class="image-caption">
+                Group Photo — Spring 2026
+              </div>
             </a>
 
-            <a href="/images/AsilomarUlukus.jpeg" class="spotlight gallery-item">
-              <img src="/images/AsilomarUlukus.jpeg" alt="At Asilomar Conference 2025 - Poster Presentation">
-              <div class="image-caption">Poster Presentation at Asilomar Conference 2025</div>
+            <a
+              href="/images/AsilomarUlukus.jpeg"
+              class="spotlight gallery-item"
+            >
+              <img
+                src="/images/AsilomarUlukus.jpeg"
+                alt="Poster presentation at the 2025 Asilomar Conference"
+                loading="lazy"
+              />
+
+              <div class="image-caption">
+                Poster Presentation at Asilomar Conference 2025
+              </div>
             </a>
 
-            <a href="/images/AsilomarIrtiza.jpeg" class="spotlight gallery-item">
-              <img src="/images/AsilomarIrtiza.jpeg" alt="Asilomar State Beach, Pacific Grove">
-              <div class="image-caption">Asilomar State Beach in Pacific Grove</div>
+            <a
+              href="/images/AsilomarIrtiza.jpeg"
+              class="spotlight gallery-item"
+            >
+              <img
+                src="/images/AsilomarIrtiza.jpeg"
+                alt="Irtiza Hasan at Asilomar State Beach in Pacific Grove"
+                loading="lazy"
+              />
+
+              <div class="image-caption">
+                Asilomar State Beach in Pacific Grove
+              </div>
             </a>
 
-            <a href="/images/Group Photo Sep.jpg" class="spotlight gallery-item">
-              <img src="/images/Group Photo Sep.jpg" alt="Group Photo September, 2025">
-              <div class="image-caption">Group Photo September, 2025, along with Abdelrahman Elmaradny from UCI</div>
+            <a
+              href="/images/Group Photo Sep.jpg"
+              class="spotlight gallery-item"
+            >
+              <img
+                src="/images/Group Photo Sep.jpg"
+                alt="Research group photo from September 2025"
+                loading="lazy"
+              />
+
+              <div class="image-caption">
+                Group Photo — September 2025, with Abdelrahman
+                Elmaradny from UCI
+              </div>
             </a>
 
-            <a href="/images/2.jpeg" class="spotlight gallery-item">
-              <img src="/images/2.jpeg" alt="Group Photo April, 2025">
-              <div class="image-caption">Group Photo April, 2025</div>
+            <a
+              href="/images/2.jpeg"
+              class="spotlight gallery-item"
+            >
+              <img
+                src="/images/2.jpeg"
+                alt="Research group photo from April 2025"
+                loading="lazy"
+              />
+
+              <div class="image-caption">
+                Group Photo — April 2025
+              </div>
             </a>
 
-            <a href="/images/1.jpeg" class="spotlight gallery-item">
-              <img src="/images/1.jpeg" alt="Presenting Poster at UNC Charlotte GRS 2025">
-              <div class="image-caption">Presenting Poster at UNC Charlotte GRS 2025</div>
+            <a
+              href="/images/1.jpeg"
+              class="spotlight gallery-item"
+            >
+              <img
+                src="/images/1.jpeg"
+                alt="Presenting a poster at UNC Charlotte GRS 2025"
+                loading="lazy"
+              />
+
+              <div class="image-caption">
+                Presenting a Poster at UNC Charlotte GRS 2025
+              </div>
             </a>
 
-            <a href="/images/3.jpeg" class="spotlight gallery-item">
-              <img src="/images/3.jpeg" alt="Group Photo August, 2024">
-              <div class="image-caption">Group Photo August, 2024</div>
+            <a
+              href="/images/3.jpeg"
+              class="spotlight gallery-item"
+            >
+              <img
+                src="/images/3.jpeg"
+                alt="Research group photo from August 2024"
+                loading="lazy"
+              />
+
+              <div class="image-caption">
+                Group Photo — August 2024
+              </div>
             </a>
 
-            <a href="/images/Allerton.jpg" class="spotlight gallery-item">
-              <img src="/images/Allerton.jpg" alt="With Prof. Ulukus and Prof. Bastopcu in Allerton 2025">
-              <div class="image-caption">With Prof. Ulukus and Prof. Bastopcu in Allerton 2025</div>
-            </a>
+            <a
+              href="/images/Allerton.jpg"
+              class="spotlight gallery-item"
+            >
+              <img
+                src="/images/Allerton.jpg"
+                alt="With Professor Ulukus and Professor Bastopcu at Allerton 2025"
+                loading="lazy"
+              />
 
+              <div class="image-caption">
+                With Prof. Ulukus and Prof. Bastopcu at Allerton 2025
+              </div>
+            </a>
           </div>
 
           <div class="contact-strip">
-            <span><i class="fas fa-map-marker-alt mr-2"></i>Charlotte, North Carolina</span>
-            <span><i class="fas fa-envelope mr-2"></i><a href="mailto:ihasan@charlotte.edu">ihasan@charlotte.edu</a></span>
-            <span><i class="fas fa-graduation-cap mr-2"></i><a href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ" target="_blank">Google Scholar</a></span>
+            <span>
+              <i
+                class="fas fa-map-marker-alt"
+                aria-hidden="true"
+              ></i>
+
+              Charlotte, North Carolina
+            </span>
+
+            <span>
+              <i
+                class="fas fa-envelope"
+                aria-hidden="true"
+              ></i>
+
+              <a href="mailto:ihasan@charlotte.edu">
+                ihasan@charlotte.edu
+              </a>
+            </span>
+
+            <span>
+              <i
+                class="fas fa-graduation-cap"
+                aria-hidden="true"
+              ></i>
+
+              <a
+                href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Google Scholar
+              </a>
+            </span>
           </div>
         </section>
+
+        <div
+          class="bottom-accent"
+          aria-hidden="true"
+        ></div>
       </section>
     </main>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/spotlight.js@0.7.8/dist/spotlight.min.js" defer></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/spotlight.js@0.7.8/dist/spotlight.min.js"
+    defer
+  ></script>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const mobileMenuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
+    document.addEventListener("DOMContentLoaded", () => {
+      const mobileMenuButton =
+        document.getElementById("mobile-menu-button");
+
+      const mobileMenu =
+        document.getElementById("mobile-menu");
+
+      const menuIcon =
+        document.getElementById("menu-icon");
+
+      const closeIcon =
+        document.getElementById("close-icon");
+
+      function closeMobileMenu() {
+        if (!mobileMenu || !mobileMenuButton) {
+          return;
+        }
+
+        mobileMenu.classList.add("hidden");
+
+        mobileMenuButton.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+        mobileMenuButton.setAttribute(
+          "aria-label",
+          "Open mobile menu"
+        );
+
+        if (menuIcon) {
+          menuIcon.classList.remove("hidden");
+        }
+
+        if (closeIcon) {
+          closeIcon.classList.add("hidden");
+        }
+
+        document.body.style.overflow = "";
+      }
+
+      function openMobileMenu() {
+        if (!mobileMenu || !mobileMenuButton) {
+          return;
+        }
+
+        mobileMenu.classList.remove("hidden");
+
+        mobileMenuButton.setAttribute(
+          "aria-expanded",
+          "true"
+        );
+
+        mobileMenuButton.setAttribute(
+          "aria-label",
+          "Close mobile menu"
+        );
+
+        if (menuIcon) {
+          menuIcon.classList.add("hidden");
+        }
+
+        if (closeIcon) {
+          closeIcon.classList.remove("hidden");
+        }
+
+        document.body.style.overflow = "hidden";
+      }
 
       if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
+        mobileMenuButton.addEventListener("click", () => {
+          const isOpen =
+            mobileMenuButton.getAttribute("aria-expanded") ===
+            "true";
+
+          if (isOpen) {
+            closeMobileMenu();
+          } else {
+            openMobileMenu();
+          }
         });
       }
+
+      document
+        .querySelectorAll(".mobile-link")
+        .forEach((link) => {
+          link.addEventListener(
+            "click",
+            closeMobileMenu
+          );
+        });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeMobileMenu();
+        }
+      });
     });
   </script>
 
   <script>
-    const canvas = document.getElementById('constellation-canvas');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    const numStars = window.innerWidth > 768 ? 150 : 50;
+    (() => {
+      const canvas =
+        document.getElementById("constellation-canvas");
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      stars = [];
-      init();
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-
-    class Star {
-      constructor(x, y, radius, dx, dy) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-        this.dx = dx;
-        this.dy = dy;
+      if (!canvas) {
+        return;
       }
 
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-        ctx.fill();
+      const context =
+        canvas.getContext("2d");
+
+      if (!context) {
+        return;
       }
 
-      update() {
-        if (this.x > canvas.width || this.x < 0) {
-          this.dx = -this.dx;
+      const prefersReducedMotion =
+        window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+      let particles = [];
+      let animationFrameId = null;
+      let resizeTimer = null;
+      let devicePixelRatioValue = 1;
+
+      class Particle {
+        constructor(
+          x,
+          y,
+          radius,
+          velocityX,
+          velocityY
+        ) {
+          this.x = x;
+          this.y = y;
+          this.radius = radius;
+          this.velocityX = velocityX;
+          this.velocityY = velocityY;
         }
 
-        if (this.y > canvas.height || this.y < 0) {
-          this.dy = -this.dy;
+        update() {
+          if (
+            this.x + this.radius >= window.innerWidth ||
+            this.x - this.radius <= 0
+          ) {
+            this.velocityX *= -1;
+          }
+
+          if (
+            this.y + this.radius >= window.innerHeight ||
+            this.y - this.radius <= 0
+          ) {
+            this.velocityY *= -1;
+          }
+
+          this.x += this.velocityX;
+          this.y += this.velocityY;
         }
 
-        this.x += this.dx;
-        this.y += this.dy;
-        this.draw();
+        draw() {
+          context.beginPath();
+
+          context.arc(
+            this.x,
+            this.y,
+            this.radius,
+            0,
+            Math.PI * 2
+          );
+
+          context.fillStyle =
+            "rgba(255, 255, 255, 0.56)";
+
+          context.fill();
+        }
       }
-    }
 
-    function init() {
-      for (let i = 0; i < numStars; i++) {
-        let radius = Math.random() * 2 + 1;
-        let x = Math.random() * (canvas.width - radius * 2) + radius;
-        let y = Math.random() * (canvas.height - radius * 2) + radius;
-        let dx = (Math.random() - 0.5) * 0.5;
-        let dy = (Math.random() - 0.5) * 0.5;
+      function getParticleCount() {
+        if (window.innerWidth <= 640) {
+          return 38;
+        }
 
-        stars.push(new Star(x, y, radius, dx, dy));
+        if (window.innerWidth <= 1024) {
+          return 62;
+        }
+
+        return 88;
       }
-    }
 
-    function connect() {
-      let opacityValue = 1;
+      function getConnectionDistance() {
+        if (window.innerWidth <= 640) {
+          return 105;
+        }
 
-      for (let a = 0; a < stars.length; a++) {
-        for (let b = a + 1; b < stars.length; b++) {
-          let distance =
-            ((stars[a].x - stars[b].x) * (stars[a].x - stars[b].x)) +
-            ((stars[a].y - stars[b].y) * (stars[a].y - stars[b].y));
+        if (window.innerWidth <= 1024) {
+          return 125;
+        }
 
-          if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-            opacityValue = 1 - (distance / 20000);
-            ctx.strokeStyle = `rgba(185, 151, 91, ${opacityValue})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(stars[a].x, stars[a].y);
-            ctx.lineTo(stars[b].x, stars[b].y);
-            ctx.stroke();
+        return 145;
+      }
+
+      function createParticles() {
+        particles = [];
+
+        const particleCount =
+          getParticleCount();
+
+        for (
+          let index = 0;
+          index < particleCount;
+          index += 1
+        ) {
+          const radius =
+            Math.random() * 1.35 + 0.55;
+
+          const x =
+            Math.random() * window.innerWidth;
+
+          const y =
+            Math.random() * window.innerHeight;
+
+          const speed =
+            prefersReducedMotion ? 0 : 0.22;
+
+          const velocityX =
+            (Math.random() - 0.5) * speed;
+
+          const velocityY =
+            (Math.random() - 0.5) * speed;
+
+          particles.push(
+            new Particle(
+              x,
+              y,
+              radius,
+              velocityX,
+              velocityY
+            )
+          );
+        }
+      }
+
+      function resizeCanvas() {
+        devicePixelRatioValue =
+          Math.min(window.devicePixelRatio || 1, 2);
+
+        canvas.width =
+          window.innerWidth * devicePixelRatioValue;
+
+        canvas.height =
+          window.innerHeight * devicePixelRatioValue;
+
+        canvas.style.width =
+          `${window.innerWidth}px`;
+
+        canvas.style.height =
+          `${window.innerHeight}px`;
+
+        context.setTransform(
+          devicePixelRatioValue,
+          0,
+          0,
+          devicePixelRatioValue,
+          0,
+          0
+        );
+
+        createParticles();
+      }
+
+      function drawConnections() {
+        const maximumDistance =
+          getConnectionDistance();
+
+        const maximumDistanceSquared =
+          maximumDistance * maximumDistance;
+
+        for (
+          let firstIndex = 0;
+          firstIndex < particles.length;
+          firstIndex += 1
+        ) {
+          for (
+            let secondIndex = firstIndex + 1;
+            secondIndex < particles.length;
+            secondIndex += 1
+          ) {
+            const horizontalDistance =
+              particles[firstIndex].x -
+              particles[secondIndex].x;
+
+            const verticalDistance =
+              particles[firstIndex].y -
+              particles[secondIndex].y;
+
+            const distanceSquared =
+              horizontalDistance * horizontalDistance +
+              verticalDistance * verticalDistance;
+
+            if (
+              distanceSquared >
+              maximumDistanceSquared
+            ) {
+              continue;
+            }
+
+            const distance =
+              Math.sqrt(distanceSquared);
+
+            const opacity =
+              0.28 *
+              (1 - distance / maximumDistance);
+
+            context.beginPath();
+
+            context.moveTo(
+              particles[firstIndex].x,
+              particles[firstIndex].y
+            );
+
+            context.lineTo(
+              particles[secondIndex].x,
+              particles[secondIndex].y
+            );
+
+            context.strokeStyle =
+              `rgba(185, 151, 91, ${opacity})`;
+
+            context.lineWidth = 0.8;
+            context.stroke();
           }
         }
       }
-    }
 
-    function animate() {
-      requestAnimationFrame(animate);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      function renderFrame() {
+        context.clearRect(
+          0,
+          0,
+          window.innerWidth,
+          window.innerHeight
+        );
 
-      for (let star of stars) {
-        star.update();
+        particles.forEach((particle) => {
+          particle.update();
+          particle.draw();
+        });
+
+        drawConnections();
+
+        if (!prefersReducedMotion) {
+          animationFrameId =
+            window.requestAnimationFrame(
+              renderFrame
+            );
+        }
       }
 
-      connect();
-    }
+      function restartAnimation() {
+        if (animationFrameId !== null) {
+          window.cancelAnimationFrame(
+            animationFrameId
+          );
+        }
 
-    resizeCanvas();
-    animate();
+        resizeCanvas();
+        renderFrame();
+      }
+
+      window.addEventListener("resize", () => {
+        window.clearTimeout(resizeTimer);
+
+        resizeTimer = window.setTimeout(() => {
+          restartAnimation();
+        }, 150);
+      });
+
+      restartAnimation();
+    })();
   </script>
 </body>
 </html>
