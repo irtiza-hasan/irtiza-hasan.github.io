@@ -1,37 +1,37 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Publications - Irtiza Hasan</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,500;0,600;0,700;1,500&display=swap"
-    rel="stylesheet"
-  >
-
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  >
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Research publications of Irtiza Hasan in information freshness, gossip networks, scheduling, communications, and signal processing." name="description"/>
+<title>Publications | Irtiza Hasan</title>
+<!-- Roboto Mono and its weight variants -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
     :root {
-      --charlotte-green: #004f2d;
-      --charlotte-green-dark: #003d24;
-      --charlotte-gold: #b9975b;
-      --charlotte-gold-light: #d5c29f;
+      --green: #004f2d;
+      --green-dark: #003d24;
+      --green-soft: rgba(0, 79, 45, 0.07);
 
-      --page-background: #fbfbf8;
-      --text-primary: #142018;
-      --text-secondary: #4d5b53;
-      --text-muted: #68736d;
+      --gold: #b9975b;
+      --gold-dark: #826533;
+      --gold-light: #d9c7a4;
+      --gold-soft: rgba(185, 151, 91, 0.12);
 
-      --border-soft: rgba(0, 79, 45, 0.12);
-      --border-gold: rgba(185, 151, 91, 0.45);
+      --background: #fbfbf8;
+      --surface: rgba(255, 255, 255, 0.82);
+
+      --text: #152219;
+      --text-secondary: #46534b;
+      --text-muted: #6a756e;
+
+      --border: rgba(0, 79, 45, 0.13);
+      --gold-border: rgba(185, 151, 91, 0.46);
+
+      --header-height: 64px;
+      --content-width: 1060px;
     }
 
     * {
@@ -43,23 +43,42 @@
     }
 
     body {
+      min-height: 100vh;
       margin: 0;
       overflow-x: hidden;
+      overflow-y: auto;
 
-      color: var(--text-primary);
-      background: var(--page-background);
+      color: var(--text);
+      background: var(--background);
 
-      font-family: "Poppins", sans-serif;
+      font-family: "Roboto Mono", monospace;
+      font-weight: 400;
+
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     a {
+      color: inherit;
+      text-decoration: none;
+
       transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        border-color 0.2s ease;
+        color 160ms ease,
+        background-color 160ms ease,
+        border-color 160ms ease;
     }
 
-    #constellation-canvas {
+    button {
+      font: inherit;
+    }
+
+    /*
+      Animated network background.
+
+      The canvas is fixed behind the content, and the content layer remains
+      translucent so the gold line art is visible throughout the page.
+    */
+    #network-canvas {
       position: fixed;
       inset: 0;
 
@@ -67,40 +86,161 @@
       height: 100vh;
 
       z-index: 0;
-      opacity: 0.55;
       pointer-events: none;
     }
 
-    body::before {
-      content: "";
+    /*
+      Static geometric gold line art.
+
+      These are diagonal technical grid lines rather than circles.
+    */
+    .line-art {
       position: fixed;
       inset: 0;
 
       z-index: 0;
+      overflow: hidden;
       pointer-events: none;
 
-      background:
-        radial-gradient(
-          circle at 15% 18%,
-          rgba(185, 151, 91, 0.09),
-          transparent 29%
-        ),
-        radial-gradient(
-          circle at 84% 80%,
-          rgba(0, 79, 45, 0.04),
-          transparent 32%
-        );
+      opacity: 0.68;
     }
 
-    #content-container {
+    .line-art::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+
+      background-image:
+        linear-gradient(
+          115deg,
+          transparent 0%,
+          transparent 48.8%,
+          rgba(185, 151, 91, 0.20) 49%,
+          rgba(185, 151, 91, 0.20) 49.15%,
+          transparent 49.35%,
+          transparent 100%
+        ),
+        linear-gradient(
+          25deg,
+          transparent 0%,
+          transparent 61%,
+          rgba(0, 79, 45, 0.07) 61.15%,
+          rgba(0, 79, 45, 0.07) 61.3%,
+          transparent 61.45%,
+          transparent 100%
+        );
+
+      background-size:
+        270px 270px,
+        350px 350px;
+
+      transform: rotate(-2deg);
+    }
+
+    .line-segment {
+      position: absolute;
+
+      height: 1px;
+
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(185, 151, 91, 0.58),
+        transparent
+      );
+
+      transform-origin: left center;
+    }
+
+    .line-segment-one {
+      top: 18%;
+      right: -4%;
+
+      width: 44vw;
+
+      transform: rotate(-24deg);
+    }
+
+    .line-segment-two {
+      top: 48%;
+      left: -8%;
+
+      width: 38vw;
+
+      transform: rotate(18deg);
+    }
+
+    .line-segment-three {
+      right: -6%;
+      bottom: 16%;
+
+      width: 48vw;
+
+      transform: rotate(16deg);
+    }
+
+    .technical-corner {
+      position: fixed;
+
+      z-index: 0;
+      pointer-events: none;
+
+      width: 210px;
+      height: 120px;
+
+      opacity: 0.52;
+    }
+
+    .technical-corner::before,
+    .technical-corner::after {
+      content: "";
+      position: absolute;
+
+      background: var(--gold);
+    }
+
+    .technical-corner::before {
+      width: 100%;
+      height: 1px;
+    }
+
+    .technical-corner::after {
+      width: 1px;
+      height: 100%;
+    }
+
+    .technical-corner-top {
+      top: 102px;
+      right: 5%;
+    }
+
+    .technical-corner-top::before,
+    .technical-corner-top::after {
+      top: 0;
+      right: 0;
+    }
+
+    .technical-corner-bottom {
+      left: 4%;
+      bottom: 55px;
+    }
+
+    .technical-corner-bottom::before,
+    .technical-corner-bottom::after {
+      left: 0;
+      bottom: 0;
+    }
+
+    #site-container {
       position: relative;
       z-index: 1;
 
       min-height: 100vh;
-      background: transparent;
     }
 
-    .top-header {
+    /* Header */
+
+    .site-header {
       position: fixed;
       top: 0;
       left: 0;
@@ -112,16 +252,17 @@
       justify-content: space-between;
 
       width: 100%;
-      height: 60px;
+      height: var(--header-height);
 
-      padding: 0 22px;
+      padding: 0 30px;
 
       color: #ffffff;
       background: rgba(0, 79, 45, 0.97);
 
-      border-bottom: 1px solid rgba(185, 151, 91, 0.65);
+      border-bottom: 1px solid rgba(185, 151, 91, 0.76);
 
-      box-shadow: 0 5px 20px rgba(0, 61, 36, 0.15);
+      box-shadow:
+        0 5px 18px rgba(0, 61, 36, 0.14);
 
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -129,201 +270,755 @@
 
     .brand {
       color: #ffffff;
-      text-decoration: none;
 
-      font-size: 1.2rem;
-      font-weight: 800;
-      letter-spacing: 0.01em;
+      font-size: 1.08rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
     }
 
     .brand:hover {
-      color: var(--charlotte-gold-light);
+      color: var(--gold-light);
     }
 
-    .navbar a {
-      display: inline-block;
+    .desktop-navigation {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
 
-      margin-left: 22px;
+    .desktop-navigation a {
+      position: relative;
+
+      padding: 21px 0 19px;
+
+      color: rgba(255, 255, 255, 0.88);
+
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.025em;
+    }
+
+    .desktop-navigation a::after {
+      content: "";
+      position: absolute;
+
+      left: 0;
+      bottom: 13px;
+
+      width: 0;
+      height: 1px;
+
+      background: var(--gold-light);
+
+      transition: width 180ms ease;
+    }
+
+    .desktop-navigation a:hover,
+    .desktop-navigation a.active {
+      color: var(--gold-light);
+    }
+
+    .desktop-navigation a:hover::after,
+    .desktop-navigation a.active::after {
+      width: 100%;
+    }
+
+    .menu-button {
+      display: none;
+
+      width: 42px;
+      height: 42px;
+
+      padding: 0;
 
       color: #ffffff;
-      text-decoration: none;
+      background: transparent;
+
+      border: 1px solid rgba(185, 151, 91, 0.72);
+      border-radius: 3px;
+
+      cursor: pointer;
+    }
+
+    .menu-button:hover {
+      color: var(--gold-light);
+      border-color: var(--gold-light);
+    }
+
+    .mobile-navigation {
+      position: fixed;
+      inset: var(--header-height) 0 0;
+
+      z-index: 29;
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      background: rgba(0, 46, 27, 0.97);
+
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .mobile-navigation.open {
+      display: flex;
+    }
+
+    .mobile-navigation-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      width: min(82vw, 360px);
+    }
+
+    .mobile-navigation a {
+      display: block;
+
+      padding: 14px 16px;
+
+      color: #ffffff;
+
+      border-bottom: 1px solid rgba(185, 151, 91, 0.35);
 
       font-size: 1rem;
       font-weight: 500;
+      text-align: center;
     }
 
-    .navbar a:hover,
-    .navbar a.active {
-      color: var(--charlotte-gold-light);
+    .mobile-navigation a:hover,
+    .mobile-navigation a.active {
+      color: var(--gold-light);
     }
 
-    .navbar a.active {
-      font-weight: 700;
-    }
+    /* Main page */
 
-    .mobile-link {
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .mobile-link:hover {
-      color: var(--charlotte-gold-light);
-    }
-
-    .page-wrap {
+    .page {
       min-height: 100vh;
-      padding-top: 60px;
+      padding-top: var(--header-height);
     }
 
-    .content-card {
+    .page-surface {
       position: relative;
 
-      min-height: calc(100vh - 60px);
-      width: 100%;
+      min-height: calc(100vh - var(--header-height));
 
-      padding: 6.5vw 8.5vw 5vw;
+      padding:
+        clamp(74px, 8vw, 120px)
+        clamp(24px, 8.5vw, 132px)
+        64px;
 
-      overflow: hidden;
+      background: rgba(251, 251, 248, 0.70);
 
-      background: rgba(255, 255, 255, 0.69);
-
-      border-bottom: 1px solid rgba(185, 151, 91, 0.28);
-
-      animation: fadeInUp 0.5s ease forwards;
+      border-bottom: 4px solid var(--gold);
     }
 
-    .content-card::before {
+    /*
+      Gold architectural line at top-right.
+      No circles are used.
+    */
+    .page-surface::before {
       content: "";
       position: absolute;
 
-      top: -250px;
-      right: -210px;
+      top: 92px;
+      right: 0;
 
-      width: 680px;
-      height: 680px;
+      width: min(37vw, 520px);
+      height: 82px;
 
-      border: 1px solid rgba(185, 151, 91, 0.24);
-      border-radius: 50%;
+      border-top: 1px solid rgba(185, 151, 91, 0.68);
+      border-left: 1px solid rgba(185, 151, 91, 0.68);
 
-      box-shadow:
-        inset 0 0 55px rgba(185, 151, 91, 0.05),
-        0 0 80px rgba(185, 151, 91, 0.06);
+      clip-path: polygon(
+        18% 0,
+        100% 0,
+        100% 100%,
+        99.7% 100%,
+        99.7% 1px,
+        18.4% 1px,
+        0 100%,
+        0 99%
+      );
 
-      animation: slowRotate 34s linear infinite;
+      pointer-events: none;
     }
 
-    .content-card::after {
+    /*
+      Gold architectural line at lower-left.
+    */
+    .page-surface::after {
       content: "";
       position: absolute;
 
-      left: -190px;
-      bottom: -210px;
+      left: 0;
+      bottom: 110px;
 
-      width: 480px;
-      height: 480px;
+      width: min(32vw, 440px);
+      height: 78px;
 
-      border: 1px solid rgba(0, 79, 45, 0.10);
-      border-radius: 50%;
+      border-right: 1px solid rgba(185, 151, 91, 0.55);
+      border-bottom: 1px solid rgba(185, 151, 91, 0.55);
 
-      box-shadow: 0 0 85px rgba(185, 151, 91, 0.08);
+      clip-path: polygon(
+        0 0,
+        0.3% 0,
+        0.3% 99%,
+        81.6% 99%,
+        100% 0,
+        100% 1%,
+        82% 100%,
+        0 100%
+      );
 
-      animation: slowFloat 8s ease-in-out infinite;
+      pointer-events: none;
     }
 
     .main-content {
       position: relative;
       z-index: 2;
 
-      max-width: 1060px;
+      width: 100%;
+      max-width: var(--content-width);
     }
 
-    .section-kicker {
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+
       margin-bottom: 18px;
 
-      color: var(--charlotte-gold);
+      color: var(--gold-dark);
 
-      font-size: 0.88rem;
-      font-weight: 800;
+      font-size: 0.75rem;
+      font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+
+      width: 42px;
+      height: 1px;
+
+      background: var(--gold);
     }
 
     .page-title {
       margin: 0;
 
-      color: var(--text-primary);
+      color: var(--text);
 
-      font-size: clamp(3.2rem, 7vw, 6.4rem);
-      font-weight: 800;
-      line-height: 0.98;
-      letter-spacing: -0.055em;
+      font-size: clamp(3rem, 7vw, 6.3rem);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.08em;
     }
 
     .page-title span {
-      color: var(--charlotte-gold);
+      color: var(--gold);
     }
 
-    .page-subtitle {
-      max-width: 820px;
+    .page-summary {
+      max-width: 790px;
 
-      margin-top: 28px;
+      margin: 30px 0 0;
 
       color: var(--text-secondary);
 
-      font-size: 1.16rem;
-      line-height: 1.8;
+      font-size: clamp(0.92rem, 1.35vw, 1.08rem);
+      font-weight: 400;
+      line-height: 1.85;
     }
 
-    .gold-rule {
-      width: 120px;
-      height: 3px;
+    .title-rule {
+      display: grid;
+      grid-template-columns: 125px 1fr;
+      gap: 12px;
 
-      margin-top: 30px;
-      margin-bottom: 48px;
+      width: min(100%, 900px);
 
+      margin: 36px 0 54px;
+    }
+
+    .title-rule-primary,
+    .title-rule-secondary {
+      height: 2px;
+    }
+
+    .title-rule-primary {
+      background: var(--gold);
+    }
+
+    .title-rule-secondary {
       background: linear-gradient(
         90deg,
-        var(--charlotte-gold),
+        rgba(185, 151, 91, 0.52),
         transparent
       );
-
-      border-radius: 999px;
     }
 
-    .publication-groups {
+    /* Education section */
+
+    .education-section {
       width: 100%;
-      max-width: 980px;
+      max-width: 940px;
     }
 
-    .publication-year-group {
-      margin-bottom: 3.6rem;
-    }
-
-    .publication-year {
-      display: flex;
+    .section-heading {
+      display: grid;
+      grid-template-columns: auto 1fr;
       align-items: center;
-      gap: 1rem;
+      gap: 18px;
 
-      margin: 0 0 1.6rem;
+      margin: 0 0 30px;
 
-      color: var(--charlotte-green);
+      color: var(--green);
 
-      font-family: "Source Serif 4", Georgia, serif;
-      font-size: 1.65rem;
+      font-size: 1.2rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.04em;
     }
 
-    .publication-year::after {
+    .section-heading::after {
       content: "";
 
-      flex: 1;
       height: 1px;
 
       background: linear-gradient(
         90deg,
-        rgba(185, 151, 91, 0.72),
+        rgba(185, 151, 91, 0.82),
+        rgba(185, 151, 91, 0.08)
+      );
+    }
+
+    .education-list {
+      margin: 0;
+      padding: 0;
+
+      list-style: none;
+    }
+
+    .education-entry {
+      position: relative;
+
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 34px;
+
+      padding: 0 0 40px;
+      margin: 0 0 40px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .education-entry::after {
+      content: "";
+      position: absolute;
+
+      left: 0;
+      bottom: -1px;
+
+      width: 70px;
+      height: 1px;
+
+      background: var(--gold);
+    }
+
+    .education-entry:last-child {
+      margin-bottom: 0;
+    }
+
+    .education-period {
+      padding-top: 3px;
+
+      color: var(--gold-dark);
+
+      font-size: 0.84rem;
+      font-weight: 700;
+      line-height: 1.7;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .education-period .status {
+      display: block;
+
+      margin-top: 4px;
+
+      color: var(--text-muted);
+
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      text-transform: none;
+    }
+
+    .education-content {
+      min-width: 0;
+    }
+
+    .institution-name {
+      display: inline;
+
+      color: var(--text);
+
+      font-size: clamp(1.05rem, 2vw, 1.32rem);
+      font-weight: 700;
+      line-height: 1.48;
+      letter-spacing: -0.04em;
+
+      border-bottom: 1px solid transparent;
+    }
+
+    .institution-name:hover {
+      color: var(--green);
+      border-bottom-color: var(--gold);
+    }
+
+    .degree-name {
+      margin: 11px 0 0;
+
+      color: var(--green);
+
+      font-size: 0.92rem;
+      font-weight: 600;
+      line-height: 1.7;
+    }
+
+    .education-location {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      margin: 9px 0 0;
+
+      color: var(--text-muted);
+
+      font-size: 0.78rem;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    .education-location i {
+      color: var(--gold);
+    }
+
+    .education-description {
+      max-width: 730px;
+
+      margin: 17px 0 0;
+
+      color: var(--text-secondary);
+
+      font-size: 0.86rem;
+      line-height: 1.8;
+    }
+
+    .education-meta {
+      margin: 15px 0 0;
+
+      color: var(--text-secondary);
+
+      font-size: 0.83rem;
+      line-height: 1.75;
+    }
+
+    .education-meta strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .academic-link {
+      color: var(--gold-dark);
+      font-weight: 600;
+
+      border-bottom: 1px solid rgba(185, 151, 91, 0.5);
+    }
+
+    .academic-link:hover {
+      color: var(--green);
+      border-bottom-color: var(--green);
+    }
+
+    .research-block {
+      position: relative;
+
+      max-width: 760px;
+
+      margin-top: 20px;
+      padding: 17px 20px 17px 24px;
+
+      background: rgba(255, 255, 255, 0.66);
+
+      border-top: 1px solid var(--gold-border);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .research-block::before {
+      content: "";
+      position: absolute;
+
+      top: -1px;
+      bottom: -1px;
+      left: 0;
+
+      width: 3px;
+
+      background: var(--gold);
+    }
+
+    .research-label {
+      margin: 0 0 8px;
+
+      color: var(--green);
+
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .research-text {
+      margin: 0;
+
+      color: var(--text-secondary);
+
+      font-size: 0.82rem;
+      line-height: 1.75;
+    }
+
+    /* Contact footer */
+
+    .contact-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 28px;
+
+      width: 100%;
+      max-width: 940px;
+
+      margin-top: 60px;
+      padding-top: 25px;
+
+      color: var(--text-secondary);
+
+      border-top: 1px solid var(--gold-border);
+
+      font-size: 0.76rem;
+      line-height: 1.6;
+    }
+
+    .contact-strip span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-strip i {
+      color: var(--gold-dark);
+    }
+
+    .contact-strip a {
+      color: var(--gold-dark);
+      font-weight: 600;
+    }
+
+    .contact-strip a:hover {
+      color: var(--green);
+    }
+
+    @keyframes pageEntrance {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .main-content {
+      animation: pageEntrance 460ms ease both;
+    }
+
+    @media (max-width: 900px) {
+      .site-header {
+        padding: 0 20px;
+      }
+
+      .desktop-navigation {
+        gap: 18px;
+      }
+
+      .desktop-navigation a {
+        font-size: 0.74rem;
+      }
+
+      .page-surface {
+        padding:
+          72px
+          34px
+          58px;
+      }
+
+      .education-entry {
+        grid-template-columns: 120px minmax(0, 1fr);
+        gap: 25px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .desktop-navigation {
+        display: none;
+      }
+
+      .menu-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .page-surface {
+        padding:
+          62px
+          22px
+          48px;
+      }
+
+      .page-surface::before,
+      .page-surface::after {
+        opacity: 0.45;
+      }
+
+      .page-title {
+        font-size: clamp(2.8rem, 15vw, 4.4rem);
+      }
+
+      .page-summary {
+        font-size: 0.88rem;
+        line-height: 1.75;
+      }
+
+      .title-rule {
+        margin-bottom: 42px;
+      }
+
+      .education-entry {
+        grid-template-columns: 1fr;
+        gap: 12px;
+
+        padding-bottom: 31px;
+        margin-bottom: 31px;
+      }
+
+      .education-period {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .education-period .status {
+        display: inline;
+        margin: 0;
+      }
+
+      .contact-strip {
+        flex-direction: column;
+        align-items: flex-start;
+
+        margin-top: 46px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .site-header {
+        height: 60px;
+        padding: 0 16px;
+      }
+
+      :root {
+        --header-height: 60px;
+      }
+
+      .brand {
+        font-size: 0.96rem;
+      }
+
+      .page-surface {
+        padding-right: 18px;
+        padding-left: 18px;
+      }
+
+      .eyebrow {
+        font-size: 0.66rem;
+      }
+
+      .section-heading {
+        font-size: 1.05rem;
+      }
+
+      .institution-name {
+        font-size: 1rem;
+      }
+
+      .degree-name {
+        font-size: 0.84rem;
+      }
+
+      .research-block {
+        padding-right: 15px;
+        padding-left: 19px;
+      }
+    }
+
+
+    /* Publications */
+    .publication-section {
+      width: 100%;
+      max-width: 940px;
+    }
+
+    .publication-groups {
+      width: 100%;
+    }
+
+    .publication-year-group {
+      margin-bottom: 48px;
+    }
+
+    .publication-year-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .publication-year {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 18px;
+
+      margin: 0 0 26px;
+
+      color: var(--green);
+
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    .publication-year::after {
+      content: "";
+      height: 1px;
+
+      background: linear-gradient(
+        90deg,
+        rgba(185, 151, 91, 0.82),
         rgba(185, 151, 91, 0.08)
       );
     }
@@ -342,31 +1037,42 @@
       counter-increment: publication-counter;
 
       display: grid;
-      grid-template-columns: 42px minmax(0, 1fr);
-      gap: 1rem;
+      grid-template-columns: 38px minmax(0, 1fr);
+      gap: 18px;
 
-      margin: 0 0 1.55rem;
-      padding: 0 0 1.55rem;
+      margin: 0 0 30px;
+      padding: 0 0 30px;
 
-      border-bottom: 1px solid var(--border-soft);
-    }
-
-    .publication-entry:last-child {
-      margin-bottom: 0;
+      border-bottom: 1px solid var(--border);
     }
 
     .publication-entry::before {
       content: counter(publication-counter) ".";
 
-      padding-top: 0.1rem;
+      padding-top: 2px;
 
-      color: var(--charlotte-gold);
+      color: var(--gold-dark);
 
-      font-family: "Source Serif 4", Georgia, serif;
-      font-size: 1.05rem;
+      font-size: 0.78rem;
       font-weight: 700;
-
       text-align: right;
+    }
+
+    .publication-entry::after {
+      content: "";
+      position: absolute;
+
+      left: 0;
+      bottom: -1px;
+
+      width: 68px;
+      height: 1px;
+
+      background: var(--gold);
+    }
+
+    .publication-entry:last-child {
+      margin-bottom: 0;
     }
 
     .publication-content {
@@ -374,27 +1080,27 @@
     }
 
     .publication-title {
-      margin: 0 0 0.45rem;
+      margin: 0 0 10px;
 
-      color: var(--text-primary);
+      color: var(--text);
 
-      font-family: "Source Serif 4", Georgia, serif;
-      font-size: 1.18rem;
+      font-size: clamp(0.96rem, 1.7vw, 1.12rem);
       font-weight: 700;
-      line-height: 1.48;
+      line-height: 1.6;
+      letter-spacing: -0.035em;
     }
 
     .publication-authors {
-      margin: 0 0 0.32rem;
+      margin: 0 0 7px;
 
       color: var(--text-secondary);
 
-      font-size: 0.96rem;
-      line-height: 1.65;
+      font-size: 0.79rem;
+      line-height: 1.7;
     }
 
     .publication-authors .my-name {
-      color: var(--charlotte-green);
+      color: var(--green);
       font-weight: 700;
     }
 
@@ -403,342 +1109,82 @@
 
       color: var(--text-muted);
 
-      font-family: "Source Serif 4", Georgia, serif;
-      font-size: 0.98rem;
+      font-size: 0.77rem;
       font-style: italic;
-      line-height: 1.62;
+      line-height: 1.75;
     }
 
     .publication-status {
       display: inline-block;
 
-      margin-left: 0.45rem;
-      padding: 0.14rem 0.45rem;
+      margin-left: 8px;
+      padding: 2px 6px;
 
-      color: #73551f;
-      background: rgba(185, 151, 91, 0.12);
+      color: var(--gold-dark);
+      background: rgba(185, 151, 91, 0.10);
 
-      border: 1px solid rgba(185, 151, 91, 0.4);
-      border-radius: 3px;
+      border: 1px solid var(--gold-border);
+      border-radius: 2px;
 
-      font-family: "Poppins", sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-style: normal;
       font-weight: 700;
-
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-
-      vertical-align: 0.08rem;
     }
 
     .publication-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 8px;
 
-      margin-top: 0.78rem;
+      margin-top: 12px;
     }
 
     .publication-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 6px;
 
-      padding: 0.28rem 0.62rem;
+      padding: 5px 9px;
 
-      color: var(--charlotte-green);
-      background: rgba(255, 255, 255, 0.78);
+      color: var(--gold-dark);
+      background: rgba(255, 255, 255, 0.62);
 
-      border: 1px solid rgba(185, 151, 91, 0.64);
-      border-radius: 4px;
+      border: 1px solid var(--gold-border);
+      border-radius: 2px;
 
-      text-decoration: none;
-
-      font-size: 0.76rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+      font-size: 0.69rem;
+      font-weight: 600;
     }
 
     .publication-link:hover {
       color: #ffffff;
-      background: var(--charlotte-green);
-      border-color: var(--charlotte-green);
+      background: var(--green);
+      border-color: var(--green);
     }
 
-    .contact-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-
-      max-width: 980px;
-
-      margin-top: 52px;
-      padding-top: 26px;
-
-      color: var(--text-secondary);
-
-      border-top: 1px solid rgba(185, 151, 91, 0.36);
-
-      font-size: 0.93rem;
-    }
-
-    .contact-strip a {
-      color: #8a6b35;
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .contact-strip a:hover {
-      color: var(--charlotte-green);
-      text-decoration: underline;
-    }
-
-    .gold-line {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-
-      width: 100%;
-      height: 4px;
-
-      background: linear-gradient(
-        90deg,
-        transparent,
-        var(--charlotte-gold),
-        transparent
-      );
-
-      opacity: 0.76;
-    }
-
-    .page-dial {
-      position: absolute;
-
-      right: -95px;
-      bottom: -115px;
-
-      width: 430px;
-      height: 430px;
-
-      z-index: 1;
-
-      opacity: 0.56;
-      pointer-events: none;
-
-      transform: rotate(144deg);
-      transform-origin: center;
-
-      animation: dialBreath 5.2s ease-in-out infinite;
-    }
-
-    .dial-ring {
-      position: absolute;
-      inset: 0;
-
-      border: 1px solid rgba(185, 151, 91, 0.45);
-      border-radius: 50%;
-
-      box-shadow:
-        inset 0 0 75px rgba(185, 151, 91, 0.07),
-        0 0 90px rgba(185, 151, 91, 0.09);
-    }
-
-    .dial-ring::before,
-    .dial-ring::after {
-      content: "";
-      position: absolute;
-
-      border: 1px solid rgba(0, 79, 45, 0.11);
-      border-radius: 50%;
-    }
-
-    .dial-ring::before {
-      inset: 58px;
-    }
-
-    .dial-ring::after {
-      inset: 126px;
-
-      border-color: rgba(185, 151, 91, 0.2);
-    }
-
-    .dial-core {
-      position: absolute;
-      inset: 184px;
-
-      background: rgba(185, 151, 91, 0.08);
-
-      border: 1px solid rgba(185, 151, 91, 0.22);
-      border-radius: 50%;
-    }
-
-    .dial-dot {
-      position: absolute;
-
-      top: 18px;
-      left: 50%;
-
-      width: 22px;
-      height: 22px;
-
-      background: var(--charlotte-gold);
-
-      border-radius: 50%;
-
-      transform: translateX(-50%);
-
-      box-shadow:
-        0 0 22px rgba(185, 151, 91, 0.72),
-        0 0 55px rgba(185, 151, 91, 0.2);
-    }
-
-    .dial-orbit {
-      position: absolute;
-      inset: 82px;
-
-      border: 1px dashed rgba(185, 151, 91, 0.28);
-      border-radius: 50%;
-
-      animation: slowRotate 42s linear infinite;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slowRotate {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes slowFloat {
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-18px);
-      }
-    }
-
-    @keyframes dialBreath {
-      0%,
-      100% {
-        opacity: 0.42;
-      }
-
-      50% {
-        opacity: 0.66;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .content-card {
-        padding: 80px 34px 64px;
-      }
-
-      .main-content {
-        margin: 0 auto;
-        text-align: center;
-      }
-
-      .page-subtitle {
-        margin-right: auto;
-        margin-left: auto;
-      }
-
-      .gold-rule {
-        margin-right: auto;
-        margin-left: auto;
-
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--charlotte-gold),
-          transparent
-        );
-      }
-
-      .publication-groups {
-        text-align: left;
-      }
-
-      .contact-strip {
-        justify-content: center;
-      }
-
-      .page-dial {
-        right: -170px;
-        bottom: -180px;
-
-        width: 390px;
-        height: 390px;
-
-        opacity: 0.25;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .top-header {
-        padding: 0 16px;
-      }
-
-      .content-card {
-        padding: 72px 22px 52px;
-      }
-
-      .page-title {
-        font-size: 3.2rem;
-      }
-
-      .page-subtitle {
-        font-size: 1.04rem;
-      }
-
-      .section-kicker {
-        font-size: 0.74rem;
-        letter-spacing: 0.11em;
-      }
-
-      .publication-year-group {
-        margin-bottom: 2.8rem;
-      }
-
+    @media (max-width: 720px) {
       .publication-entry {
         grid-template-columns: 28px minmax(0, 1fr);
-        gap: 0.72rem;
+        gap: 12px;
 
-        margin-bottom: 1.3rem;
-        padding-bottom: 1.3rem;
+        margin-bottom: 24px;
+        padding-bottom: 24px;
       }
 
       .publication-title {
-        font-size: 1.08rem;
+        font-size: 0.94rem;
       }
 
       .publication-authors,
       .publication-venue {
-        font-size: 0.9rem;
+        font-size: 0.74rem;
       }
 
       .publication-status {
         display: table;
-        margin-top: 0.4rem;
+        margin-top: 7px;
         margin-left: 0;
       }
     }
@@ -747,497 +1193,500 @@
       *,
       *::before,
       *::after {
+        scroll-behavior: auto !important;
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
     }
+
+    /* Page-to-page boundary scroll transition */
+    html {
+      transition: opacity 380ms ease, transform 380ms ease;
+    }
+
+    html.page-leaving-up {
+      opacity: 0;
+      transform: translateY(-18px);
+      pointer-events: none;
+    }
+
+    html.page-leaving-down {
+      opacity: 0;
+      transform: translateY(18px);
+      pointer-events: none;
+    }
+
+    body {
+      overflow-y: auto;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html,
+      html.page-leaving-up,
+      html.page-leaving-down {
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+
   </style>
 </head>
-
 <body>
-  <canvas id="constellation-canvas"></canvas>
-
-  <div id="content-container">
-    <header class="top-header">
-      <a href="/" class="brand">Irtiza Hasan</a>
-
-      <nav class="navbar hidden md:flex">
-        <a href="/">Home</a>
-        <a href="/education.html">Education</a>
-        <a href="/publications.html" class="active">Publications</a>
-        <a href="/service.html">Service</a>
-        <a href="/gallery.html">Gallery</a>
-      </nav>
-
-      <div class="md:hidden">
-        <button
-          id="mobile-menu-button"
-          class="text-white focus:outline-none"
-          aria-label="Open mobile menu"
-          aria-expanded="false"
-          aria-controls="mobile-menu"
-        >
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16m-7 6h7"
-            ></path>
-          </svg>
-        </button>
-      </div>
-    </header>
-
-    <div
-      id="mobile-menu"
-      class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-black/80 backdrop-blur-sm z-20"
-    >
-      <div class="flex flex-col items-center justify-center h-full text-white text-2xl space-y-8">
-        <a href="/" class="mobile-link">Home</a>
-        <a href="/education.html" class="mobile-link">Education</a>
-        <a href="/publications.html" class="mobile-link">Publications</a>
-        <a href="/service.html" class="mobile-link">Service</a>
-        <a href="/gallery.html" class="mobile-link">Gallery</a>
-      </div>
-    </div>
-
-    <main class="page-wrap">
-      <section class="content-card">
-        <div class="page-dial" aria-hidden="true">
-          <div class="dial-ring"></div>
-          <div class="dial-orbit"></div>
-          <div class="dial-core"></div>
-          <div class="dial-dot"></div>
-        </div>
-
-        <div class="gold-line" aria-hidden="true"></div>
-
-        <section class="main-content">
-          <div class="section-kicker">
-            Research Output
-          </div>
-
-          <h1 class="page-title">
-            Publications<span>.</span>
-          </h1>
-
-          <p class="page-subtitle">
-            My research focuses on information freshness, Age of Information,
-            gossip networks, scheduling, communication systems, and
-            signal-processing applications.
-          </p>
-
-          <div class="gold-rule" aria-hidden="true"></div>
-
-          <div class="publication-groups">
-            <section class="publication-year-group">
-              <h2 class="publication-year">2026</h2>
-
-              <ol class="publication-list">
-                <li class="publication-entry">
-                  <article class="publication-content">
-                    <h3 class="publication-title">
+<!-- Animated gold-and-green network -->
+<canvas aria-hidden="true" id="network-canvas"></canvas>
+<!-- Static gold technical line art -->
+<div aria-hidden="true" class="line-art">
+<span class="line-segment line-segment-one"></span>
+<span class="line-segment line-segment-two"></span>
+<span class="line-segment line-segment-three"></span>
+</div>
+<div aria-hidden="true" class="technical-corner technical-corner-top"></div>
+<div aria-hidden="true" class="technical-corner technical-corner-bottom"></div>
+<div id="site-container">
+<header class="site-header">
+<a class="brand" href="/">
+        Irtiza Hasan
+      </a>
+<nav aria-label="Primary navigation" class="desktop-navigation">
+<a href="/">
+          Home
+        </a>
+<a href="/education.html">
+          Education
+        </a>
+<a aria-current="page" class="active" href="/publications.html">
+          Publications
+        </a>
+<a href="/service.html">
+          Service
+        </a>
+<a href="/gallery.html">
+          Gallery
+        </a>
+</nav>
+<button aria-controls="mobile-navigation" aria-expanded="false" aria-label="Open navigation menu" class="menu-button" id="menu-button" type="button">
+<i aria-hidden="true" class="fas fa-bars"></i>
+</button>
+</header>
+<nav aria-label="Mobile navigation" class="mobile-navigation" id="mobile-navigation">
+<div class="mobile-navigation-inner">
+<a href="/">
+          Home
+        </a>
+<a href="/education.html">
+          Education
+        </a>
+<a aria-current="page" class="active" href="/publications.html">
+          Publications
+        </a>
+<a href="/service.html">
+          Service
+        </a>
+<a href="/gallery.html">
+          Gallery
+        </a>
+</div>
+</nav>
+<main class="page">
+<section class="page-surface">
+<div class="main-content">
+<div class="eyebrow">Research Output</div>
+<h1 class="page-title">Publications<span>.</span></h1>
+<p class="page-summary">My research focuses on information freshness, Age of Information, gossip networks, scheduling, communication systems, and signal-processing applications.</p>
+<div aria-hidden="true" class="title-rule">
+<div class="title-rule-primary"></div>
+<div class="title-rule-secondary"></div>
+</div>
+<section class="publication-section"><h2 class="section-heading">Selected Publications</h2><div class="publication-groups">
+<section class="publication-year-group">
+<h2 class="publication-year">2026</h2>
+<ol class="publication-list">
+<li class="publication-entry">
+<article class="publication-content">
+<h3 class="publication-title">
                       Semantic Freshness Optimal Sampling and Transmission for
                       Gossiping Receivers
                     </h3>
-
-                    <p class="publication-authors">
-                      <span class="my-name">Irtiza Hasan</span> and Ahmed Arafa
+<p class="publication-authors">
+<span class="my-name">Irtiza Hasan</span> and Ahmed Arafa
                     </p>
-
-                    <p class="publication-venue">
+<p class="publication-venue">
                       IEEE Information Theory Workshop (ITW), Tempe, Arizona,
                       USA, 2026.
                       <span class="publication-status">Accepted</span>
-                    </p>
-                  </article>
-                </li>
-
-                <li class="publication-entry">
-                  <article class="publication-content">
-                    <h3 class="publication-title">
+</p>
+</article>
+</li>
+<li class="publication-entry">
+<article class="publication-content">
+<h3 class="publication-title">
                       Transmit or Idle: Efficient AoI Optimal Transmission Policy
                       for Gossiping Receivers
                     </h3>
-
-                    <p class="publication-authors">
-                      <span class="my-name">Irtiza Hasan</span> and Ahmed Arafa
+<p class="publication-authors">
+<span class="my-name">Irtiza Hasan</span> and Ahmed Arafa
                     </p>
-
-                    <p class="publication-venue">
+<p class="publication-venue">
                       IEEE International Conference on Communications (ICC),
                       Glasgow, Scotland, 2026.
                     </p>
-
-                    <div class="publication-links">
-                      <a
-                        href="https://arxiv.org/abs/2602.12264"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="publication-link"
-                      >
-                        <i class="fas fa-file-lines" aria-hidden="true"></i>
+<div class="publication-links">
+<a class="publication-link" href="https://arxiv.org/abs/2602.12264" rel="noopener noreferrer" target="_blank">
+<i aria-hidden="true" class="fas fa-file-lines"></i>
                         arXiv
                       </a>
-                    </div>
-                  </article>
-                </li>
-              </ol>
-            </section>
-
-            <section class="publication-year-group">
-              <h2 class="publication-year">2025</h2>
-
-              <ol class="publication-list">
-                <li class="publication-entry">
-                  <article class="publication-content">
-                    <h3 class="publication-title">
+</div>
+</article>
+</li>
+</ol>
+</section>
+<section class="publication-year-group">
+<h2 class="publication-year">2025</h2>
+<ol class="publication-list">
+<li class="publication-entry">
+<article class="publication-content">
+<h3 class="publication-title">
                       RC-Gossip: Information Freshness in Clustered Networks with
                       Rate-Changing Gossip
                     </h3>
-
-                    <p class="publication-authors">
-                      <span class="my-name">Irtiza Hasan</span> and Ahmed Arafa
+<p class="publication-authors">
+<span class="my-name">Irtiza Hasan</span> and Ahmed Arafa
                     </p>
-
-                    <p class="publication-venue">
+<p class="publication-venue">
                       59th Asilomar Conference on Signals, Systems, and Computers,
                       Pacific Grove, California, 2025.
                     </p>
-
-                    <div class="publication-links">
-                      <a
-                        href="https://arxiv.org/abs/2508.02657"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="publication-link"
-                      >
-                        <i class="fas fa-file-lines" aria-hidden="true"></i>
+<div class="publication-links">
+<a class="publication-link" href="https://arxiv.org/abs/2508.02657" rel="noopener noreferrer" target="_blank">
+<i aria-hidden="true" class="fas fa-file-lines"></i>
                         arXiv
                       </a>
-
-                      <a
-                        href="https://drive.google.com/file/d/1v9_6l-k2eTlD_uGeJJm0-b4Ozv7ixfH0/view?usp=sharing"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="publication-link"
-                      >
-                        <i class="fas fa-image" aria-hidden="true"></i>
+<a class="publication-link" href="https://drive.google.com/file/d/1v9_6l-k2eTlD_uGeJJm0-b4Ozv7ixfH0/view?usp=sharing" rel="noopener noreferrer" target="_blank">
+<i aria-hidden="true" class="fas fa-image"></i>
                         Poster
                       </a>
-                    </div>
-                  </article>
-                </li>
-
-                <li class="publication-entry">
-                  <article class="publication-content">
-                    <h3 class="publication-title">
+</div>
+</article>
+</li>
+<li class="publication-entry">
+<article class="publication-content">
+<h3 class="publication-title">
                       Version Age of Information with Contact Mobility in Gossip
                       Networks
                     </h3>
-
-                    <p class="publication-authors">
-                      <span class="my-name">Irtiza Hasan</span> and Ahmed Arafa
+<p class="publication-authors">
+<span class="my-name">Irtiza Hasan</span> and Ahmed Arafa
                     </p>
-
-                    <p class="publication-venue">
+<p class="publication-venue">
                       61st Allerton Conference on Communication, Control, and
                       Computing, Urbana-Champaign, Illinois, 2025.
                     </p>
-
-                    <div class="publication-links">
-                      <a
-                        href="https://arxiv.org/abs/2509.15184"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="publication-link"
-                      >
-                        <i class="fas fa-file-lines" aria-hidden="true"></i>
+<div class="publication-links">
+<a class="publication-link" href="https://arxiv.org/abs/2509.15184" rel="noopener noreferrer" target="_blank">
+<i aria-hidden="true" class="fas fa-file-lines"></i>
                         arXiv
                       </a>
-                    </div>
-                  </article>
-                </li>
-
-                <li class="publication-entry">
-                  <article class="publication-content">
-                    <h3 class="publication-title">
+</div>
+</article>
+</li>
+<li class="publication-entry">
+<article class="publication-content">
+<h3 class="publication-title">
                       Optimal Scheduling of Thermostatically Controlled and
                       Energy Constrained Electric Loads Under Real Time Pricing
                     </h3>
-
-                    <p class="publication-authors">
-                      <span class="my-name">Irtiza Hasan</span>,
+<p class="publication-authors">
+<span class="my-name">Irtiza Hasan</span>,
                       A. M. El-Shazly, M. J. Hassan, and M. Islam
                     </p>
-
-                    <p class="publication-venue">
+<p class="publication-venue">
                       IEEE Kansas Power and Energy Conference (KPEC), Manhattan,
                       Kansas, 2025.
                     </p>
-
-                    <div class="publication-links">
-                      <a
-                        href="https://ieeexplore.ieee.org/document/11045042"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="publication-link"
-                      >
-                        <i class="fas fa-book-open" aria-hidden="true"></i>
+<div class="publication-links">
+<a class="publication-link" href="https://ieeexplore.ieee.org/document/11045042" rel="noopener noreferrer" target="_blank">
+<i aria-hidden="true" class="fas fa-book-open"></i>
                         IEEE Xplore
                       </a>
-                    </div>
-                  </article>
-                </li>
-
-                <li class="publication-entry">
-                  <article class="publication-content">
-                    <h3 class="publication-title">
+</div>
+</article>
+</li>
+<li class="publication-entry">
+<article class="publication-content">
+<h3 class="publication-title">
                       Benchmarking Machine Learning and Deep Learning Models for
                       Gender Recognition from Bangla Speech
                     </h3>
-
-                    <p class="publication-authors">
+<p class="publication-authors">
                       M. Islam, <span class="my-name">Irtiza Hasan</span>,
                       M. E. Hoque, S. J. Jim, M. N. N. Khan, and M. N. Y. Ali
                     </p>
-
-                    <p class="publication-venue">
+<p class="publication-venue">
                       28th International Conference on Computer and Information
                       Technology (ICCIT), 2025.
                     </p>
-
-                    <div class="publication-links">
-                      <a
-                        href="https://ieeexplore.ieee.org/document/11491644"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="publication-link"
-                      >
-                        <i class="fas fa-book-open" aria-hidden="true"></i>
+<div class="publication-links">
+<a class="publication-link" href="https://ieeexplore.ieee.org/document/11491644" rel="noopener noreferrer" target="_blank">
+<i aria-hidden="true" class="fas fa-book-open"></i>
                         IEEE Xplore
                       </a>
-                    </div>
-                  </article>
-                </li>
-              </ol>
-            </section>
-
-            <section class="publication-year-group">
-              <h2 class="publication-year">2024</h2>
-
-              <ol class="publication-list">
-                <li class="publication-entry">
-                  <article class="publication-content">
-                    <h3 class="publication-title">
+</div>
+</article>
+</li>
+</ol>
+</section>
+<section class="publication-year-group">
+<h2 class="publication-year">2024</h2>
+<ol class="publication-list">
+<li class="publication-entry">
+<article class="publication-content">
+<h3 class="publication-title">
                       A Framework for Early Diabetes Prediction and
                       Interpretation: Sex-specific Factor Analysis Approach Using
                       Ensemble Classifiers
                     </h3>
-
-                    <p class="publication-authors">
-                      <span class="my-name">Irtiza Hasan</span>, M. Islam,
+<p class="publication-authors">
+<span class="my-name">Irtiza Hasan</span>, M. Islam,
                       M. E. Hoque, and S. J. Jim
                     </p>
-
-                    <p class="publication-venue">
+<p class="publication-venue">
                       IEEE BECITHCON, Dhaka, Bangladesh, 2024.
                     </p>
-
-                    <div class="publication-links">
-                      <a
-                        href="https://ieeexplore.ieee.org/document/10962795"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="publication-link"
-                      >
-                        <i class="fas fa-book-open" aria-hidden="true"></i>
+<div class="publication-links">
+<a class="publication-link" href="https://ieeexplore.ieee.org/document/10962795" rel="noopener noreferrer" target="_blank">
+<i aria-hidden="true" class="fas fa-book-open"></i>
                         IEEE Xplore
                       </a>
-                    </div>
-                  </article>
-                </li>
-              </ol>
-            </section>
-
-            <section class="publication-year-group">
-              <h2 class="publication-year">2019</h2>
-
-              <ol class="publication-list">
-                <li class="publication-entry">
-                  <article class="publication-content">
-                    <h3 class="publication-title">
+</div>
+</article>
+</li>
+</ol>
+</section>
+<section class="publication-year-group">
+<h2 class="publication-year">2019</h2>
+<ol class="publication-list">
+<li class="publication-entry">
+<article class="publication-content">
+<h3 class="publication-title">
                       Electrohysterography Based Preterm Birth Classification in
                       the CEEMDAN Domain
                     </h3>
-
-                    <p class="publication-authors">
-                      <span class="my-name">Irtiza Hasan</span>, A. Das, and
+<p class="publication-authors">
+<span class="my-name">Irtiza Hasan</span>, A. Das, and
                       M. I. H. Bhuiyan
                     </p>
-
-                    <p class="publication-venue">
+<p class="publication-venue">
                       IEEE TENSYMP, Kolkata, India, 2019.
                     </p>
-
-                    <div class="publication-links">
-                      <a
-                        href="https://ieeexplore.ieee.org/document/8971114"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="publication-link"
-                      >
-                        <i class="fas fa-book-open" aria-hidden="true"></i>
+<div class="publication-links">
+<a class="publication-link" href="https://ieeexplore.ieee.org/document/8971114" rel="noopener noreferrer" target="_blank">
+<i aria-hidden="true" class="fas fa-book-open"></i>
                         IEEE Xplore
                       </a>
-                    </div>
-                  </article>
-                </li>
-
-                <li class="publication-entry">
-                  <article class="publication-content">
-                    <h3 class="publication-title">
+</div>
+</article>
+</li>
+<li class="publication-entry">
+<article class="publication-content">
+<h3 class="publication-title">
                       Nonlinear Temporal Analysis of Uterine EMG for Preterm Birth
                       Classification
                     </h3>
-
-                    <p class="publication-authors">
-                      <span class="my-name">Irtiza Hasan</span>, A. Das, and
+<p class="publication-authors">
+<span class="my-name">Irtiza Hasan</span>, A. Das, and
                       M. I. H. Bhuiyan
                     </p>
-
-                    <p class="publication-venue">
+<p class="publication-venue">
                       IC4ME2, Rajshahi, Bangladesh, 2019.
                     </p>
-
-                    <div class="publication-links">
-                      <a
-                        href="https://ieeexplore.ieee.org/document/9036595"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="publication-link"
-                      >
-                        <i class="fas fa-book-open" aria-hidden="true"></i>
+<div class="publication-links">
+<a class="publication-link" href="https://ieeexplore.ieee.org/document/9036595" rel="noopener noreferrer" target="_blank">
+<i aria-hidden="true" class="fas fa-book-open"></i>
                         IEEE Xplore
                       </a>
-                    </div>
-                  </article>
-                </li>
-              </ol>
-            </section>
-          </div>
+</div>
+</article>
+</li>
+</ol>
+</section>
+</div></section>
+<footer class="contact-strip">
+<span>
+<i aria-hidden="true" class="fas fa-location-dot"></i>
 
-          <div class="contact-strip">
-            <span>
-              <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
               Charlotte, North Carolina
             </span>
-
-            <span>
-              <i class="fas fa-envelope mr-2" aria-hidden="true"></i>
-
-              <a href="mailto:ihasan@charlotte.edu">
+<span>
+<i aria-hidden="true" class="fas fa-envelope"></i>
+<a href="mailto:ihasan@charlotte.edu">
                 ihasan@charlotte.edu
               </a>
-            </span>
-
-            <span>
-              <i class="fas fa-graduation-cap mr-2" aria-hidden="true"></i>
-
-              <a
-                href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+</span>
+<span>
+<i aria-hidden="true" class="fas fa-graduation-cap"></i>
+<a href="https://scholar.google.com/citations?hl=en&amp;user=3bZp_OoAAAAJ" rel="noopener noreferrer" target="_blank">
                 Google Scholar
               </a>
-            </span>
-          </div>
-        </section>
-      </section>
-    </main>
-  </div>
+</span>
+</footer>
+</div>
+</section>
+</main>
+</div>
+<script>
+    /*
+      Mobile navigation
+    */
 
-  <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const mobileMenuButton =
-        document.getElementById("mobile-menu-button");
+      const menuButton =
+        document.getElementById("menu-button");
 
-      const mobileMenu =
-        document.getElementById("mobile-menu");
+      const mobileNavigation =
+        document.getElementById("mobile-navigation");
 
-      if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener("click", () => {
-          const isHidden =
-            mobileMenu.classList.contains("hidden");
+      if (!menuButton || !mobileNavigation) {
+        return;
+      }
 
-          mobileMenu.classList.toggle("hidden");
+      function closeMenu() {
+        mobileNavigation.classList.remove("open");
 
-          mobileMenuButton.setAttribute(
-            "aria-expanded",
-            String(isHidden)
+        menuButton.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+        menuButton.setAttribute(
+          "aria-label",
+          "Open navigation menu"
+        );
+
+        const icon =
+          menuButton.querySelector("i");
+
+        if (icon) {
+          icon.className = "fas fa-bars";
+        }
+      }
+
+      function openMenu() {
+        mobileNavigation.classList.add("open");
+
+        menuButton.setAttribute(
+          "aria-expanded",
+          "true"
+        );
+
+        menuButton.setAttribute(
+          "aria-label",
+          "Close navigation menu"
+        );
+
+        const icon =
+          menuButton.querySelector("i");
+
+        if (icon) {
+          icon.className = "fas fa-xmark";
+        }
+      }
+
+      menuButton.addEventListener("click", () => {
+        const menuIsOpen =
+          mobileNavigation.classList.contains("open");
+
+        if (menuIsOpen) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+
+      mobileNavigation
+        .querySelectorAll("a")
+        .forEach((link) => {
+          link.addEventListener(
+            "click",
+            closeMenu
           );
         });
 
-        mobileMenu.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", () => {
-            mobileMenu.classList.add("hidden");
-
-            mobileMenuButton.setAttribute(
-              "aria-expanded",
-              "false"
-            );
-          });
-        });
-
-        document.addEventListener("keydown", (event) => {
-          if (
-            event.key === "Escape" &&
-            !mobileMenu.classList.contains("hidden")
-          ) {
-            mobileMenu.classList.add("hidden");
-
-            mobileMenuButton.setAttribute(
-              "aria-expanded",
-              "false"
-            );
+      document.addEventListener(
+        "keydown",
+        (event) => {
+          if (event.key === "Escape") {
+            closeMenu();
           }
-        });
-      }
+        }
+      );
+
+      window.addEventListener(
+        "resize",
+        () => {
+          if (window.innerWidth > 720) {
+            closeMenu();
+          }
+        }
+      );
     });
   </script>
+<script>
+    /*
+      Gold network line art animation
+    */
 
-  <script>
     const canvas =
-      document.getElementById("constellation-canvas");
+      document.getElementById("network-canvas");
 
-    const ctx =
+    const context =
       canvas.getContext("2d");
 
-    let stars = [];
-    let animationFrameId = null;
+    const reducedMotionQuery =
+      window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      );
 
-    function getStarCount() {
-      return window.innerWidth > 768 ? 105 : 45;
+    let nodes = [];
+    let animationFrame = null;
+    let resizeTimeout = null;
+
+    const configuration = {
+      desktopNodes: 94,
+      mobileNodes: 44,
+      desktopConnectionDistance: 170,
+      mobileConnectionDistance: 115,
+      nodeSpeed: 0.10
+    };
+
+    function getNodeCount() {
+      return window.innerWidth > 720
+        ? configuration.desktopNodes
+        : configuration.mobileNodes;
     }
 
-    function resizeCanvas() {
+    function getConnectionDistance() {
+      return window.innerWidth > 720
+        ? configuration.desktopConnectionDistance
+        : configuration.mobileConnectionDistance;
+    }
+
+    function configureCanvas() {
       const pixelRatio =
-        window.devicePixelRatio || 1;
+        Math.min(
+          window.devicePixelRatio || 1,
+          2
+        );
 
       canvas.width =
-        window.innerWidth * pixelRatio;
+        Math.floor(
+          window.innerWidth * pixelRatio
+        );
 
       canvas.height =
-        window.innerHeight * pixelRatio;
+        Math.floor(
+          window.innerHeight * pixelRatio
+        );
 
       canvas.style.width =
         `${window.innerWidth}px`;
@@ -1245,7 +1694,7 @@
       canvas.style.height =
         `${window.innerHeight}px`;
 
-      ctx.setTransform(
+      context.setTransform(
         pixelRatio,
         0,
         0,
@@ -1254,24 +1703,59 @@
         0
       );
 
-      stars = [];
-
-      initializeStars();
+      createNodes();
     }
 
-    class Star {
-      constructor(x, y, radius, dx, dy) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-        this.dx = dx;
-        this.dy = dy;
+    class NetworkNode {
+      constructor() {
+        this.x =
+          Math.random() * window.innerWidth;
+
+        this.y =
+          Math.random() * window.innerHeight;
+
+        this.radius =
+          Math.random() * 1.25 + 0.65;
+
+        this.velocityX =
+          (Math.random() - 0.5) *
+          configuration.nodeSpeed;
+
+        this.velocityY =
+          (Math.random() - 0.5) *
+          configuration.nodeSpeed;
+
+        this.isGold =
+          Math.random() > 0.77;
+      }
+
+      move() {
+        if (reducedMotionQuery.matches) {
+          return;
+        }
+
+        this.x += this.velocityX;
+        this.y += this.velocityY;
+
+        if (
+          this.x <= 0 ||
+          this.x >= window.innerWidth
+        ) {
+          this.velocityX *= -1;
+        }
+
+        if (
+          this.y <= 0 ||
+          this.y >= window.innerHeight
+        ) {
+          this.velocityY *= -1;
+        }
       }
 
       draw() {
-        ctx.beginPath();
+        context.beginPath();
 
-        ctx.arc(
+        context.arc(
           this.x,
           this.y,
           this.radius,
@@ -1279,175 +1763,174 @@
           Math.PI * 2
         );
 
-        ctx.fillStyle =
-          "rgba(0, 79, 45, 0.40)";
+        context.fillStyle =
+          this.isGold
+            ? "rgba(185, 151, 91, 0.82)"
+            : "rgba(0, 79, 45, 0.48)";
 
-        ctx.fill();
-      }
-
-      update() {
-        if (
-          this.x + this.radius > window.innerWidth ||
-          this.x - this.radius < 0
-        ) {
-          this.dx = -this.dx;
-        }
-
-        if (
-          this.y + this.radius > window.innerHeight ||
-          this.y - this.radius < 0
-        ) {
-          this.dy = -this.dy;
-        }
-
-        this.x += this.dx;
-        this.y += this.dy;
-
-        this.draw();
+        context.fill();
       }
     }
 
-    function initializeStars() {
-      const starCount = getStarCount();
+    function createNodes() {
+      nodes = [];
 
-      for (let i = 0; i < starCount; i++) {
-        const radius =
-          Math.random() * 1.4 + 0.7;
+      const count =
+        getNodeCount();
 
-        const x =
-          Math.random() *
-            (window.innerWidth - radius * 2) +
-          radius;
-
-        const y =
-          Math.random() *
-            (window.innerHeight - radius * 2) +
-          radius;
-
-        const dx =
-          (Math.random() - 0.5) * 0.22;
-
-        const dy =
-          (Math.random() - 0.5) * 0.22;
-
-        stars.push(
-          new Star(
-            x,
-            y,
-            radius,
-            dx,
-            dy
-          )
+      for (
+        let index = 0;
+        index < count;
+        index++
+      ) {
+        nodes.push(
+          new NetworkNode()
         );
       }
     }
 
-    function connectStars() {
-      const maximumDistance =
-        window.innerWidth > 768 ? 145 : 105;
+    function drawConnections() {
+      const connectionDistance =
+        getConnectionDistance();
 
-      const maximumDistanceSquared =
-        maximumDistance * maximumDistance;
+      const connectionDistanceSquared =
+        connectionDistance *
+        connectionDistance;
 
       for (
         let firstIndex = 0;
-        firstIndex < stars.length;
+        firstIndex < nodes.length;
         firstIndex++
       ) {
         for (
           let secondIndex = firstIndex + 1;
-          secondIndex < stars.length;
+          secondIndex < nodes.length;
           secondIndex++
         ) {
+          const firstNode =
+            nodes[firstIndex];
+
+          const secondNode =
+            nodes[secondIndex];
+
           const horizontalDistance =
-            stars[firstIndex].x -
-            stars[secondIndex].x;
+            firstNode.x - secondNode.x;
 
           const verticalDistance =
-            stars[firstIndex].y -
-            stars[secondIndex].y;
+            firstNode.y - secondNode.y;
 
           const distanceSquared =
-            horizontalDistance * horizontalDistance +
-            verticalDistance * verticalDistance;
+            horizontalDistance *
+              horizontalDistance +
+            verticalDistance *
+              verticalDistance;
 
           if (
-            distanceSquared <
-            maximumDistanceSquared
+            distanceSquared >
+            connectionDistanceSquared
           ) {
-            const distance =
-              Math.sqrt(distanceSquared);
-
-            const opacity =
-              1 - distance / maximumDistance;
-
-            ctx.strokeStyle =
-              `rgba(185, 151, 91, ${opacity * 0.38})`;
-
-            ctx.lineWidth = 1;
-
-            ctx.beginPath();
-
-            ctx.moveTo(
-              stars[firstIndex].x,
-              stars[firstIndex].y
-            );
-
-            ctx.lineTo(
-              stars[secondIndex].x,
-              stars[secondIndex].y
-            );
-
-            ctx.stroke();
+            continue;
           }
+
+          const distance =
+            Math.sqrt(distanceSquared);
+
+          const proximity =
+            1 -
+            distance /
+              connectionDistance;
+
+          context.beginPath();
+
+          context.moveTo(
+            firstNode.x,
+            firstNode.y
+          );
+
+          context.lineTo(
+            secondNode.x,
+            secondNode.y
+          );
+
+          context.strokeStyle =
+            `rgba(185, 151, 91, ${
+              0.08 + proximity * 0.44
+            })`;
+
+          context.lineWidth =
+            0.55 + proximity * 0.45;
+
+          context.stroke();
         }
       }
     }
 
-    function animate() {
-      ctx.clearRect(
+    function renderNetwork() {
+      context.clearRect(
         0,
         0,
         window.innerWidth,
         window.innerHeight
       );
 
-      for (const star of stars) {
-        star.update();
+      for (const node of nodes) {
+        node.move();
+        node.draw();
       }
 
-      connectStars();
+      drawConnections();
 
-      animationFrameId =
-        requestAnimationFrame(animate);
+      animationFrame =
+        requestAnimationFrame(
+          renderNetwork
+        );
     }
 
-    let resizeTimer = null;
+    function startAnimation() {
+      if (animationFrame !== null) {
+        cancelAnimationFrame(
+          animationFrame
+        );
+      }
 
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimer);
+      renderNetwork();
+    }
 
-      resizeTimer = setTimeout(() => {
-        resizeCanvas();
-      }, 150);
-    });
+    window.addEventListener(
+      "resize",
+      () => {
+        clearTimeout(
+          resizeTimeout
+        );
+
+        resizeTimeout =
+          setTimeout(
+            configureCanvas,
+            140
+          );
+      }
+    );
 
     document.addEventListener(
       "visibilitychange",
       () => {
         if (document.hidden) {
-          if (animationFrameId !== null) {
-            cancelAnimationFrame(animationFrameId);
-            animationFrameId = null;
+          if (animationFrame !== null) {
+            cancelAnimationFrame(
+              animationFrame
+            );
+
+            animationFrame = null;
           }
-        } else if (animationFrameId === null) {
-          animate();
+        } else {
+          startAnimation();
         }
       }
     );
 
-    resizeCanvas();
-    animate();
+    configureCanvas();
+    startAnimation();
   </script>
+\n  <script>\n    (() => {\n      const pageSequence = [\n        "/",\n        "/education.html",\n        "/experience.html",\n        "/teaching.html",\n        "/publications.html",\n        "/service.html",\n        "/gallery.html"\n      ];\n\n      const transitionDelay = 380;\n      const wheelThreshold = 70;\n      const touchThreshold = 75;\n\n      let navigationLocked = false;\n      let accumulatedWheelDelta = 0;\n      let wheelResetTimer = null;\n      let touchStartY = null;\n      let touchStartedAtTop = false;\n      let touchStartedAtBottom = false;\n\n      function normalizePath(path) {\n        if (path === "" || path === "/" || path === "/index.html") {\n          return "/";\n        }\n        return path.replace(/\\/+$/, "");\n      }\n\n      const currentPath = normalizePath(window.location.pathname);\n      const currentPageIndex = pageSequence.findIndex(\n        (page) => normalizePath(page) === currentPath\n      );\n\n      if (currentPageIndex === -1) return;\n\n      const previousPage =\n        currentPageIndex > 0 ? pageSequence[currentPageIndex - 1] : null;\n      const nextPage =\n        currentPageIndex < pageSequence.length - 1\n          ? pageSequence[currentPageIndex + 1]\n          : null;\n\n      function documentHeight() {\n        return Math.max(\n          document.body.scrollHeight,\n          document.documentElement.scrollHeight,\n          document.body.offsetHeight,\n          document.documentElement.offsetHeight\n        );\n      }\n\n      function isAtTop() {\n        return window.scrollY <= 2;\n      }\n\n      function isAtBottom() {\n        return window.scrollY + window.innerHeight >= documentHeight() - 2;\n      }\n\n      function targetHasIndependentScroll(target, deltaY) {\n        if (!(target instanceof Element)) return false;\n\n        if (\n          target.closest(\n            "input, textarea, select, button, [contenteditable='true']"\n          )\n        ) {\n          return true;\n        }\n\n        let element = target;\n        while (\n          element &&\n          element !== document.body &&\n          element !== document.documentElement\n        ) {\n          const style = getComputedStyle(element);\n          const scrollable =\n            /(auto|scroll)/.test(style.overflowY) &&\n            element.scrollHeight > element.clientHeight;\n\n          if (scrollable) {\n            const canScrollUp = element.scrollTop > 0;\n            const canScrollDown =\n              element.scrollTop + element.clientHeight <\n              element.scrollHeight - 1;\n\n            if ((deltaY < 0 && canScrollUp) || (deltaY > 0 && canScrollDown)) {\n              return true;\n            }\n          }\n          element = element.parentElement;\n        }\n        return false;\n      }\n\n      function navigateTo(destination, direction) {\n        if (!destination || navigationLocked) return;\n        navigationLocked = true;\n\n        document.documentElement.classList.add(\n          direction === "next" ? "page-leaving-up" : "page-leaving-down"\n        );\n\n        window.setTimeout(() => {\n          window.location.assign(destination);\n        }, transitionDelay);\n      }\n\n      window.addEventListener(\n        "wheel",\n        (event) => {\n          if (\n            navigationLocked ||\n            targetHasIndependentScroll(event.target, event.deltaY)\n          ) {\n            return;\n          }\n\n          clearTimeout(wheelResetTimer);\n          wheelResetTimer = window.setTimeout(() => {\n            accumulatedWheelDelta = 0;\n          }, 180);\n\n          if (event.deltaY < 0 && isAtTop() && previousPage) {\n            accumulatedWheelDelta += event.deltaY;\n            if (accumulatedWheelDelta <= -wheelThreshold) {\n              event.preventDefault();\n              navigateTo(previousPage, "previous");\n            }\n            return;\n          }\n\n          if (event.deltaY > 0 && isAtBottom() && nextPage) {\n            accumulatedWheelDelta += event.deltaY;\n            if (accumulatedWheelDelta >= wheelThreshold) {\n              event.preventDefault();\n              navigateTo(nextPage, "next");\n            }\n            return;\n          }\n\n          accumulatedWheelDelta = 0;\n        },\n        { passive: false }\n      );\n\n      window.addEventListener(\n        "touchstart",\n        (event) => {\n          if (navigationLocked || event.touches.length !== 1) {\n            touchStartY = null;\n            return;\n          }\n\n          touchStartY = event.touches[0].clientY;\n          touchStartedAtTop = isAtTop();\n          touchStartedAtBottom = isAtBottom();\n        },\n        { passive: true }\n      );\n\n      window.addEventListener(\n        "touchend",\n        (event) => {\n          if (\n            navigationLocked ||\n            touchStartY === null ||\n            event.changedTouches.length !== 1\n          ) {\n            touchStartY = null;\n            return;\n          }\n\n          const swipeDistance =\n            event.changedTouches[0].clientY - touchStartY;\n\n          if (\n            swipeDistance >= touchThreshold &&\n            touchStartedAtTop &&\n            isAtTop() &&\n            previousPage\n          ) {\n            navigateTo(previousPage, "previous");\n          } else if (\n            swipeDistance <= -touchThreshold &&\n            touchStartedAtBottom &&\n            isAtBottom() &&\n            nextPage\n          ) {\n            navigateTo(nextPage, "next");\n          }\n\n          touchStartY = null;\n          touchStartedAtTop = false;\n          touchStartedAtBottom = false;\n        },\n        { passive: true }\n      );\n\n      window.addEventListener("keydown", (event) => {\n        if (navigationLocked) return;\n\n        const activeElement = document.activeElement;\n        if (\n          activeElement &&\n          activeElement.matches(\n            "input, textarea, select, [contenteditable='true']"\n          )\n        ) {\n          return;\n        }\n\n        if (event.key === "PageUp" && isAtTop() && previousPage) {\n          event.preventDefault();\n          navigateTo(previousPage, "previous");\n        }\n\n        if (event.key === "PageDown" && isAtBottom() && nextPage) {\n          event.preventDefault();\n          navigateTo(nextPage, "next");\n        }\n      });\n    })();\n  </script>\n
 </body>
 </html>
