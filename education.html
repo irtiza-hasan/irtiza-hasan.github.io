@@ -18,7 +18,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   >
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.css?v=3">
 </head>
 
 <body>
@@ -41,12 +41,15 @@
           id="mobile-menu-button"
           class="text-white focus:outline-none"
           aria-label="Open mobile menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
         >
           <svg
             class="w-6 h-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               stroke-linecap="round"
@@ -75,14 +78,14 @@
 
     <main class="page-wrap">
       <section class="content-card">
-        <div class="page-dial page-education">
+        <div class="page-dial page-education" aria-hidden="true">
           <div class="dial-ring"></div>
           <div class="dial-orbit"></div>
           <div class="dial-core"></div>
           <div class="dial-dot"></div>
         </div>
 
-        <div class="gold-line"></div>
+        <div class="gold-line" aria-hidden="true"></div>
 
         <section class="main-content">
           <div class="section-kicker">
@@ -99,7 +102,7 @@
             networked systems.
           </p>
 
-          <div class="gold-rule"></div>
+          <div class="gold-rule" aria-hidden="true"></div>
 
           <div class="education-list">
             <div class="education-row">
@@ -194,12 +197,12 @@
 
           <div class="contact-strip">
             <span>
-              <i class="fas fa-map-marker-alt mr-2"></i>
+              <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
               Charlotte, North Carolina
             </span>
 
             <span>
-              <i class="fas fa-envelope mr-2"></i>
+              <i class="fas fa-envelope mr-2" aria-hidden="true"></i>
 
               <a href="mailto:ihasan@charlotte.edu">
                 ihasan@charlotte.edu
@@ -207,7 +210,7 @@
             </span>
 
             <span>
-              <i class="fas fa-graduation-cap mr-2"></i>
+              <i class="fas fa-graduation-cap mr-2" aria-hidden="true"></i>
 
               <a
                 href="https://scholar.google.com/citations?hl=en&user=3bZp_OoAAAAJ"
@@ -229,38 +232,109 @@
         "mobile-menu-button"
       );
 
-      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileMenu = document.getElementById(
+        "mobile-menu"
+      );
 
       if (mobileMenuButton && mobileMenu) {
         mobileMenuButton.addEventListener("click", () => {
+          const isHidden = mobileMenu.classList.contains("hidden");
+
           mobileMenu.classList.toggle("hidden");
+
+          mobileMenuButton.setAttribute(
+            "aria-expanded",
+            String(isHidden)
+          );
         });
 
         mobileMenu.querySelectorAll("a").forEach((link) => {
           link.addEventListener("click", () => {
             mobileMenu.classList.add("hidden");
+
+            mobileMenuButton.setAttribute(
+              "aria-expanded",
+              "false"
+            );
           });
+        });
+
+        mobileMenu.addEventListener("click", (event) => {
+          if (event.target === mobileMenu) {
+            mobileMenu.classList.add("hidden");
+
+            mobileMenuButton.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+          }
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.key === "Escape" &&
+            !mobileMenu.classList.contains("hidden")
+          ) {
+            mobileMenu.classList.add("hidden");
+
+            mobileMenuButton.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+          }
         });
       }
     });
+  </script>
 
-    const canvas = document.getElementById("constellation-canvas");
+  <script>
+    const canvas = document.getElementById(
+      "constellation-canvas"
+    );
+
     const ctx = canvas.getContext("2d");
 
     let stars = [];
+    let animationFrameId = null;
 
-    const numStars = window.innerWidth > 768 ? 150 : 50;
+    const desktopStarCount = 105;
+    const mobileStarCount = 45;
+
+    function getStarCount() {
+      return window.innerWidth > 768
+        ? desktopStarCount
+        : mobileStarCount;
+    }
 
     function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const devicePixelRatioValue =
+        window.devicePixelRatio || 1;
+
+      canvas.width =
+        window.innerWidth * devicePixelRatioValue;
+
+      canvas.height =
+        window.innerHeight * devicePixelRatioValue;
+
+      canvas.style.width =
+        `${window.innerWidth}px`;
+
+      canvas.style.height =
+        `${window.innerHeight}px`;
+
+      ctx.setTransform(
+        devicePixelRatioValue,
+        0,
+        0,
+        devicePixelRatioValue,
+        0,
+        0
+      );
 
       stars = [];
 
       initializeStars();
     }
-
-    window.addEventListener("resize", resizeCanvas);
 
     class Star {
       constructor(x, y, radius, dx, dy) {
@@ -282,21 +356,26 @@
           Math.PI * 2
         );
 
-        /*
-         * Dark green dots remain visible against the new
-         * white background.
-         */
-        ctx.fillStyle = "rgba(0, 79, 45, 0.34)";
+        ctx.fillStyle =
+          "rgba(0, 79, 45, 0.42)";
 
         ctx.fill();
       }
 
       update() {
-        if (this.x > canvas.width || this.x < 0) {
+        if (
+          this.x + this.radius >
+            window.innerWidth ||
+          this.x - this.radius < 0
+        ) {
           this.dx = -this.dx;
         }
 
-        if (this.y > canvas.height || this.y < 0) {
+        if (
+          this.y + this.radius >
+            window.innerHeight ||
+          this.y - this.radius < 0
+        ) {
           this.dy = -this.dy;
         }
 
@@ -308,19 +387,27 @@
     }
 
     function initializeStars() {
-      for (let i = 0; i < numStars; i++) {
-        const radius = Math.random() * 2 + 1;
+      const starCount = getStarCount();
+
+      for (let i = 0; i < starCount; i++) {
+        const radius =
+          Math.random() * 1.5 + 0.75;
 
         const x =
-          Math.random() * (canvas.width - radius * 2) +
+          Math.random() *
+            (window.innerWidth - radius * 2) +
           radius;
 
         const y =
-          Math.random() * (canvas.height - radius * 2) +
+          Math.random() *
+            (window.innerHeight - radius * 2) +
           radius;
 
-        const dx = (Math.random() - 0.5) * 0.5;
-        const dy = (Math.random() - 0.5) * 0.5;
+        const dx =
+          (Math.random() - 0.5) * 0.24;
+
+        const dy =
+          (Math.random() - 0.5) * 0.24;
 
         stars.push(
           new Star(
@@ -335,50 +422,68 @@
     }
 
     function connectStars() {
-      for (let a = 0; a < stars.length; a++) {
-        for (let b = a + 1; b < stars.length; b++) {
+      const maximumConnectionDistance =
+        window.innerWidth > 768
+          ? 145
+          : 105;
+
+      const maximumConnectionDistanceSquared =
+        maximumConnectionDistance *
+        maximumConnectionDistance;
+
+      for (
+        let firstIndex = 0;
+        firstIndex < stars.length;
+        firstIndex++
+      ) {
+        for (
+          let secondIndex = firstIndex + 1;
+          secondIndex < stars.length;
+          secondIndex++
+        ) {
           const horizontalDistance =
-            stars[a].x - stars[b].x;
+            stars[firstIndex].x -
+            stars[secondIndex].x;
 
           const verticalDistance =
-            stars[a].y - stars[b].y;
+            stars[firstIndex].y -
+            stars[secondIndex].y;
 
           const distanceSquared =
-            horizontalDistance * horizontalDistance +
-            verticalDistance * verticalDistance;
+            horizontalDistance *
+              horizontalDistance +
+            verticalDistance *
+              verticalDistance;
 
-          const connectionThreshold =
-            (canvas.width / 7) *
-            (canvas.height / 7);
+          if (
+            distanceSquared <
+            maximumConnectionDistanceSquared
+          ) {
+            const distance =
+              Math.sqrt(distanceSquared);
 
-          if (distanceSquared < connectionThreshold) {
-            /*
-             * Math.max prevents negative opacity values
-             * on large displays.
-             */
-            const opacityValue = Math.max(
-              0,
-              1 - distanceSquared / 20000
-            );
+            const opacityValue =
+              1 -
+              distance /
+                maximumConnectionDistance;
 
-            /*
-             * The constellation connections remain gold.
-             */
             ctx.strokeStyle =
-              `rgba(185, 151, 91, ${opacityValue})`;
+              `rgba(185, 151, 91, ${
+                opacityValue * 0.42
+              })`;
 
             ctx.lineWidth = 1;
 
             ctx.beginPath();
 
             ctx.moveTo(
-              stars[a].x,
-              stars[a].y
+              stars[firstIndex].x,
+              stars[firstIndex].y
             );
 
             ctx.lineTo(
-              stars[b].x,
-              stars[b].y
+              stars[secondIndex].x,
+              stars[secondIndex].y
             );
 
             ctx.stroke();
@@ -388,13 +493,11 @@
     }
 
     function animate() {
-      requestAnimationFrame(animate);
-
       ctx.clearRect(
         0,
         0,
-        canvas.width,
-        canvas.height
+        window.innerWidth,
+        window.innerHeight
       );
 
       for (const star of stars) {
@@ -402,7 +505,37 @@
       }
 
       connectStars();
+
+      animationFrameId =
+        requestAnimationFrame(animate);
     }
+
+    let resizeTimer = null;
+
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+
+      resizeTimer = setTimeout(() => {
+        resizeCanvas();
+      }, 150);
+    });
+
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+        if (document.hidden) {
+          if (animationFrameId !== null) {
+            cancelAnimationFrame(
+              animationFrameId
+            );
+
+            animationFrameId = null;
+          }
+        } else if (animationFrameId === null) {
+          animate();
+        }
+      }
+    );
 
     resizeCanvas();
     animate();
