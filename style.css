@@ -1357,3 +1357,133 @@ main .text-slate-500 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* =========================================================
+   CONSTELLATION BACKGROUND VISIBILITY FIX
+   Paste this at the END of style.css
+   ========================================================= */
+
+html,
+body {
+  min-height: 100%;
+  background: #ffffff;
+}
+
+/*
+Keep the animated constellation fixed behind all content.
+*/
+#constellation-canvas {
+  position: fixed;
+  inset: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 0;
+  opacity: 0.62;
+
+  pointer-events: none;
+}
+
+/*
+Use only very light atmospheric gradients.
+Do not place an opaque white layer over the constellation.
+*/
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 14% 18%,
+      rgba(185, 151, 91, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 84% 76%,
+      rgba(0, 79, 45, 0.035),
+      transparent 32%
+    );
+}
+
+/*
+All actual website content remains above the canvas.
+*/
+#content-container {
+  position: relative;
+  z-index: 1;
+
+  min-height: 100vh;
+  background: transparent;
+}
+
+/*
+This was the main layer hiding the constellation.
+
+The white background is now translucent, allowing the
+network design to remain visible across the full page.
+*/
+.hero-card,
+.content-card {
+  position: relative;
+
+  background: rgba(255, 255, 255, 0.68);
+
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  box-shadow:
+    inset 0 0 120px rgba(255, 255, 255, 0.16);
+}
+
+/*
+Keep the information cards more solid so that their text
+remains easy to read.
+*/
+.education-card,
+.pub-details,
+.service-card {
+  background: rgba(255, 255, 255, 0.90);
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/*
+Keep the constellation visible behind the page title
+and introductory text.
+*/
+.main-content,
+.hero-content {
+  background: transparent;
+}
+
+/*
+Optional: make the large circular decoration slightly
+more visible against the constellation.
+*/
+.content-card::before,
+.hero-card::before {
+  border-color: rgba(185, 151, 91, 0.30);
+}
+
+.content-card::after,
+.hero-card::after {
+  border-color: rgba(0, 79, 45, 0.12);
+}
+
+/*
+The header remains solid green.
+*/
+.top-header {
+  background: rgba(0, 79, 45, 0.96);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid rgba(185, 151, 91, 0.65);
+}
