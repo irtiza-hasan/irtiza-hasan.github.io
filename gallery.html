@@ -15,11 +15,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap"
@@ -256,7 +252,6 @@
 
     .section-kicker {
       margin-bottom: 18px;
-
       color: var(--charlotte-gold);
       font-size: clamp(0.72rem,1.2vw,0.88rem);
       font-weight: 700;
@@ -267,13 +262,11 @@
 
     .page-title {
       margin: 0;
-
       color: #ffffff;
       font-size: clamp(3rem,7vw,6.4rem);
       font-weight: 700;
       line-height: 1;
       letter-spacing: -0.065em;
-
       text-shadow: 0 4px 22px rgba(0,36,21,0.22);
     }
 
@@ -284,7 +277,6 @@
     .gold-rule {
       width: 130px;
       height: 3px;
-
       margin-top: 31px;
       margin-bottom: 40px;
 
@@ -302,7 +294,6 @@
     .gallery-grid {
       width: 100%;
       max-width: 1120px;
-
       column-count: 2;
       column-gap: 1.4rem;
     }
@@ -367,13 +358,7 @@
 
     /* ==========================================
        ITW 2026 INTERACTIVE PHOTO STACK
-
-       - Five photographs
-       - Only arrows navigate
-       - No photo click interaction
-       - No fullscreen
-       - Same-size photo deck
-       ========================================== */
+    ========================================== */
 
     .itw-album {
       position: relative;
@@ -390,16 +375,13 @@
 
     .itw-stage {
       position: relative;
-
       width: 100%;
       height: clamp(300px, 35vw, 430px);
-
       overflow: visible;
     }
 
     .itw-photo {
       position: absolute;
-
       top: 50%;
       left: 50%;
 
@@ -407,7 +389,6 @@
       height: 82%;
 
       display: block;
-
       object-fit: cover;
       object-position: center;
 
@@ -457,7 +438,7 @@
         scale(0.98);
     }
 
-    /* Selected photograph in the center */
+    /* Center photograph */
 
     .itw-photo[data-slot="0"] {
       z-index: 5;
@@ -499,13 +480,12 @@
         scale(0.94);
     }
 
-    /* ==========================================
-       LARGE, CLEAR NAVIGATION BUTTONS
-       ========================================== */
+    /* ==================================
+       ITW NAVIGATION BUTTONS
+    ================================== */
 
     .itw-arrow {
       position: absolute;
-
       top: 50%;
       z-index: 10;
 
@@ -525,11 +505,9 @@
       border: 2px solid #f2e1bc;
       border-radius: 10px;
 
-      box-shadow:
-        0 8px 25px rgba(0,20,12,0.35);
+      box-shadow: 0 8px 25px rgba(0,20,12,0.35);
 
       cursor: pointer;
-
       transform: translateY(-50%);
 
       transition:
@@ -550,8 +528,7 @@
 
     .itw-arrow:hover {
       background-color: #f4ddb0;
-      box-shadow:
-        0 10px 30px rgba(0,20,12,0.45);
+      box-shadow: 0 10px 30px rgba(0,20,12,0.45);
     }
 
     .itw-arrow:active {
@@ -571,38 +548,15 @@
       right: 0;
     }
 
-    /* ITW caption and counter */
+    /* Single ITW caption */
 
     .itw-caption {
       margin-top: 10px;
-
       color: #ffffff;
       font-size: 0.89rem;
       font-weight: 700;
       line-height: 1.65;
       letter-spacing: -0.02em;
-    }
-
-    .itw-counter {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-
-      gap: 12px;
-      margin-top: 10px;
-
-      color: var(--muted-white);
-      font-size: 0.79rem;
-      font-weight: 600;
-      letter-spacing: 0.07em;
-    }
-
-    .itw-counter::before,
-    .itw-counter::after {
-      content: "";
-      width: 24px;
-      height: 1px;
-      background-color: var(--charlotte-gold);
     }
 
     /* ==================================
@@ -622,7 +576,6 @@
       padding-top: 28px;
 
       color: var(--muted-white);
-
       border-top: 1px solid rgba(255,255,255,0.2);
 
       font-size: 0.86rem;
@@ -658,7 +611,6 @@
       right: 0;
       bottom: 0;
       left: 0;
-
       height: 4px;
 
       background: linear-gradient(
@@ -814,10 +766,6 @@
         font-size: 0.81rem;
       }
 
-      .itw-counter {
-        font-size: 0.73rem;
-      }
-
       .contact-strip {
         flex-direction: column;
         align-items: center;
@@ -856,9 +804,7 @@
 
   <div id="content-container">
 
-    <!-- ==================================
-         HEADER
-    ================================== -->
+    <!-- HEADER -->
 
     <header class="top-header">
 
@@ -871,18 +817,9 @@
         aria-label="Main navigation">
 
         <a href="/">Home</a>
-
-        <a href="/education.html">
-          Education
-        </a>
-
-        <a href="/publications.html">
-          Publications
-        </a>
-
-        <a href="/service.html">
-          Service
-        </a>
+        <a href="/education.html">Education</a>
+        <a href="/publications.html">Publications</a>
+        <a href="/service.html">Service</a>
 
         <a
           href="/gallery.html"
@@ -916,6 +853,7 @@
               stroke-width="2"
               d="M4 6h16M4 12h16M4 18h16">
             </path>
+
           </svg>
 
           <svg
@@ -932,6 +870,7 @@
               stroke-width="2"
               d="M6 18L18 6M6 6l12 12">
             </path>
+
           </svg>
 
         </button>
@@ -940,9 +879,7 @@
 
     </header>
 
-    <!-- ==================================
-         MOBILE MENU
-    ================================== -->
+    <!-- MOBILE MENU -->
 
     <div
       id="mobile-menu"
@@ -952,9 +889,7 @@
         class="mobile-menu-content"
         aria-label="Mobile navigation">
 
-        <a href="/" class="mobile-link">
-          Home
-        </a>
+        <a href="/" class="mobile-link">Home</a>
 
         <a
           href="/education.html"
@@ -985,9 +920,7 @@
 
     </div>
 
-    <!-- ==================================
-         MAIN CONTENT
-    ================================== -->
+    <!-- MAIN CONTENT -->
 
     <main class="page-wrap">
 
@@ -1008,15 +941,11 @@
             aria-hidden="true">
           </div>
 
-          <!-- ================================
-               GALLERY
-          ================================= -->
+          <!-- GALLERY -->
 
           <div class="gallery-grid">
 
-            <!-- ================================
-                 ITW 2026 INTERACTIVE DECK
-            ================================= -->
+            <!-- ITW 2026 PHOTO STACK -->
 
             <figure
               class="itw-album"
@@ -1025,7 +954,6 @@
 
               <div class="itw-stage">
 
-                <!-- PHOTO 1 -->
                 <img
                   class="itw-photo"
                   src="/images/ITW1.jpeg"
@@ -1035,7 +963,6 @@
                   draggable="false"
                 />
 
-                <!-- PHOTO 2 -->
                 <img
                   class="itw-photo"
                   src="/images/ITW2.jpeg"
@@ -1046,7 +973,6 @@
                   draggable="false"
                 />
 
-                <!-- PHOTO 3 -->
                 <img
                   class="itw-photo"
                   src="/images/ITW3.jpeg"
@@ -1057,7 +983,6 @@
                   draggable="false"
                 />
 
-                <!-- PHOTO 4 -->
                 <img
                   class="itw-photo"
                   src="/images/ITW4.jpeg"
@@ -1068,7 +993,6 @@
                   draggable="false"
                 />
 
-                <!-- PHOTO 5 -->
                 <img
                   class="itw-photo"
                   src="/images/ITW5.jpeg"
@@ -1079,7 +1003,7 @@
                   draggable="false"
                 />
 
-                <!-- PREVIOUS ARROW -->
+                <!-- PREVIOUS -->
 
                 <button
                   type="button"
@@ -1096,7 +1020,7 @@
 
                 </button>
 
-                <!-- NEXT ARROW -->
+                <!-- NEXT -->
 
                 <button
                   type="button"
@@ -1119,19 +1043,9 @@
                 Some photos from ITW 2026
               </figcaption>
 
-              <div
-                class="itw-counter"
-                id="itw-counter"
-                aria-live="polite"
-                aria-atomic="true">
-                1 / 5
-              </div>
-
             </figure>
 
-            <!-- ================================
-                 SPRING 2026 GROUP PHOTO
-            ================================= -->
+            <!-- SPRING 2026 GROUP PHOTO -->
 
             <figure class="gallery-item">
 
@@ -1147,9 +1061,7 @@
 
             </figure>
 
-            <!-- ================================
-                 ASILOMAR 2025 POSTER
-            ================================= -->
+            <!-- ASILOMAR 2025 POSTER -->
 
             <figure class="gallery-item">
 
@@ -1165,9 +1077,7 @@
 
             </figure>
 
-            <!-- ================================
-                 ASILOMAR STATE BEACH
-            ================================= -->
+            <!-- ASILOMAR STATE BEACH -->
 
             <figure class="gallery-item">
 
@@ -1183,9 +1093,7 @@
 
             </figure>
 
-            <!-- ================================
-                 ALLERTON 2025
-            ================================= -->
+            <!-- ALLERTON 2025 -->
 
             <figure class="gallery-item">
 
@@ -1202,9 +1110,7 @@
 
             </figure>
 
-            <!-- ================================
-                 SEPTEMBER 2025 GROUP PHOTO
-            ================================= -->
+            <!-- SEPTEMBER 2025 GROUP PHOTO -->
 
             <figure class="gallery-item">
 
@@ -1220,9 +1126,7 @@
 
             </figure>
 
-            <!-- ================================
-                 AUGUST 2024 GROUP PHOTO
-            ================================= -->
+            <!-- AUGUST 2024 GROUP PHOTO -->
 
             <figure class="gallery-item">
 
@@ -1238,9 +1142,7 @@
 
             </figure>
 
-            <!-- ================================
-                 IEEE ICC 2026
-            ================================= -->
+            <!-- IEEE ICC 2026 -->
 
             <figure class="gallery-item">
 
@@ -1258,9 +1160,7 @@
 
           </div>
 
-          <!-- ==================================
-               CONTACT STRIP
-          ================================== -->
+          <!-- CONTACT STRIP -->
 
           <div class="contact-strip">
 
@@ -1269,7 +1169,6 @@
                 class="fas fa-map-marker-alt"
                 aria-hidden="true">
               </i>
-
               Charlotte, North Carolina
             </span>
 
@@ -1313,14 +1212,13 @@
 
   </div>
 
-  <!-- =====================================
-       JAVASCRIPT: PHOTO NAVIGATION
-  ===================================== -->
+  <!-- PHOTO NAVIGATION AND MOBILE MENU -->
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
 
-      const album = document.getElementById("itw-album");
+      const album =
+        document.getElementById("itw-album");
 
       const photos = Array.from(
         album.querySelectorAll(".itw-photo")
@@ -1332,23 +1230,9 @@
       const nextButton =
         document.getElementById("itw-next");
 
-      const counter =
-        document.getElementById("itw-counter");
-
       let currentIndex = 0;
 
       const totalPhotos = photos.length;
-
-      /*
-        Calculate each photograph's position
-        relative to the currently selected image.
-
-        Position  0 = center / front
-        Position -1 = near left
-        Position -2 = far left
-        Position  1 = near right
-        Position  2 = far right
-      */
 
       function updatePhotoDeck() {
 
@@ -1374,9 +1258,6 @@
           );
 
         });
-
-        counter.textContent =
-          `${currentIndex + 1} / ${totalPhotos}`;
       }
 
       function showNextPhoto() {
@@ -1394,14 +1275,6 @@
         updatePhotoDeck();
       }
 
-      /*
-        Only the Previous and Next buttons
-        change the selected photograph.
-
-        Clicking a photograph does nothing.
-        No lightbox or fullscreen viewer.
-      */
-
       previousButton.addEventListener(
         "click",
         showPreviousPhoto
@@ -1411,11 +1284,6 @@
         "click",
         showNextPhoto
       );
-
-      /*
-        Keyboard navigation also works when
-        either navigation button is focused.
-      */
 
       album.addEventListener("keydown", (event) => {
 
@@ -1433,9 +1301,7 @@
 
       updatePhotoDeck();
 
-      /* ===================================
-         MOBILE MENU
-      =================================== */
+      /* MOBILE MENU */
 
       const mobileMenuButton =
         document.getElementById(
@@ -1534,9 +1400,7 @@
     });
   </script>
 
-  <!-- =====================================
-       CONSTELLATION BACKGROUND ANIMATION
-  ===================================== -->
+  <!-- CONSTELLATION BACKGROUND -->
 
   <script>
     (() => {
@@ -1546,16 +1410,11 @@
           "constellation-canvas"
         );
 
-      if (!canvas) {
-        return;
-      }
+      if (!canvas) return;
 
-      const context =
-        canvas.getContext("2d");
+      const context = canvas.getContext("2d");
 
-      if (!context) {
-        return;
-      }
+      if (!context) return;
 
       const prefersReducedMotion =
         window.matchMedia(
@@ -1576,13 +1435,11 @@
           velocityX,
           velocityY
         ) {
-
           this.x = x;
           this.y = y;
           this.radius = radius;
           this.velocityX = velocityX;
           this.velocityY = velocityY;
-
         }
 
         update() {
@@ -1603,7 +1460,6 @@
 
           this.x += this.velocityX;
           this.y += this.velocityY;
-
         }
 
         draw() {
@@ -1622,7 +1478,6 @@
             "rgba(255,255,255,0.56)";
 
           context.fill();
-
         }
       }
 
@@ -1692,25 +1547,19 @@
               velocityY
             )
           );
-
         }
       }
 
       function resizeCanvas() {
 
         devicePixelRatioValue =
-          Math.min(
-            window.devicePixelRatio || 1,
-            2
-          );
+          Math.min(window.devicePixelRatio || 1, 2);
 
         canvas.width =
-          window.innerWidth *
-          devicePixelRatioValue;
+          window.innerWidth * devicePixelRatioValue;
 
         canvas.height =
-          window.innerHeight *
-          devicePixelRatioValue;
+          window.innerHeight * devicePixelRatioValue;
 
         canvas.style.width =
           `${window.innerWidth}px`;
@@ -1763,8 +1612,7 @@
               verticalDistance * verticalDistance;
 
             if (
-              distanceSquared >
-              maximumDistanceSquared
+              distanceSquared > maximumDistanceSquared
             ) {
               continue;
             }
@@ -1793,7 +1641,6 @@
 
             context.lineWidth = 0.8;
             context.stroke();
-
           }
         }
       }
@@ -1815,44 +1662,34 @@
         drawConnections();
 
         if (!prefersReducedMotion) {
-
           animationFrameId =
             window.requestAnimationFrame(
               renderFrame
             );
-
         }
       }
 
       function restartAnimation() {
 
         if (animationFrameId !== null) {
-
           window.cancelAnimationFrame(
             animationFrameId
           );
-
         }
 
         resizeCanvas();
         renderFrame();
       }
 
-      window.addEventListener(
-        "resize",
-        () => {
+      window.addEventListener("resize", () => {
 
-          window.clearTimeout(resizeTimer);
+        window.clearTimeout(resizeTimer);
 
-          resizeTimer = window.setTimeout(
-            () => {
-              restartAnimation();
-            },
-            150
-          );
+        resizeTimer = window.setTimeout(() => {
+          restartAnimation();
+        }, 150);
 
-        }
-      );
+      });
 
       restartAnimation();
 
