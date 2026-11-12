@@ -35,6 +35,8 @@
       --deep-green: #003d24;
       --soft-white: #f4f7f5;
       --muted-white: #dce5e0;
+      --photo-paper: #f8f8f5;
+      --photo-ink: #25372e;
       --header-height: 64px;
     }
 
@@ -60,9 +62,9 @@
       font-family: inherit;
     }
 
-    /* ==================================
+    /* =============================
        CONSTELLATION BACKGROUND
-    ================================== */
+    ============================= */
 
     #constellation-canvas {
       position: fixed;
@@ -79,9 +81,9 @@
       min-height: 100vh;
     }
 
-    /* ==================================
+    /* =============================
        HEADER
-    ================================== */
+    ============================= */
 
     .top-header {
       position: fixed;
@@ -108,15 +110,11 @@
       font-weight: 700;
       letter-spacing: -0.02em;
       text-decoration: none;
-
-      transition:
-        color 0.2s ease,
-        transform 0.2s ease;
+      transition: color 0.2s ease;
     }
 
     .brand:hover {
       color: var(--charlotte-gold);
-      transform: translateY(-1px);
     }
 
     .navbar {
@@ -127,11 +125,10 @@
       position: relative;
       margin-left: 26px;
       padding: 21px 0 19px;
-
       color: #ffffff;
+
       font-size: 0.88rem;
       font-weight: 500;
-      letter-spacing: -0.01em;
       text-decoration: none;
 
       transition: color 0.2s ease;
@@ -139,7 +136,6 @@
 
     .navbar a::after {
       content: "";
-
       position: absolute;
       right: 0;
       bottom: 13px;
@@ -147,9 +143,7 @@
 
       height: 2px;
       background-color: var(--charlotte-gold);
-
       transform: scaleX(0);
-      transform-origin: center;
       transition: transform 0.2s ease;
     }
 
@@ -163,15 +157,14 @@
       transform: scaleX(1);
     }
 
-    /* ==================================
+    /* =============================
        MOBILE MENU
-    ================================== */
+    ============================= */
 
     #mobile-menu-button {
       position: relative;
       z-index: 50;
       padding: 8px;
-
       color: #ffffff;
       background: transparent;
       border: 0;
@@ -190,7 +183,6 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-
       width: 100%;
       height: 100%;
       gap: 30px;
@@ -201,21 +193,17 @@
       font-size: 1.35rem;
       font-weight: 600;
       text-decoration: none;
-
-      transition:
-        color 0.2s ease,
-        transform 0.2s ease;
+      transition: color 0.2s ease;
     }
 
     .mobile-link:hover,
     .mobile-link.active {
       color: var(--charlotte-gold);
-      transform: translateX(4px);
     }
 
-    /* ==================================
+    /* =============================
        PAGE LAYOUT
-    ================================== */
+    ============================= */
 
     .page-wrap {
       min-height: 100vh;
@@ -224,7 +212,6 @@
 
     .content-card {
       position: relative;
-
       width: 100%;
       min-height: calc(100vh - var(--header-height));
 
@@ -234,8 +221,6 @@
         clamp(64px,7vw,105px);
 
       background: transparent;
-      overflow: hidden;
-
       animation: fadeInUp 0.55s ease both;
     }
 
@@ -245,10 +230,6 @@
       width: 100%;
       max-width: 1180px;
     }
-
-    /* ==================================
-       PAGE INTRODUCTION
-    ================================== */
 
     .section-kicker {
       margin-bottom: 18px;
@@ -278,7 +259,7 @@
       width: 130px;
       height: 3px;
       margin-top: 31px;
-      margin-bottom: 40px;
+      margin-bottom: 54px;
 
       background: linear-gradient(
         90deg,
@@ -287,88 +268,119 @@
       );
     }
 
-    /* ==================================
-       GALLERY GRID
-    ================================== */
+    /* =============================
+       GALLERY MASONRY
+    ============================= */
 
     .gallery-grid {
       width: 100%;
       max-width: 1120px;
       column-count: 2;
-      column-gap: 1.4rem;
+      column-gap: 2.3rem;
     }
 
+    /*
+      All regular photographs now have
+      a physical Polaroid appearance.
+    */
+
     .gallery-item {
+      --rotation: -2deg;
+
       position: relative;
-      display: block;
+      display: inline-block;
+      vertical-align: top;
       break-inside: avoid;
 
-      width: 100%;
-      margin: 0 0 1.4rem;
+      width: calc(100% - 24px);
+      margin: 18px 12px 35px;
+      padding: 10px 10px 0;
 
-      background-color: var(--deep-green);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 8px;
+      background: var(--photo-paper);
+      border-radius: 4px;
 
-      overflow: hidden;
+      box-shadow:
+        0 18px 38px rgba(0,25,14,0.38),
+        0 5px 13px rgba(0,25,14,0.20);
 
-      box-shadow: 0 15px 35px rgba(0,38,22,0.26);
+      transform: rotate(var(--rotation));
 
       transition:
-        transform 0.22s ease,
-        border-color 0.22s ease,
-        box-shadow 0.22s ease;
+        transform 0.28s ease,
+        box-shadow 0.28s ease;
+    }
+
+    .gallery-item:nth-child(4n+2) {
+      --rotation: 2.3deg;
+    }
+
+    .gallery-item:nth-child(4n+3) {
+      --rotation: -1.6deg;
+    }
+
+    .gallery-item:nth-child(4n+4) {
+      --rotation: 1.5deg;
     }
 
     .gallery-item:hover {
-      transform: translateY(-3px);
-      border-color: rgba(185,151,91,0.6);
-      box-shadow: 0 20px 42px rgba(0,38,22,0.34);
+      position: relative;
+      z-index: 6;
+
+      transform:
+        translateY(-7px)
+        rotate(0deg);
+
+      box-shadow:
+        0 24px 48px rgba(0,25,14,0.46),
+        0 8px 18px rgba(0,25,14,0.25);
     }
 
     .gallery-item img {
       display: block;
       width: 100%;
       height: auto;
-      object-fit: cover;
+      object-fit: contain;
+      background: #e9ece8;
+      user-select: none;
+      pointer-events: none;
     }
+
+    /*
+      Captions are printed on the white
+      Polaroid bottom border, not
+      over the photograph.
+    */
 
     .image-caption {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      width: 100%;
-      padding: 2.8rem 1.1rem 1rem;
+      min-height: 70px;
+      padding: 15px 10px 16px;
 
-      color: #ffffff;
+      color: var(--photo-ink);
+      background: var(--photo-paper);
 
-      background: linear-gradient(
-        180deg,
-        rgba(0,30,18,0),
-        rgba(0,30,18,0.88)
-      );
-
-      font-size: 0.84rem;
+      font-size: 0.76rem;
       font-weight: 600;
       line-height: 1.55;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
+      text-align: center;
     }
 
-    /* ==========================================
-       ITW 2026 INTERACTIVE PHOTO STACK
-    ========================================== */
+    /* =============================
+       ITW 2026 PHOTO DECK
+    ============================= */
 
     .itw-album {
-      position: relative;
-      display: block;
+      display: inline-block;
+      vertical-align: top;
       break-inside: avoid;
 
       width: 100%;
-      margin: 0 0 1.4rem;
+      margin: 0 0 30px;
       padding: 0;
-
       text-align: center;
       isolation: isolate;
     }
@@ -376,8 +388,7 @@
     .itw-stage {
       position: relative;
       width: 100%;
-      height: clamp(300px, 35vw, 430px);
-      overflow: visible;
+      height: clamp(325px,35vw,465px);
     }
 
     .itw-photo {
@@ -385,25 +396,24 @@
       top: 50%;
       left: 50%;
 
+      display: block;
       width: 57%;
       height: 82%;
 
-      display: block;
       object-fit: cover;
       object-position: center;
 
-      background-color: #f4f4f2;
+      background: var(--photo-paper);
 
-      border: 6px solid #f8f8f5;
-      border-bottom-width: 20px;
+      border: 8px solid var(--photo-paper);
+      border-bottom-width: 24px;
       border-radius: 4px;
 
       box-shadow:
-        0 12px 28px rgba(0,20,12,0.38),
-        0 4px 12px rgba(0,20,12,0.20);
+        0 14px 32px rgba(0,20,12,0.42),
+        0 4px 12px rgba(0,20,12,0.22);
 
       transform-origin: center 88%;
-
       pointer-events: none;
       user-select: none;
 
@@ -412,77 +422,62 @@
         box-shadow 0.3s ease;
     }
 
-    /* Far-left photograph */
-
     .itw-photo[data-slot="-2"] {
       z-index: 1;
-
       transform:
-        translate(-50%, -50%)
+        translate(-50%,-50%)
         translateX(-35%)
         translateY(15px)
         rotate(-19deg)
         scale(0.94);
     }
 
-    /* Near-left photograph */
-
     .itw-photo[data-slot="-1"] {
       z-index: 3;
-
       transform:
-        translate(-50%, -50%)
+        translate(-50%,-50%)
         translateX(-18%)
         translateY(7px)
         rotate(-10deg)
         scale(0.98);
     }
 
-    /* Center photograph */
-
     .itw-photo[data-slot="0"] {
       z-index: 5;
-
       transform:
-        translate(-50%, -50%)
+        translate(-50%,-50%)
         translateY(-8px)
         rotate(0deg)
         scale(1.04);
 
       box-shadow:
-        0 18px 38px rgba(0,20,12,0.48),
+        0 20px 42px rgba(0,20,12,0.5),
         0 6px 15px rgba(0,20,12,0.26);
     }
 
-    /* Near-right photograph */
-
     .itw-photo[data-slot="1"] {
       z-index: 3;
-
       transform:
-        translate(-50%, -50%)
+        translate(-50%,-50%)
         translateX(18%)
         translateY(7px)
         rotate(10deg)
         scale(0.98);
     }
 
-    /* Far-right photograph */
-
     .itw-photo[data-slot="2"] {
       z-index: 1;
-
       transform:
-        translate(-50%, -50%)
+        translate(-50%,-50%)
         translateX(35%)
         translateY(15px)
         rotate(19deg)
         scale(0.94);
     }
 
-    /* ==================================
-       ITW NAVIGATION BUTTONS
-    ================================== */
+    /* =============================
+       ITW LEFT/RIGHT NAVIGATION
+    ============================= */
 
     .itw-arrow {
       position: absolute;
@@ -500,7 +495,7 @@
       padding: 0;
 
       color: var(--deep-green);
-      background-color: var(--charlotte-gold);
+      background: var(--charlotte-gold);
 
       border: 2px solid #f2e1bc;
       border-radius: 10px;
@@ -512,8 +507,17 @@
 
       transition:
         background-color 0.2s ease,
-        color 0.2s ease,
         box-shadow 0.2s ease;
+    }
+
+    .itw-arrow:hover {
+      background-color: #f4ddb0;
+      box-shadow: 0 10px 30px rgba(0,20,12,0.45);
+    }
+
+    .itw-arrow:focus-visible {
+      outline: 3px solid #ffffff;
+      outline-offset: 4px;
     }
 
     .itw-arrow i {
@@ -526,20 +530,6 @@
       letter-spacing: 0.035em;
     }
 
-    .itw-arrow:hover {
-      background-color: #f4ddb0;
-      box-shadow: 0 10px 30px rgba(0,20,12,0.45);
-    }
-
-    .itw-arrow:active {
-      background-color: #d5ad6c;
-    }
-
-    .itw-arrow:focus-visible {
-      outline: 3px solid #ffffff;
-      outline-offset: 4px;
-    }
-
     .itw-prev {
       left: 0;
     }
@@ -548,20 +538,18 @@
       right: 0;
     }
 
-    /* Single ITW caption */
-
     .itw-caption {
-      margin-top: 10px;
+      margin-top: 15px;
       color: #ffffff;
       font-size: 0.89rem;
       font-weight: 700;
       line-height: 1.65;
-      letter-spacing: -0.02em;
+      text-shadow: 0 2px 8px rgba(0,20,12,0.25);
     }
 
-    /* ==================================
+    /* =============================
        CONTACT STRIP
-    ================================== */
+    ============================= */
 
     .contact-strip {
       display: flex;
@@ -635,9 +623,9 @@
       }
     }
 
-    /* ==================================
+    /* =============================
        RESPONSIVE
-    ================================== */
+    ============================= */
 
     @media (max-width: 900px) {
       .top-header {
@@ -673,17 +661,18 @@
       }
 
       .gallery-item {
-        text-align: left;
+        width: calc(100% - 36px);
+        margin: 16px 18px 34px;
       }
 
       .itw-album {
+        display: block;
         max-width: 560px;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 0 auto 35px;
       }
 
       .itw-stage {
-        height: clamp(320px, 60vw, 460px);
+        height: clamp(330px,60vw,460px);
       }
 
       .contact-strip {
@@ -712,9 +701,7 @@
       }
 
       .section-kicker {
-        margin-bottom: 16px;
         font-size: 0.7rem;
-        letter-spacing: 0.09em;
       }
 
       .page-title {
@@ -726,14 +713,20 @@
         margin-bottom: 32px;
       }
 
+      .gallery-grid {
+        column-gap: 0;
+      }
+
       .gallery-item {
-        margin-bottom: 1.1rem;
-        border-radius: 6px;
+        width: calc(100% - 24px);
+        margin: 14px 12px 30px;
+        padding: 7px 7px 0;
       }
 
       .image-caption {
-        padding: 2.5rem 0.9rem 0.8rem;
-        font-size: 0.75rem;
+        min-height: 58px;
+        padding: 12px 8px 14px;
+        font-size: 0.7rem;
       }
 
       .itw-stage {
@@ -743,8 +736,8 @@
       .itw-photo {
         width: 62%;
         height: 77%;
-        border-width: 4px;
-        border-bottom-width: 15px;
+        border-width: 5px;
+        border-bottom-width: 17px;
       }
 
       .itw-arrow {
@@ -770,10 +763,8 @@
         flex-direction: column;
         align-items: center;
         gap: 13px;
-
         margin-top: 36px;
         padding-top: 24px;
-
         font-size: 0.78rem;
         text-align: center;
       }
@@ -853,7 +844,6 @@
               stroke-width="2"
               d="M4 6h16M4 12h16M4 18h16">
             </path>
-
           </svg>
 
           <svg
@@ -870,7 +860,6 @@
               stroke-width="2"
               d="M6 18L18 6M6 6l12 12">
             </path>
-
           </svg>
 
         </button>
@@ -889,23 +878,19 @@
         class="mobile-menu-content"
         aria-label="Mobile navigation">
 
-        <a href="/" class="mobile-link">Home</a>
+        <a href="/" class="mobile-link">
+          Home
+        </a>
 
-        <a
-          href="/education.html"
-          class="mobile-link">
+        <a href="/education.html" class="mobile-link">
           Education
         </a>
 
-        <a
-          href="/publications.html"
-          class="mobile-link">
+        <a href="/publications.html" class="mobile-link">
           Publications
         </a>
 
-        <a
-          href="/service.html"
-          class="mobile-link">
+        <a href="/service.html" class="mobile-link">
           Service
         </a>
 
@@ -917,7 +902,6 @@
         </a>
 
       </nav>
-
     </div>
 
     <!-- MAIN CONTENT -->
@@ -945,7 +929,9 @@
 
           <div class="gallery-grid">
 
-            <!-- ITW 2026 PHOTO STACK -->
+            <!-- ==========================
+                 ITW 2026 PHOTO DECK
+            =========================== -->
 
             <figure
               class="itw-album"
@@ -1003,8 +989,6 @@
                   draggable="false"
                 />
 
-                <!-- PREVIOUS -->
-
                 <button
                   type="button"
                   id="itw-prev"
@@ -1017,10 +1001,7 @@
                   </i>
 
                   <span>PREV</span>
-
                 </button>
-
-                <!-- NEXT -->
 
                 <button
                   type="button"
@@ -1034,7 +1015,6 @@
                   </i>
 
                   <span>NEXT</span>
-
                 </button>
 
               </div>
@@ -1045,7 +1025,9 @@
 
             </figure>
 
-            <!-- SPRING 2026 GROUP PHOTO -->
+            <!-- ==========================
+                 SPRING 2026
+            =========================== -->
 
             <figure class="gallery-item">
 
@@ -1061,7 +1043,9 @@
 
             </figure>
 
-            <!-- ASILOMAR 2025 POSTER -->
+            <!-- ==========================
+                 ASILOMAR POSTER 2025
+            =========================== -->
 
             <figure class="gallery-item">
 
@@ -1077,7 +1061,9 @@
 
             </figure>
 
-            <!-- ASILOMAR STATE BEACH -->
+            <!-- ==========================
+                 ASILOMAR STATE BEACH
+            =========================== -->
 
             <figure class="gallery-item">
 
@@ -1093,7 +1079,9 @@
 
             </figure>
 
-            <!-- ALLERTON 2025 -->
+            <!-- ==========================
+                 ALLERTON 2025
+            =========================== -->
 
             <figure class="gallery-item">
 
@@ -1110,7 +1098,9 @@
 
             </figure>
 
-            <!-- SEPTEMBER 2025 GROUP PHOTO -->
+            <!-- ==========================
+                 SEPTEMBER 2025
+            =========================== -->
 
             <figure class="gallery-item">
 
@@ -1126,7 +1116,9 @@
 
             </figure>
 
-            <!-- AUGUST 2024 GROUP PHOTO -->
+            <!-- ==========================
+                 AUGUST 2024
+            =========================== -->
 
             <figure class="gallery-item">
 
@@ -1142,7 +1134,9 @@
 
             </figure>
 
-            <!-- IEEE ICC 2026 -->
+            <!-- ==========================
+                 IEEE ICC 2026
+            =========================== -->
 
             <figure class="gallery-item">
 
@@ -1160,7 +1154,7 @@
 
           </div>
 
-          <!-- CONTACT STRIP -->
+          <!-- CONTACT -->
 
           <div class="contact-strip">
 
@@ -1169,6 +1163,7 @@
                 class="fas fa-map-marker-alt"
                 aria-hidden="true">
               </i>
+
               Charlotte, North Carolina
             </span>
 
@@ -1212,7 +1207,9 @@
 
   </div>
 
-  <!-- PHOTO NAVIGATION AND MOBILE MENU -->
+  <!-- =============================
+       PHOTO NAVIGATION
+  ============================= -->
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -1231,7 +1228,6 @@
         document.getElementById("itw-next");
 
       let currentIndex = 0;
-
       const totalPhotos = photos.length;
 
       function updatePhotoDeck() {
@@ -1304,9 +1300,7 @@
       /* MOBILE MENU */
 
       const mobileMenuButton =
-        document.getElementById(
-          "mobile-menu-button"
-        );
+        document.getElementById("mobile-menu-button");
 
       const mobileMenu =
         document.getElementById("mobile-menu");
@@ -1318,7 +1312,6 @@
         document.getElementById("close-icon");
 
       function closeMobileMenu() {
-
         mobileMenu.classList.add("hidden");
 
         mobileMenuButton.setAttribute(
@@ -1338,7 +1331,6 @@
       }
 
       function openMobileMenu() {
-
         mobileMenu.classList.remove("hidden");
 
         mobileMenuButton.setAttribute(
@@ -1357,58 +1349,44 @@
         document.body.style.overflow = "hidden";
       }
 
-      mobileMenuButton.addEventListener(
-        "click",
-        () => {
+      mobileMenuButton.addEventListener("click", () => {
 
-          const isOpen =
-            mobileMenuButton.getAttribute(
-              "aria-expanded"
-            ) === "true";
+        const isOpen =
+          mobileMenuButton.getAttribute("aria-expanded")
+          === "true";
 
-          if (isOpen) {
-            closeMobileMenu();
-          } else {
-            openMobileMenu();
-          }
-
+        if (isOpen) {
+          closeMobileMenu();
+        } else {
+          openMobileMenu();
         }
-      );
+
+      });
 
       document
         .querySelectorAll(".mobile-link")
         .forEach((link) => {
-
-          link.addEventListener(
-            "click",
-            closeMobileMenu
-          );
-
+          link.addEventListener("click", closeMobileMenu);
         });
 
-      document.addEventListener(
-        "keydown",
-        (event) => {
-
-          if (event.key === "Escape") {
-            closeMobileMenu();
-          }
-
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeMobileMenu();
         }
-      );
+      });
 
     });
   </script>
 
-  <!-- CONSTELLATION BACKGROUND -->
+  <!-- =============================
+       CONSTELLATION ANIMATION
+  ============================= -->
 
   <script>
     (() => {
 
       const canvas =
-        document.getElementById(
-          "constellation-canvas"
-        );
+        document.getElementById("constellation-canvas");
 
       if (!canvas) return;
 
@@ -1427,14 +1405,7 @@
       let devicePixelRatioValue = 1;
 
       class Particle {
-
-        constructor(
-          x,
-          y,
-          radius,
-          velocityX,
-          velocityY
-        ) {
+        constructor(x, y, radius, velocityX, velocityY) {
           this.x = x;
           this.y = y;
           this.radius = radius;
@@ -1443,7 +1414,6 @@
         }
 
         update() {
-
           if (
             this.x + this.radius >= window.innerWidth ||
             this.x - this.radius <= 0
@@ -1463,7 +1433,6 @@
         }
 
         draw() {
-
           context.beginPath();
 
           context.arc(
@@ -1482,44 +1451,27 @@
       }
 
       function getParticleCount() {
-
-        if (window.innerWidth <= 640) {
-          return 38;
-        }
-
-        if (window.innerWidth <= 1024) {
-          return 62;
-        }
-
+        if (window.innerWidth <= 640) return 38;
+        if (window.innerWidth <= 1024) return 62;
         return 88;
       }
 
       function getConnectionDistance() {
-
-        if (window.innerWidth <= 640) {
-          return 105;
-        }
-
-        if (window.innerWidth <= 1024) {
-          return 125;
-        }
-
+        if (window.innerWidth <= 640) return 105;
+        if (window.innerWidth <= 1024) return 125;
         return 145;
       }
 
       function createParticles() {
-
         particles = [];
 
-        const particleCount =
-          getParticleCount();
+        const particleCount = getParticleCount();
 
         for (
           let index = 0;
           index < particleCount;
           index += 1
         ) {
-
           const radius =
             Math.random() * 1.35 + 0.55;
 
@@ -1551,7 +1503,6 @@
       }
 
       function resizeCanvas() {
-
         devicePixelRatioValue =
           Math.min(window.devicePixelRatio || 1, 2);
 
@@ -1580,7 +1531,6 @@
       }
 
       function drawConnections() {
-
         const maximumDistance =
           getConnectionDistance();
 
@@ -1592,13 +1542,11 @@
           firstIndex < particles.length;
           firstIndex += 1
         ) {
-
           for (
             let secondIndex = firstIndex + 1;
             secondIndex < particles.length;
             secondIndex += 1
           ) {
-
             const horizontalDistance =
               particles[firstIndex].x -
               particles[secondIndex].x;
@@ -1611,18 +1559,14 @@
               horizontalDistance * horizontalDistance +
               verticalDistance * verticalDistance;
 
-            if (
-              distanceSquared > maximumDistanceSquared
-            ) {
+            if (distanceSquared > maximumDistanceSquared) {
               continue;
             }
 
-            const distance =
-              Math.sqrt(distanceSquared);
+            const distance = Math.sqrt(distanceSquared);
 
             const opacity =
-              0.28 *
-              (1 - distance / maximumDistance);
+              0.28 * (1 - distance / maximumDistance);
 
             context.beginPath();
 
@@ -1646,7 +1590,6 @@
       }
 
       function renderFrame() {
-
         context.clearRect(
           0,
           0,
@@ -1663,18 +1606,13 @@
 
         if (!prefersReducedMotion) {
           animationFrameId =
-            window.requestAnimationFrame(
-              renderFrame
-            );
+            window.requestAnimationFrame(renderFrame);
         }
       }
 
       function restartAnimation() {
-
         if (animationFrameId !== null) {
-          window.cancelAnimationFrame(
-            animationFrameId
-          );
+          window.cancelAnimationFrame(animationFrameId);
         }
 
         resizeCanvas();
@@ -1682,13 +1620,11 @@
       }
 
       window.addEventListener("resize", () => {
-
         window.clearTimeout(resizeTimer);
 
         resizeTimer = window.setTimeout(() => {
           restartAnimation();
         }, 150);
-
       });
 
       restartAnimation();
