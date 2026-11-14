@@ -279,11 +279,6 @@
       column-gap: 2.3rem;
     }
 
-    /*
-      All regular photographs now have
-      a physical Polaroid appearance.
-    */
-
     .gallery-item {
       --rotation: -2deg;
 
@@ -345,12 +340,6 @@
       pointer-events: none;
     }
 
-    /*
-      Captions are printed on the white
-      Polaroid bottom border, not
-      over the photograph.
-    */
-
     .image-caption {
       display: flex;
       align-items: center;
@@ -371,6 +360,7 @@
 
     /* =============================
        ITW 2026 PHOTO DECK
+       SIX PHOTOGRAPHS
     ============================= */
 
     .itw-album {
@@ -419,11 +409,16 @@
 
       transition:
         transform 0.45s cubic-bezier(.22,.8,.22,1),
-        box-shadow 0.3s ease;
+        box-shadow 0.3s ease,
+        opacity 0.35s ease,
+        visibility 0.35s ease;
     }
+
+    /* Far left */
 
     .itw-photo[data-slot="-2"] {
       z-index: 1;
+
       transform:
         translate(-50%,-50%)
         translateX(-35%)
@@ -432,8 +427,11 @@
         scale(0.94);
     }
 
+    /* Near left */
+
     .itw-photo[data-slot="-1"] {
       z-index: 3;
+
       transform:
         translate(-50%,-50%)
         translateX(-18%)
@@ -442,8 +440,11 @@
         scale(0.98);
     }
 
+    /* Center active photograph */
+
     .itw-photo[data-slot="0"] {
       z-index: 5;
+
       transform:
         translate(-50%,-50%)
         translateY(-8px)
@@ -455,8 +456,11 @@
         0 6px 15px rgba(0,20,12,0.26);
     }
 
+    /* Near right */
+
     .itw-photo[data-slot="1"] {
       z-index: 3;
+
       transform:
         translate(-50%,-50%)
         translateX(18%)
@@ -465,14 +469,37 @@
         scale(0.98);
     }
 
+    /* Far right */
+
     .itw-photo[data-slot="2"] {
       z-index: 1;
+
       transform:
         translate(-50%,-50%)
         translateX(35%)
         translateY(15px)
         rotate(19deg)
         scale(0.94);
+    }
+
+    /*
+      SIXTH PHOTO HANDLING
+
+      For six photographs, five remain
+      visible in the fan.
+
+      The sixth waits behind the deck.
+      It becomes visible through navigation.
+    */
+
+    .itw-photo[data-slot="3"] {
+      z-index: 0;
+      opacity: 0;
+      visibility: hidden;
+
+      transform:
+        translate(-50%,-50%)
+        scale(0.85);
     }
 
     /* =============================
@@ -931,6 +958,7 @@
 
             <!-- ==========================
                  ITW 2026 PHOTO DECK
+                 SIX PHOTOGRAPHS
             =========================== -->
 
             <figure
@@ -940,6 +968,8 @@
 
               <div class="itw-stage">
 
+                <!-- ITW 1 -->
+
                 <img
                   class="itw-photo"
                   src="/images/ITW1.jpeg"
@@ -948,6 +978,8 @@
                   loading="lazy"
                   draggable="false"
                 />
+
+                <!-- ITW 2 -->
 
                 <img
                   class="itw-photo"
@@ -959,6 +991,8 @@
                   draggable="false"
                 />
 
+                <!-- ITW 3 -->
+
                 <img
                   class="itw-photo"
                   src="/images/ITW3.jpeg"
@@ -969,25 +1003,43 @@
                   draggable="false"
                 />
 
+                <!-- ITW 4 -->
+
                 <img
                   class="itw-photo"
                   src="/images/ITW4.jpeg"
                   alt="ITW 2026 photograph 4"
+                  data-slot="3"
+                  aria-hidden="true"
+                  loading="lazy"
+                  draggable="false"
+                />
+
+                <!-- ITW 5 -->
+
+                <img
+                  class="itw-photo"
+                  src="/images/ITW5.jpeg"
+                  alt="ITW 2026 photograph 5"
                   data-slot="-2"
                   aria-hidden="true"
                   loading="lazy"
                   draggable="false"
                 />
 
+                <!-- ITW 6 - NEW -->
+
                 <img
                   class="itw-photo"
-                  src="/images/ITW5.jpeg"
-                  alt="ITW 2026 photograph 5"
+                  src="/images/ITW6.jpeg"
+                  alt="ITW 2026 photograph 6"
                   data-slot="-1"
                   aria-hidden="true"
                   loading="lazy"
                   draggable="false"
                 />
+
+                <!-- PREVIOUS -->
 
                 <button
                   type="button"
@@ -1002,6 +1054,8 @@
 
                   <span>PREV</span>
                 </button>
+
+                <!-- NEXT -->
 
                 <button
                   type="button"
@@ -1209,6 +1263,7 @@
 
   <!-- =============================
        PHOTO NAVIGATION
+       SUPPORTS SIX PHOTOGRAPHS
   ============================= -->
 
   <script>
@@ -1229,6 +1284,21 @@
 
       let currentIndex = 0;
       const totalPhotos = photos.length;
+
+      /*
+        The active photograph has slot 0.
+
+        For six photos:
+
+        -2 = far left
+        -1 = near left
+         0 = center
+         1 = near right
+         2 = far right
+         3 = hidden sixth photograph
+
+        All six participate in navigation.
+      */
 
       function updatePhotoDeck() {
 
@@ -1257,6 +1327,7 @@
       }
 
       function showNextPhoto() {
+
         currentIndex =
           (currentIndex + 1) % totalPhotos;
 
@@ -1264,6 +1335,7 @@
       }
 
       function showPreviousPhoto() {
+
         currentIndex =
           (currentIndex - 1 + totalPhotos)
           % totalPhotos;
@@ -1297,7 +1369,9 @@
 
       updatePhotoDeck();
 
-      /* MOBILE MENU */
+      /* =============================
+         MOBILE MENU
+      ============================= */
 
       const mobileMenuButton =
         document.getElementById("mobile-menu-button");
@@ -1312,6 +1386,7 @@
         document.getElementById("close-icon");
 
       function closeMobileMenu() {
+
         mobileMenu.classList.add("hidden");
 
         mobileMenuButton.setAttribute(
@@ -1331,6 +1406,7 @@
       }
 
       function openMobileMenu() {
+
         mobileMenu.classList.remove("hidden");
 
         mobileMenuButton.setAttribute(
@@ -1405,6 +1481,7 @@
       let devicePixelRatioValue = 1;
 
       class Particle {
+
         constructor(x, y, radius, velocityX, velocityY) {
           this.x = x;
           this.y = y;
@@ -1414,6 +1491,7 @@
         }
 
         update() {
+
           if (
             this.x + this.radius >= window.innerWidth ||
             this.x - this.radius <= 0
@@ -1433,6 +1511,7 @@
         }
 
         draw() {
+
           context.beginPath();
 
           context.arc(
@@ -1451,18 +1530,23 @@
       }
 
       function getParticleCount() {
+
         if (window.innerWidth <= 640) return 38;
         if (window.innerWidth <= 1024) return 62;
+
         return 88;
       }
 
       function getConnectionDistance() {
+
         if (window.innerWidth <= 640) return 105;
         if (window.innerWidth <= 1024) return 125;
+
         return 145;
       }
 
       function createParticles() {
+
         particles = [];
 
         const particleCount = getParticleCount();
@@ -1472,6 +1556,7 @@
           index < particleCount;
           index += 1
         ) {
+
           const radius =
             Math.random() * 1.35 + 0.55;
 
@@ -1503,6 +1588,7 @@
       }
 
       function resizeCanvas() {
+
         devicePixelRatioValue =
           Math.min(window.devicePixelRatio || 1, 2);
 
@@ -1531,6 +1617,7 @@
       }
 
       function drawConnections() {
+
         const maximumDistance =
           getConnectionDistance();
 
@@ -1542,11 +1629,13 @@
           firstIndex < particles.length;
           firstIndex += 1
         ) {
+
           for (
             let secondIndex = firstIndex + 1;
             secondIndex < particles.length;
             secondIndex += 1
           ) {
+
             const horizontalDistance =
               particles[firstIndex].x -
               particles[secondIndex].x;
@@ -1590,6 +1679,7 @@
       }
 
       function renderFrame() {
+
         context.clearRect(
           0,
           0,
@@ -1611,6 +1701,7 @@
       }
 
       function restartAnimation() {
+
         if (animationFrameId !== null) {
           window.cancelAnimationFrame(animationFrameId);
         }
@@ -1620,11 +1711,13 @@
       }
 
       window.addEventListener("resize", () => {
+
         window.clearTimeout(resizeTimer);
 
         resizeTimer = window.setTimeout(() => {
           restartAnimation();
         }, 150);
+
       });
 
       restartAnimation();
