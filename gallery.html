@@ -4,14 +4,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Gallery - Irtiza Hasan</title>
-  <meta name="description" content="Conference moments, research presentations, group photographs, and academic memories from Irtiza Hasan." />
+
+  <meta
+    name="description"
+    content="Conference moments, research presentations, group photographs, and academic memories from Irtiza Hasan."
+  />
 
   <script src="https://cdn.tailwindcss.com"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
 
   <style>
     :root {
@@ -26,8 +40,13 @@
       --header-height: 64px;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
@@ -38,7 +57,10 @@
       font-family: "Roboto Mono", monospace;
     }
 
-    button, a { font-family: inherit; }
+    button,
+    a {
+      font-family: inherit;
+    }
 
     /* CONSTELLATION BACKGROUND */
 
@@ -72,7 +94,7 @@
       padding: 0 28px;
       color: #ffffff;
       background-color: var(--charlotte-green);
-      border-bottom: 1px solid rgba(185,151,91,0.48);
+      border-bottom: 1px solid rgba(185, 151, 91, 0.48);
     }
 
     .brand {
@@ -84,8 +106,13 @@
       transition: color 0.2s ease;
     }
 
-    .brand:hover { color: var(--charlotte-gold); }
-    .navbar { align-items: center; }
+    .brand:hover {
+      color: var(--charlotte-gold);
+    }
+
+    .navbar {
+      align-items: center;
+    }
 
     .navbar a {
       position: relative;
@@ -173,9 +200,10 @@
       position: relative;
       width: 100%;
       min-height: calc(100vh - var(--header-height));
-      padding: clamp(72px,7vw,110px)
-               clamp(28px,8.5vw,140px)
-               clamp(64px,7vw,105px);
+      padding:
+        clamp(72px, 7vw, 110px)
+        clamp(28px, 8.5vw, 140px)
+        clamp(64px, 7vw, 105px);
       background: transparent;
       animation: fadeInUp 0.55s ease both;
     }
@@ -190,7 +218,7 @@
     .section-kicker {
       margin-bottom: 18px;
       color: var(--charlotte-gold);
-      font-size: clamp(0.72rem,1.2vw,0.88rem);
+      font-size: clamp(0.72rem, 1.2vw, 0.88rem);
       font-weight: 700;
       line-height: 1.7;
       letter-spacing: 0.13em;
@@ -200,14 +228,16 @@
     .page-title {
       margin: 0;
       color: #ffffff;
-      font-size: clamp(3rem,7vw,6.4rem);
+      font-size: clamp(3rem, 7vw, 6.4rem);
       font-weight: 700;
       line-height: 1;
       letter-spacing: -0.065em;
-      text-shadow: 0 4px 22px rgba(0,36,21,0.22);
+      text-shadow: 0 4px 22px rgba(0, 36, 21, 0.22);
     }
 
-    .page-title span { color: var(--charlotte-gold); }
+    .page-title span {
+      color: var(--charlotte-gold);
+    }
 
     .gold-rule {
       width: 130px;
@@ -217,7 +247,7 @@
       background: linear-gradient(
         90deg,
         var(--charlotte-gold),
-        rgba(185,151,91,0)
+        rgba(185, 151, 91, 0)
       );
     }
 
@@ -232,6 +262,7 @@
 
     .gallery-item {
       --rotation: -2deg;
+
       position: relative;
       display: inline-block;
       vertical-align: top;
@@ -241,26 +272,39 @@
       padding: 10px 10px 0;
       background: var(--photo-paper);
       border-radius: 4px;
+
       box-shadow:
-        0 18px 38px rgba(0,25,14,0.38),
-        0 5px 13px rgba(0,25,14,0.20);
+        0 18px 38px rgba(0, 25, 14, 0.38),
+        0 5px 13px rgba(0, 25, 14, 0.20);
+
       transform: rotate(var(--rotation));
+
       transition:
         transform 0.28s ease,
         box-shadow 0.28s ease;
     }
 
-    .gallery-item:nth-child(4n+2) { --rotation: 2.3deg; }
-    .gallery-item:nth-child(4n+3) { --rotation: -1.6deg; }
-    .gallery-item:nth-child(4n+4) { --rotation: 1.5deg; }
+    .gallery-item:nth-child(4n+2) {
+      --rotation: 2.3deg;
+    }
+
+    .gallery-item:nth-child(4n+3) {
+      --rotation: -1.6deg;
+    }
+
+    .gallery-item:nth-child(4n+4) {
+      --rotation: 1.5deg;
+    }
 
     .gallery-item:hover {
       position: relative;
       z-index: 6;
+
       transform: translateY(-7px) rotate(0deg);
+
       box-shadow:
-        0 24px 48px rgba(0,25,14,0.46),
-        0 8px 18px rgba(0,25,14,0.25);
+        0 24px 48px rgba(0, 25, 14, 0.46),
+        0 8px 18px rgba(0, 25, 14, 0.25);
     }
 
     .gallery-item img {
@@ -288,7 +332,7 @@
       text-align: center;
     }
 
-    /* ITW 2026 PHOTO DECK - SEVEN PHOTOGRAPHS */
+    /* ITW 2026 PHOTO DECK - FIVE PHOTOGRAPHS */
 
     .itw-album {
       display: inline-block;
@@ -304,7 +348,7 @@
     .itw-stage {
       position: relative;
       width: 100%;
-      height: clamp(325px,35vw,465px);
+      height: clamp(325px, 35vw, 465px);
     }
 
     .itw-photo {
@@ -314,107 +358,106 @@
       display: block;
       width: 57%;
       height: 82%;
+
       object-fit: cover;
       object-position: center;
+
       background: var(--photo-paper);
       border: 8px solid var(--photo-paper);
       border-bottom-width: 24px;
       border-radius: 4px;
+
       box-shadow:
-        0 14px 32px rgba(0,20,12,0.42),
-        0 4px 12px rgba(0,20,12,0.22);
+        0 14px 32px rgba(0, 20, 12, 0.42),
+        0 4px 12px rgba(0, 20, 12, 0.22);
+
       transform-origin: center 88%;
       pointer-events: none;
       user-select: none;
+
       transition:
-        transform 0.45s cubic-bezier(.22,.8,.22,1),
+        transform 0.45s cubic-bezier(.22, .8, .22, 1),
         box-shadow 0.3s ease,
         opacity 0.35s ease,
         visibility 0.35s ease;
     }
 
-    /* Far left */
+    /* FAR LEFT */
 
     .itw-photo[data-slot="-2"] {
       z-index: 1;
       opacity: 1;
       visibility: visible;
+
       transform:
-        translate(-50%,-50%)
+        translate(-50%, -50%)
         translateX(-35%)
         translateY(15px)
         rotate(-19deg)
         scale(0.94);
     }
 
-    /* Near left */
+    /* NEAR LEFT */
 
     .itw-photo[data-slot="-1"] {
       z-index: 3;
       opacity: 1;
       visibility: visible;
+
       transform:
-        translate(-50%,-50%)
+        translate(-50%, -50%)
         translateX(-18%)
         translateY(7px)
         rotate(-10deg)
         scale(0.98);
     }
 
-    /* Center active photograph */
+    /* CENTER ACTIVE PHOTOGRAPH */
 
     .itw-photo[data-slot="0"] {
       z-index: 5;
       opacity: 1;
       visibility: visible;
+
       transform:
-        translate(-50%,-50%)
+        translate(-50%, -50%)
         translateY(-8px)
         rotate(0deg)
         scale(1.04);
+
       box-shadow:
-        0 20px 42px rgba(0,20,12,0.5),
-        0 6px 15px rgba(0,20,12,0.26);
+        0 20px 42px rgba(0, 20, 12, 0.5),
+        0 6px 15px rgba(0, 20, 12, 0.26);
     }
 
-    /* Near right */
+    /* NEAR RIGHT */
 
     .itw-photo[data-slot="1"] {
       z-index: 3;
       opacity: 1;
       visibility: visible;
+
       transform:
-        translate(-50%,-50%)
+        translate(-50%, -50%)
         translateX(18%)
         translateY(7px)
         rotate(10deg)
         scale(0.98);
     }
 
-    /* Far right */
+    /* FAR RIGHT */
 
     .itw-photo[data-slot="2"] {
       z-index: 1;
       opacity: 1;
       visibility: visible;
+
       transform:
-        translate(-50%,-50%)
+        translate(-50%, -50%)
         translateX(35%)
         translateY(15px)
         rotate(19deg)
         scale(0.94);
-    }
-
-    /* Two remaining photos stay hidden until navigation */
-
-    .itw-photo[data-slot="3"],
-    .itw-photo[data-slot="-3"] {
-      z-index: 0;
-      opacity: 0;
-      visibility: hidden;
-      transform:
-        translate(-50%,-50%)
-        scale(0.85);
     }
 
     /* ITW LEFT/RIGHT NAVIGATION */
@@ -423,21 +466,29 @@
       position: absolute;
       top: 50%;
       z-index: 10;
+
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+
       width: 62px;
       height: 76px;
       gap: 6px;
       padding: 0;
+
       color: var(--deep-green);
       background: var(--charlotte-gold);
+
       border: 2px solid #f2e1bc;
       border-radius: 10px;
-      box-shadow: 0 8px 25px rgba(0,20,12,0.35);
+
+      box-shadow:
+        0 8px 25px rgba(0, 20, 12, 0.35);
+
       cursor: pointer;
       transform: translateY(-50%);
+
       transition:
         background-color 0.2s ease,
         box-shadow 0.2s ease;
@@ -445,7 +496,9 @@
 
     .itw-arrow:hover {
       background-color: #f4ddb0;
-      box-shadow: 0 10px 30px rgba(0,20,12,0.45);
+
+      box-shadow:
+        0 10px 30px rgba(0, 20, 12, 0.45);
     }
 
     .itw-arrow:focus-visible {
@@ -453,7 +506,9 @@
       outline-offset: 4px;
     }
 
-    .itw-arrow i { font-size: 1.35rem; }
+    .itw-arrow i {
+      font-size: 1.35rem;
+    }
 
     .itw-arrow span {
       font-size: 0.63rem;
@@ -461,8 +516,13 @@
       letter-spacing: 0.035em;
     }
 
-    .itw-prev { left: 0; }
-    .itw-next { right: 0; }
+    .itw-prev {
+      left: 0;
+    }
+
+    .itw-next {
+      right: 0;
+    }
 
     .itw-caption {
       margin-top: 15px;
@@ -470,7 +530,7 @@
       font-size: 0.89rem;
       font-weight: 700;
       line-height: 1.65;
-      text-shadow: 0 2px 8px rgba(0,20,12,0.25);
+      text-shadow: 0 2px 8px rgba(0, 20, 12, 0.25);
     }
 
     /* CONTACT STRIP */
@@ -481,11 +541,14 @@
       align-items: center;
       width: 100%;
       max-width: 1120px;
+
       gap: 16px 28px;
       margin-top: 46px;
       padding-top: 28px;
+
       color: var(--muted-white);
-      border-top: 1px solid rgba(255,255,255,0.2);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+
       font-size: 0.86rem;
       line-height: 1.7;
     }
@@ -520,12 +583,13 @@
       bottom: 0;
       left: 0;
       height: 4px;
+
       background: linear-gradient(
         90deg,
         transparent 0%,
-        rgba(185,151,91,0.4) 18%,
+        rgba(185, 151, 91, 0.4) 18%,
         var(--charlotte-gold) 50%,
-        rgba(185,151,91,0.4) 82%,
+        rgba(185, 151, 91, 0.4) 82%,
         transparent 100%
       );
     }
@@ -535,6 +599,7 @@
         opacity: 0;
         transform: translateY(18px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -544,8 +609,13 @@
     /* RESPONSIVE */
 
     @media (max-width: 900px) {
-      .top-header { padding: 0 20px; }
-      .content-card { padding: 82px 34px 70px; }
+      .top-header {
+        padding: 0 20px;
+      }
+
+      .content-card {
+        padding: 82px 34px 70px;
+      }
 
       .main-content {
         margin: 0 auto;
@@ -555,6 +625,7 @@
       .gold-rule {
         margin-right: auto;
         margin-left: auto;
+
         background: linear-gradient(
           90deg,
           transparent,
@@ -582,7 +653,7 @@
       }
 
       .itw-stage {
-        height: clamp(330px,60vw,460px);
+        height: clamp(330px, 60vw, 460px);
       }
 
       .contact-strip {
@@ -594,20 +665,38 @@
     }
 
     @media (max-width: 640px) {
-      :root { --header-height: 60px; }
+      :root {
+        --header-height: 60px;
+      }
 
-      .top-header { padding: 0 14px 0 18px; }
-      .brand { font-size: 0.96rem; }
-      .content-card { padding: 70px 20px 56px; }
-      .section-kicker { font-size: 0.7rem; }
-      .page-title { font-size: clamp(2.8rem,15vw,4.2rem); }
+      .top-header {
+        padding: 0 14px 0 18px;
+      }
+
+      .brand {
+        font-size: 0.96rem;
+      }
+
+      .content-card {
+        padding: 70px 20px 56px;
+      }
+
+      .section-kicker {
+        font-size: 0.7rem;
+      }
+
+      .page-title {
+        font-size: clamp(2.8rem, 15vw, 4.2rem);
+      }
 
       .gold-rule {
         margin-top: 27px;
         margin-bottom: 32px;
       }
 
-      .gallery-grid { column-gap: 0; }
+      .gallery-grid {
+        column-gap: 0;
+      }
 
       .gallery-item {
         width: calc(100% - 24px);
@@ -621,7 +710,9 @@
         font-size: 0.7rem;
       }
 
-      .itw-stage { height: 310px; }
+      .itw-stage {
+        height: 310px;
+      }
 
       .itw-photo {
         width: 62%;
@@ -637,9 +728,17 @@
         border-radius: 8px;
       }
 
-      .itw-arrow i { font-size: 1.15rem; }
-      .itw-arrow span { font-size: 0.55rem; }
-      .itw-caption { font-size: 0.81rem; }
+      .itw-arrow i {
+        font-size: 1.15rem;
+      }
+
+      .itw-arrow span {
+        font-size: 0.55rem;
+      }
+
+      .itw-caption {
+        font-size: 0.81rem;
+      }
 
       .contact-strip {
         flex-direction: column;
@@ -653,7 +752,9 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
+      html {
+        scroll-behavior: auto;
+      }
 
       *,
       *::before,
@@ -668,7 +769,10 @@
 
 <body>
 
-  <canvas id="constellation-canvas" aria-hidden="true"></canvas>
+  <canvas
+    id="constellation-canvas"
+    aria-hidden="true"
+  ></canvas>
 
   <div id="content-container">
 
@@ -676,17 +780,32 @@
 
     <header class="top-header">
 
-      <a href="/" class="brand">Irtiza Hasan</a>
+      <a href="/" class="brand">
+        Irtiza Hasan
+      </a>
 
-      <nav class="navbar hidden md:flex" aria-label="Main navigation">
+      <nav
+        class="navbar hidden md:flex"
+        aria-label="Main navigation"
+      >
         <a href="/">Home</a>
         <a href="/education.html">Education</a>
         <a href="/publications.html">Publications</a>
         <a href="/service.html">Service</a>
-        <a href="/gallery.html" class="active" aria-current="page">Gallery</a>
+
+        <a
+          href="/gallery.html"
+          class="active"
+          aria-current="page"
+        >
+          Gallery
+        </a>
       </nav>
 
+      <!-- MOBILE BUTTON -->
+
       <div class="md:hidden">
+
         <button
           id="mobile-menu-button"
           type="button"
@@ -694,13 +813,41 @@
           aria-controls="mobile-menu"
           aria-expanded="false"
         >
-          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+
+          <svg
+            id="menu-icon"
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
           </svg>
-          <svg id="close-icon" class="hidden w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+
+          <svg
+            id="close-icon"
+            class="hidden w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
           </svg>
+
         </button>
+
       </div>
 
     </header>
@@ -708,92 +855,130 @@
     <!-- MOBILE MENU -->
 
     <div id="mobile-menu" class="hidden md:hidden">
-      <nav class="mobile-menu-content" aria-label="Mobile navigation">
+
+      <nav
+        class="mobile-menu-content"
+        aria-label="Mobile navigation"
+      >
+
         <a href="/" class="mobile-link">Home</a>
-        <a href="/education.html" class="mobile-link">Education</a>
-        <a href="/publications.html" class="mobile-link">Publications</a>
-        <a href="/service.html" class="mobile-link">Service</a>
-        <a href="/gallery.html" class="mobile-link active" aria-current="page">Gallery</a>
+
+        <a href="/education.html" class="mobile-link">
+          Education
+        </a>
+
+        <a href="/publications.html" class="mobile-link">
+          Publications
+        </a>
+
+        <a href="/service.html" class="mobile-link">
+          Service
+        </a>
+
+        <a
+          href="/gallery.html"
+          class="mobile-link active"
+          aria-current="page"
+        >
+          Gallery
+        </a>
+
       </nav>
+
     </div>
 
     <!-- MAIN CONTENT -->
 
     <main class="page-wrap">
+
       <section class="content-card">
+
         <section class="main-content">
 
-          <div class="section-kicker">Research Life</div>
-          <h1 class="page-title">Gallery<span>.</span></h1>
-          <div class="gold-rule" aria-hidden="true"></div>
+          <div class="section-kicker">
+            Research Life
+          </div>
+
+          <h1 class="page-title">
+            Gallery<span>.</span>
+          </h1>
+
+          <div
+            class="gold-rule"
+            aria-hidden="true"
+          ></div>
 
           <div class="gallery-grid">
 
-            <!-- ITW 2026: SEVEN-PHOTO DECK -->
+            <!-- ITW 2026: FIVE-PHOTO DECK -->
+            <!-- ITW5 AND ITW7 REMOVED -->
 
             <figure
               class="itw-album"
               id="itw-album"
               aria-label="ITW 2026 photo collection"
             >
+
               <div class="itw-stage">
 
-                <img class="itw-photo"
-                     src="/images/ITW1.jpeg"
-                     alt="ITW 2026 photograph 1"
-                     data-slot="0"
-                     loading="lazy"
-                     draggable="false" />
+                <!-- ITW1 -->
 
-                <img class="itw-photo"
-                     src="/images/ITW2.jpeg"
-                     alt="ITW 2026 photograph 2"
-                     data-slot="1"
-                     aria-hidden="true"
-                     loading="lazy"
-                     draggable="false" />
+                <img
+                  class="itw-photo"
+                  src="/images/ITW1.jpeg"
+                  alt="ITW 2026 photograph 1"
+                  data-slot="0"
+                  loading="lazy"
+                  draggable="false"
+                />
 
-                <img class="itw-photo"
-                     src="/images/ITW3.jpeg"
-                     alt="ITW 2026 photograph 3"
-                     data-slot="2"
-                     aria-hidden="true"
-                     loading="lazy"
-                     draggable="false" />
+                <!-- ITW2 -->
 
-                <img class="itw-photo"
-                     src="/images/ITW4.jpeg"
-                     alt="ITW 2026 photograph 4"
-                     data-slot="3"
-                     aria-hidden="true"
-                     loading="lazy"
-                     draggable="false" />
+                <img
+                  class="itw-photo"
+                  src="/images/ITW2.jpeg"
+                  alt="ITW 2026 photograph 2"
+                  data-slot="1"
+                  aria-hidden="true"
+                  loading="lazy"
+                  draggable="false"
+                />
 
-                <img class="itw-photo"
-                     src="/images/ITW5.jpeg"
-                     alt="ITW 2026 photograph 5"
-                     data-slot="-2"
-                     aria-hidden="true"
-                     loading="lazy"
-                     draggable="false" />
+                <!-- ITW3 -->
 
-                <img class="itw-photo"
-                     src="/images/ITW6.jpeg"
-                     alt="ITW 2026 photograph 6"
-                     data-slot="-1"
-                     aria-hidden="true"
-                     loading="lazy"
-                     draggable="false" />
+                <img
+                  class="itw-photo"
+                  src="/images/ITW3.jpeg"
+                  alt="ITW 2026 photograph 3"
+                  data-slot="2"
+                  aria-hidden="true"
+                  loading="lazy"
+                  draggable="false"
+                />
 
-                <!-- NEW: ITW7 -->
+                <!-- ITW4 -->
 
-                <img class="itw-photo"
-                     src="/images/ITW7.jpeg"
-                     alt="ITW 2026 photograph 7"
-                     data-slot="-3"
-                     aria-hidden="true"
-                     loading="lazy"
-                     draggable="false" />
+                <img
+                  class="itw-photo"
+                  src="/images/ITW4.jpeg"
+                  alt="ITW 2026 photograph 4"
+                  data-slot="-2"
+                  aria-hidden="true"
+                  loading="lazy"
+                  draggable="false"
+                />
+
+                <!-- ITW6 -->
+
+                <img
+                  class="itw-photo"
+                  src="/images/ITW6.jpeg"
+                  alt="ITW 2026 photograph 6"
+                  data-slot="-1"
+                  aria-hidden="true"
+                  loading="lazy"
+                  draggable="false"
+                />
 
                 <!-- NAVIGATION ARROWS -->
 
@@ -803,7 +988,11 @@
                   class="itw-arrow itw-prev"
                   aria-label="Previous ITW photograph"
                 >
-                  <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                  <i
+                    class="fas fa-chevron-left"
+                    aria-hidden="true"
+                  ></i>
+
                   <span>PREV</span>
                 </button>
 
@@ -813,7 +1002,11 @@
                   class="itw-arrow itw-next"
                   aria-label="Next ITW photograph"
                 >
-                  <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                  <i
+                    class="fas fa-chevron-right"
+                    aria-hidden="true"
+                  ></i>
+
                   <span>NEXT</span>
                 </button>
 
@@ -822,98 +1015,103 @@
               <figcaption class="itw-caption">
                 Some photos from ITW 2026
               </figcaption>
+
             </figure>
 
             <!-- SPRING 2026 -->
 
             <figure class="gallery-item">
+
               <img
                 src="/images/GRP_Spring2026.jpg"
                 alt="Research group photo from Spring 2026"
                 loading="lazy"
               />
+
               <figcaption class="image-caption">
                 Group Photo — Spring 2026
               </figcaption>
+
             </figure>
 
             <!-- ASILOMAR POSTER 2025 -->
 
             <figure class="gallery-item">
+
               <img
                 src="/images/AsilomarUlukus.jpeg"
                 alt="Poster presentation at Asilomar 2025"
                 loading="lazy"
               />
+
               <figcaption class="image-caption">
                 Poster Presentation at Asilomar Conference 2025
               </figcaption>
+
             </figure>
 
             <!-- ASILOMAR STATE BEACH -->
 
             <figure class="gallery-item">
+
               <img
                 src="/images/AsilomarIrtiza.jpeg"
                 alt="Irtiza Hasan at Asilomar State Beach"
                 loading="lazy"
               />
+
               <figcaption class="image-caption">
                 Asilomar State Beach in Pacific Grove
               </figcaption>
-            </figure>
 
-            <!-- ALLERTON 2025 -->
-
-            <figure class="gallery-item">
-              <img
-                src="/images/Allerton.jpg"
-                alt="With Prof. Melih Baştopçu and Prof. Sennur Ulukus at Allerton 2025"
-                loading="lazy"
-              />
-              <figcaption class="image-caption">
-                With Prof. Melih Baştopçu and
-                Prof. Sennur Ulukus at Allerton 2025
-              </figcaption>
             </figure>
 
             <!-- SEPTEMBER 2025 -->
 
             <figure class="gallery-item">
+
               <img
                 src="/images/Group Photo Sep.jpg"
                 alt="Research group photo from September 2025"
                 loading="lazy"
               />
+
               <figcaption class="image-caption">
                 Group Photo — September 2025
               </figcaption>
+
             </figure>
 
             <!-- AUGUST 2024 -->
 
             <figure class="gallery-item">
+
               <img
                 src="/images/3.jpeg"
                 alt="Research group photo from August 2024"
                 loading="lazy"
               />
+
               <figcaption class="image-caption">
                 Group Photo — August 2024
               </figcaption>
+
             </figure>
 
             <!-- IEEE ICC 2026 -->
 
             <figure class="gallery-item">
+
               <img
                 src="/images/ICC26.jpeg"
                 alt="Paper presentation at IEEE ICC 2026"
                 loading="lazy"
               />
+
               <figcaption class="image-caption">
                 Paper presentation at the 2026 IEEE ICC
               </figcaption>
+
             </figure>
 
           </div>
@@ -923,19 +1121,31 @@
           <div class="contact-strip">
 
             <span>
-              <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+              <i
+                class="fas fa-map-marker-alt"
+                aria-hidden="true"
+              ></i>
+
               Charlotte, North Carolina
             </span>
 
             <span>
-              <i class="fas fa-envelope" aria-hidden="true"></i>
+              <i
+                class="fas fa-envelope"
+                aria-hidden="true"
+              ></i>
+
               <a href="mailto:ihasan@charlotte.edu">
                 ihasan@charlotte.edu
               </a>
             </span>
 
             <span>
-              <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+              <i
+                class="fas fa-graduation-cap"
+                aria-hidden="true"
+              ></i>
+
               <a
                 href="https://scholar.google.com/citations?hl=en&amp;user=3bZp_OoAAAAJ"
                 target="_blank"
@@ -949,13 +1159,18 @@
 
         </section>
 
-        <div class="bottom-accent" aria-hidden="true"></div>
+        <div
+          class="bottom-accent"
+          aria-hidden="true"
+        ></div>
 
       </section>
+
     </main>
+
   </div>
 
-  <!-- PHOTO NAVIGATION: ALL SEVEN PHOTOS -->
+  <!-- PHOTO NAVIGATION: FIVE PHOTOGRAPHS -->
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -970,21 +1185,24 @@
       const nextButton = document.getElementById("itw-next");
 
       let currentIndex = 0;
+
       const totalPhotos = photos.length;
 
       /*
         Five visible card positions:
+
         -2 = far left
         -1 = near left
          0 = center
          1 = near right
          2 = far right
 
-        With seven photos, positions -3 and 3
-        are hidden until rotated into view.
+        All five photographs remain in the deck.
+        PREV/NEXT rotates the active photograph.
       */
 
       function updatePhotoDeck() {
+
         photos.forEach((photo, index) => {
 
           let relativeIndex =
@@ -1000,68 +1218,117 @@
             "aria-hidden",
             String(index !== currentIndex)
           );
+
         });
+
       }
 
       function showNextPhoto() {
-        currentIndex = (currentIndex + 1) % totalPhotos;
+
+        currentIndex =
+          (currentIndex + 1) % totalPhotos;
+
         updatePhotoDeck();
+
       }
 
       function showPreviousPhoto() {
-        currentIndex = (currentIndex - 1 + totalPhotos) % totalPhotos;
+
+        currentIndex =
+          (currentIndex - 1 + totalPhotos) % totalPhotos;
+
         updatePhotoDeck();
+
       }
 
-      previousButton.addEventListener("click", showPreviousPhoto);
-      nextButton.addEventListener("click", showNextPhoto);
+      previousButton.addEventListener(
+        "click",
+        showPreviousPhoto
+      );
+
+      nextButton.addEventListener(
+        "click",
+        showNextPhoto
+      );
 
       album.addEventListener("keydown", (event) => {
+
         if (event.key === "ArrowRight") {
+
           event.preventDefault();
           showNextPhoto();
+
         }
 
         if (event.key === "ArrowLeft") {
+
           event.preventDefault();
           showPreviousPhoto();
+
         }
+
       });
 
       updatePhotoDeck();
 
       /* MOBILE MENU */
 
-      const mobileMenuButton = document.getElementById("mobile-menu-button");
-      const mobileMenu = document.getElementById("mobile-menu");
-      const menuIcon = document.getElementById("menu-icon");
-      const closeIcon = document.getElementById("close-icon");
+      const mobileMenuButton =
+        document.getElementById("mobile-menu-button");
+
+      const mobileMenu =
+        document.getElementById("mobile-menu");
+
+      const menuIcon =
+        document.getElementById("menu-icon");
+
+      const closeIcon =
+        document.getElementById("close-icon");
 
       function closeMobileMenu() {
+
         mobileMenu.classList.add("hidden");
 
-        mobileMenuButton.setAttribute("aria-expanded", "false");
-        mobileMenuButton.setAttribute("aria-label", "Open mobile menu");
+        mobileMenuButton.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+        mobileMenuButton.setAttribute(
+          "aria-label",
+          "Open mobile menu"
+        );
 
         menuIcon.classList.remove("hidden");
         closeIcon.classList.add("hidden");
 
         document.body.style.overflow = "";
+
       }
 
       function openMobileMenu() {
+
         mobileMenu.classList.remove("hidden");
 
-        mobileMenuButton.setAttribute("aria-expanded", "true");
-        mobileMenuButton.setAttribute("aria-label", "Close mobile menu");
+        mobileMenuButton.setAttribute(
+          "aria-expanded",
+          "true"
+        );
+
+        mobileMenuButton.setAttribute(
+          "aria-label",
+          "Close mobile menu"
+        );
 
         menuIcon.classList.add("hidden");
         closeIcon.classList.remove("hidden");
 
         document.body.style.overflow = "hidden";
+
       }
 
       mobileMenuButton.addEventListener("click", () => {
+
         const isOpen =
           mobileMenuButton.getAttribute("aria-expanded") === "true";
 
@@ -1070,16 +1337,24 @@
         } else {
           openMobileMenu();
         }
+
       });
 
       document.querySelectorAll(".mobile-link").forEach((link) => {
-        link.addEventListener("click", closeMobileMenu);
+
+        link.addEventListener(
+          "click",
+          closeMobileMenu
+        );
+
       });
 
       document.addEventListener("keydown", (event) => {
+
         if (event.key === "Escape") {
           closeMobileMenu();
         }
+
       });
 
     });
@@ -1089,10 +1364,14 @@
 
   <script>
     (() => {
-      const canvas = document.getElementById("constellation-canvas");
+
+      const canvas =
+        document.getElementById("constellation-canvas");
+
       if (!canvas) return;
 
       const context = canvas.getContext("2d");
+
       if (!context) return;
 
       const prefersReducedMotion = window.matchMedia(
@@ -1105,15 +1384,25 @@
       let devicePixelRatioValue = 1;
 
       class Particle {
-        constructor(x, y, radius, velocityX, velocityY) {
+
+        constructor(
+          x,
+          y,
+          radius,
+          velocityX,
+          velocityY
+        ) {
+
           this.x = x;
           this.y = y;
           this.radius = radius;
           this.velocityX = velocityX;
           this.velocityY = velocityY;
+
         }
 
         update() {
+
           if (
             this.x + this.radius >= window.innerWidth ||
             this.x - this.radius <= 0
@@ -1130,10 +1419,13 @@
 
           this.x += this.velocityX;
           this.y += this.velocityY;
+
         }
 
         draw() {
+
           context.beginPath();
+
           context.arc(
             this.x,
             this.y,
@@ -1142,53 +1434,97 @@
             Math.PI * 2
           );
 
-          context.fillStyle = "rgba(255,255,255,0.56)";
+          context.fillStyle =
+            "rgba(255,255,255,0.56)";
+
           context.fill();
+
         }
+
       }
 
       function getParticleCount() {
+
         if (window.innerWidth <= 640) return 38;
+
         if (window.innerWidth <= 1024) return 62;
+
         return 88;
+
       }
 
       function getConnectionDistance() {
+
         if (window.innerWidth <= 640) return 105;
+
         if (window.innerWidth <= 1024) return 125;
+
         return 145;
+
       }
 
       function createParticles() {
+
         particles = [];
+
         const particleCount = getParticleCount();
 
-        for (let index = 0; index < particleCount; index += 1) {
-          const radius = Math.random() * 1.35 + 0.55;
-          const x = Math.random() * window.innerWidth;
-          const y = Math.random() * window.innerHeight;
+        for (
+          let index = 0;
+          index < particleCount;
+          index += 1
+        ) {
 
-          const speed = prefersReducedMotion ? 0 : 0.22;
-          const velocityX = (Math.random() - 0.5) * speed;
-          const velocityY = (Math.random() - 0.5) * speed;
+          const radius =
+            Math.random() * 1.35 + 0.55;
+
+          const x =
+            Math.random() * window.innerWidth;
+
+          const y =
+            Math.random() * window.innerHeight;
+
+          const speed =
+            prefersReducedMotion ? 0 : 0.22;
+
+          const velocityX =
+            (Math.random() - 0.5) * speed;
+
+          const velocityY =
+            (Math.random() - 0.5) * speed;
 
           particles.push(
-            new Particle(x, y, radius, velocityX, velocityY)
+            new Particle(
+              x,
+              y,
+              radius,
+              velocityX,
+              velocityY
+            )
           );
+
         }
+
       }
 
       function resizeCanvas() {
+
         devicePixelRatioValue = Math.min(
           window.devicePixelRatio || 1,
           2
         );
 
-        canvas.width = window.innerWidth * devicePixelRatioValue;
-        canvas.height = window.innerHeight * devicePixelRatioValue;
+        canvas.width =
+          window.innerWidth * devicePixelRatioValue;
 
-        canvas.style.width = `${window.innerWidth}px`;
-        canvas.style.height = `${window.innerHeight}px`;
+        canvas.height =
+          window.innerHeight * devicePixelRatioValue;
+
+        canvas.style.width =
+          `${window.innerWidth}px`;
+
+        canvas.style.height =
+          `${window.innerHeight}px`;
 
         context.setTransform(
           devicePixelRatioValue,
@@ -1200,10 +1536,14 @@
         );
 
         createParticles();
+
       }
 
       function drawConnections() {
-        const maximumDistance = getConnectionDistance();
+
+        const maximumDistance =
+          getConnectionDistance();
+
         const maximumDistanceSquared =
           maximumDistance * maximumDistance;
 
@@ -1212,26 +1552,33 @@
           firstIndex < particles.length;
           firstIndex += 1
         ) {
+
           for (
             let secondIndex = firstIndex + 1;
             secondIndex < particles.length;
             secondIndex += 1
           ) {
+
             const horizontalDistance =
-              particles[firstIndex].x - particles[secondIndex].x;
+              particles[firstIndex].x -
+              particles[secondIndex].x;
 
             const verticalDistance =
-              particles[firstIndex].y - particles[secondIndex].y;
+              particles[firstIndex].y -
+              particles[secondIndex].y;
 
             const distanceSquared =
               horizontalDistance * horizontalDistance +
               verticalDistance * verticalDistance;
 
-            if (distanceSquared > maximumDistanceSquared) {
+            if (
+              distanceSquared > maximumDistanceSquared
+            ) {
               continue;
             }
 
-            const distance = Math.sqrt(distanceSquared);
+            const distance =
+              Math.sqrt(distanceSquared);
 
             const opacity =
               0.28 * (1 - distance / maximumDistance);
@@ -1252,12 +1599,17 @@
               `rgba(185,151,91,${opacity})`;
 
             context.lineWidth = 0.8;
+
             context.stroke();
+
           }
+
         }
+
       }
 
       function renderFrame() {
+
         context.clearRect(
           0,
           0,
@@ -1266,33 +1618,48 @@
         );
 
         particles.forEach((particle) => {
+
           particle.update();
           particle.draw();
+
         });
 
         drawConnections();
 
         if (!prefersReducedMotion) {
+
           animationFrameId =
             window.requestAnimationFrame(renderFrame);
+
         }
+
       }
 
       function restartAnimation() {
+
         if (animationFrameId !== null) {
-          window.cancelAnimationFrame(animationFrameId);
+
+          window.cancelAnimationFrame(
+            animationFrameId
+          );
+
         }
 
         resizeCanvas();
         renderFrame();
+
       }
 
       window.addEventListener("resize", () => {
+
         window.clearTimeout(resizeTimer);
 
         resizeTimer = window.setTimeout(() => {
+
           restartAnimation();
+
         }, 150);
+
       });
 
       restartAnimation();
